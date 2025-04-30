@@ -11,7 +11,9 @@
     "build": "vite build",
     "prepare": "husky install",
     "lint-staged": "lint-staged",
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "format": "prettier . --write",
+    "test": "vitest"
   },
   "repository": {
     "type": "git",

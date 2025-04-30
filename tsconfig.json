@@ -12,5 +12,6 @@
     "sourceMap": true,
     "moduleResolution": "nodenext"
   },
-  "include": ["src", "src/test/module.test.ts"]
+  "include": ["src"],
+  "exclude": ["dist"]
 }
