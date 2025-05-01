@@ -4,23 +4,6 @@
 
 ### Used in the application: typescript, vite, vitest, eslint, prettier, husky, sass
 
-<style>
-    summary{
-        font-size: 1.3rem;
-    }
-    .li {
-        font-size: 1.1rem;
-        margin: 0.2rem 0
-    }
-    .code {
-        background-color: #656c7633;;
-        color: #dad7cd;
-        padding: 0.2rem 0.3rem;
-        border-radius: 5px
-    }
-    
-</style>
-
 <details>
 <summary>Npm scripts</summary>
 <ul>
