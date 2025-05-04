@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "allowJs": true, // add  JS files  to EsLint
     "target": "ES2022",
     "module": "NodeNext",
     "rootDir": "src",
