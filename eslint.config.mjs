@@ -28,7 +28,13 @@ export default defineConfig([
     },
   },
   {
-    ignores: ['node_modules', 'dist', 'vite.config.js', 'eslint.config.mjs'],
+    ignores: [
+      'node_modules',
+      'dist',
+      'vite.config.js',
+      'eslint.config.mjs',
+      'src/uikit',
+    ],
   },
   {
     files: ['**/*.{tsx, ts}'],
