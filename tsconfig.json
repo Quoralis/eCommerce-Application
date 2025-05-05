@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "allowJs": true, // add  JS files  to EsLint
+    "target": "ES2022",
+    "module": "NodeNext",
+    "rootDir": "src",
+    "outDir": "../dist",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noImplicitAny": true,
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "moduleResolution": "nodenext"
+  },
+  "include": ["src"],
+  "exclude": ["dist"]
+}
