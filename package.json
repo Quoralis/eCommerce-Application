@@ -27,6 +27,7 @@
   "homepage": "https://github.com/Quoralis/eCommerce-Application#readme",
   "devDependencies": {
     "@eslint/js": "^9.25.1",
+    "@types/node": "^22.15.3",
     "eslint": "^9.25.1",
     "eslint-plugin-prettier": "^5.2.6",
     "eslint-plugin-unicorn": "^59.0.0",
@@ -34,9 +35,16 @@
     "husky": "^8.0.0",
     "lint-staged": "^15.5.1",
     "sass": "^1.87.0",
+    "tsx": "^4.19.4",
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.31.1",
     "vite": "^6.3.3",
     "vitest": "^3.1.2"
+  },
+  "dependencies": {
+    "@commercetools/platform-sdk": "^8.8.0",
+    "@commercetools/ts-client": "^3.3.0",
+    "dotenv": "^16.5.0",
+    "node-fetch": "^3.3.2"
   }
 }
