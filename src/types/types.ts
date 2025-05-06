@@ -2,6 +2,7 @@ export interface typeCreateElOptions {
   tag: string;
   classes: string[];
   text: string;
-  keyAtrribute: string[];
-  valueAtrribute: string[];
+  keyAttribute: string[];
+  valueAttribute: string[];
+  parent: HTMLElement;
 }
