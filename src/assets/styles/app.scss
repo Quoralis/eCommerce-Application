@@ -1,3 +1,8 @@
+@import './loginPage/loginPage.scss';
 @import '../../../node_modules/uikit/src/scss/variables.scss';
 @import '../../../node_modules/uikit/src/scss/mixins.scss';
 @import '../../../node_modules/uikit/src/scss/uikit.scss';
+
+body {
+  height: 100vh;
+}
