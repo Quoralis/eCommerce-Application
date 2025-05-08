@@ -7,3 +7,7 @@ export interface typeCreateElOptions {
   attribute?: Record<string, string>;
   parent?: HTMLElement;
 }
+export interface TokenResponse {
+  access_token: string;
+  expires_in: number;
+}
