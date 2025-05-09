@@ -5,3 +5,11 @@ export interface typeCreateElOptions {
   attributes?: Record<string, string>;
   parent?: HTMLElement;
 }
+
+interface IInputOptions {
+  placeholder: string;
+  type: string;
+}
+
+export type CreateInputOptions = Omit<typeCreateElOptions, 'tag'> &
+  Partial<IInputOptions>;
