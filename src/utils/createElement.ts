@@ -1,4 +1,4 @@
-import { typeCreateElOptions } from '../types/types';
+import { typeCreateElOptions } from '../types/types.js';
 
 export const createEl = (options: typeCreateElOptions): HTMLElement => {
   const {
