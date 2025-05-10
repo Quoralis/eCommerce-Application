@@ -14,7 +14,6 @@ export const REGISTRATION_INPUTS = [
   },
   {
     placeholder: 'Birth date',
-    type: 'date',
   },
   {
     placeholder: 'Password',

@@ -7,7 +7,7 @@ import {
 
 const regWrapper = createEl({
   tag: 'div',
-  classes: ['registration__wrapper'],
+  classes: ['registration'],
   parent: document.body,
 });
 
@@ -27,10 +27,14 @@ const regForm = createEl({
 const createRegInputs = () => {
   const getInputOptions = (index: number) => {
     return {
+      classes: ['registration__input', 'uk-input'],
       parent: regForm,
       type: REGISTRATION_INPUTS[index].type ?? 'text',
       placeholder: REGISTRATION_INPUTS[index].placeholder,
-      attributes: REGISTRATION_INPUTS[index].attributes ?? {},
+      attributes: {
+        ...REGISTRATION_INPUTS[index]['attributes'],
+        required: '',
+      },
     };
   };
 
@@ -46,6 +50,7 @@ const createRegInputs = () => {
 
     const legend = createEl({
       tag: 'legend',
+      classes: ['legend'],
       parent: fieldset,
     });
     legend.textContent = REGISTRATION_FIELDSET_LEGENDS[i];
@@ -63,12 +68,18 @@ createRegInputs();
 
 createEl({
   tag: 'button',
+  classes: ['button', 'uk-button', 'uk-button-primary'],
   text: 'Sign Up',
+  attributes: { type: 'submit' },
   parent: regForm,
 });
 
 createEl({
   tag: 'a',
+  classes: ['link'],
   text: 'Already have an account? Log In',
+  attributes: {
+    href: '#',
+  },
   parent: regWrapper,
 });

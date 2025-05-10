@@ -5,7 +5,7 @@ export const createInput = (options: CreateInputOptions) => {
   const input = createEl({
     tag: 'input',
     ...options,
-    classes: options.classes ?? ['input'],
+    classes: options.classes ?? ['uk-input'],
   });
 
   const { type = 'text', placeholder } = options;

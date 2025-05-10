@@ -1,0 +1,72 @@
+@import '../variablesAndMixins/variablesAndMixins';
+@import '../fonts/fonts';
+
+fieldset {
+  margin: 0;
+  padding: 0;
+  border: 0;
+
+  .legend {
+    margin-bottom: 16px;
+    padding-top: 16px;
+    color: #000000;
+    font-size: 16px;
+    font-weight: 400;
+    font-size: 16px;
+    letter-spacing: 0.01em;
+  }
+}
+
+.registration {
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  margin: 0 auto;
+  padding: 75px 60px 27px;
+  background: $background-white;
+  border-radius: 10px;
+  font-family: $font-family, sans-serif;
+
+  * {
+    font-family: inherit;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__heading {
+    text-align: center;
+    font-weight: 500;
+    font-size: 28px;
+    line-height: 129%;
+    color: #333232;
+  }
+
+  &__input {
+    min-width: 346px;
+    height: 40px;
+    margin-bottom: 16px;
+    border-radius: 8px;
+    color: $dark-color;
+
+    &:nth-last-child(2) {
+      margin-bottom: 32px;
+    }
+
+    &::placeholder {
+      color: $text-secondary;
+    }
+  }
+
+  .button {
+    border-radius: 8px;
+    border: none;
+    color: $background-white;
+  }
+
+  .link {
+    margin: 12px auto 0;
+  }
+}
