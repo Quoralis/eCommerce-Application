@@ -23,7 +23,6 @@ const validateEmailOrPassword = (inputValue: string, type: string): void => {
     isValidPassword(inputValue);
   }
 };
-
 inputEmail.addEventListener('input', (event: Event): void => {
   if (event.target instanceof HTMLInputElement) {
     validateEmailOrPassword(event.target.value, loginType.email);
@@ -47,6 +46,6 @@ const validationForm = (inputEmail: string, inputPassword: string): void => {
   }
 };
 
-buttonSubmitLogin.addEventListener('click', () => {
+buttonSubmitLogin.addEventListener('click', (): void => {
   validationForm(inputEmail.value, inputPassword.value);
 });

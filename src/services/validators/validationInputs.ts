@@ -31,18 +31,36 @@ const correctDataInInput = (typeInput: string): void => {
   }
 };
 
-export const isValidDomain = (text: string): void => {
-  if (!regExp.test(text)) {
-    errorMessageEmail.textContent =
-      "don't have domain name: example.ars@mail.com";
-    incorrectDataInInput(loginType.email);
+const errorInputOrOk = (
+  message: string,
+  type: string,
+  el: HTMLElement
+): void => {
+  if (message !== '') {
+    el.textContent = message;
+    incorrectDataInInput(type);
   } else {
-    correctDataInInput(loginType.email);
-    errorMessageEmail.textContent = '';
+    el.textContent = '';
+    correctDataInInput(type);
   }
 };
 
+export const isValidDomain = (text: string): void => {
+  let errorMessage = '';
+  if (!regExp.test(text)) {
+    errorMessage = "don't have domain name: example.ars@mail.com";
+  }
+  if (text[0] === ' ') {
+    errorMessage = 'the beginning cannot start with a space';
+  }
+  if (text[text.length - 1] === ' ') {
+    errorMessage = 'the end cannot end with spaces';
+  }
+  errorInputOrOk(errorMessage, loginType.email, errorMessageEmail);
+};
+
 export const isValidPassword = (text: string): void => {
+  console.log(text, 'text');
   let errorMessage = '';
   if (text.length < limitSymbols) {
     errorMessage = 'symbols need more than 8';
@@ -55,12 +73,12 @@ export const isValidPassword = (text: string): void => {
   } else if (!regExpSpecialCharacter.test(text)) {
     errorMessage = 'password need 1 special character: @#$%^&*()!';
   }
-
-  if (errorMessage !== '') {
-    errorMessagePassword.textContent = errorMessage;
-    incorrectDataInInput(loginType.password);
-  } else {
-    errorMessagePassword.textContent = '';
-    correctDataInInput(loginType.password);
+  if (text[0] === ' ') {
+    errorMessage = 'the beginning cannot start with a space';
   }
+  if (text[text.length - 1] === ' ') {
+    errorMessage = 'the end cannot end with spaces';
+  }
+
+  errorInputOrOk(errorMessage, loginType.password, errorMessagePassword);
 };

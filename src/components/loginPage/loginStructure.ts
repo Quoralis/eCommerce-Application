@@ -12,6 +12,19 @@ const loginPageWrapper = createEl({
   parent: document.body,
 });
 
+const cardLoginWrapper = createEl({
+  tag: 'div',
+  classes: [
+    'login-page-wrapper',
+    'uk-flex',
+    'uk-width-1-1',
+    'uk-flex-middle',
+    'uk-flex-center',
+    'uk-padding-small',
+  ],
+  parent: loginPageWrapper,
+});
+
 const cardLogin = createEl({
   tag: 'div',
   classes: [
@@ -26,10 +39,8 @@ const cardLogin = createEl({
     'uk-padding-large',
     'uk-flex-middle',
     'uk-flex-center',
-    'uk-margin-xsmall-left',
-    'uk-margin-xsmall-right',
   ],
-  parent: loginPageWrapper,
+  parent: cardLoginWrapper,
 });
 
 createEl({
@@ -50,7 +61,7 @@ const inputEmail = <HTMLInputElement>createEl({
   classes: ['uk-input', 'uk-border-rounded', 'input'],
   attributes: {
     placeholder: 'Email',
-    type: 'email',
+    type: 'text',
   },
   parent: inputsForm,
 });
