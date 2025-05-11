@@ -1,4 +1,4 @@
-import { createEl } from '../../utils/createElement';
+import { createEl } from '../../utils/createElement.js';
 
 const loginPageWrapper = createEl({
   tag: 'div',

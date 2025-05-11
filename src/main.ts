@@ -4,14 +4,19 @@ import '../node_modules/uikit/dist/js/uikit-icons.js';
 import {
   requestAnonymousToken,
   requestBearerToken,
-  requestLoginToken,
 } from './clients/authClient.js';
+import { login } from './services/authService.js';
+
+//для теста и получения данных/токенов при логине
+const data = {
+  email: 'unfeel00@gmail.com',
+  password: '123456',
+};
 
 // ф-я для демонстрации работы запросов токенов.
 async function init() {
   await requestBearerToken(); //  получили главный токен для дальнейших действий
   await requestAnonymousToken();
-  await requestLoginToken('unfeel00@gmail.com', '123456');
+  await login(data);
 }
-
 document.addEventListener('DOMContentLoaded', init);

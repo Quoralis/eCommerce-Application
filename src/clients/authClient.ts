@@ -53,5 +53,4 @@ export async function requestLoginToken(email: string, password: string) {
     bodyLogin
   );
   console.log('loginToken' + ' ' + loginToken.access_token);
-  return loginToken.access_token;
-}
+  return loginToken;
