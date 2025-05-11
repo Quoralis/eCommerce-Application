@@ -54,3 +54,4 @@ export async function requestLoginToken(email: string, password: string) {
   );
   console.log('loginToken' + ' ' + loginToken.access_token);
   return loginToken;
+}

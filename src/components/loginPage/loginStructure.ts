@@ -28,7 +28,6 @@ const cardLoginWrapper = createEl({
 const cardLogin = createEl({
   tag: 'div',
   classes: [
-    'card-login',
     'uk-card',
     'uk-height-large',
     'uk-width-large',
@@ -39,6 +38,7 @@ const cardLogin = createEl({
     'uk-padding-large',
     'uk-flex-middle',
     'uk-flex-center',
+    'card-login',
   ],
   parent: cardLoginWrapper,
 });
@@ -80,7 +80,7 @@ const passwordWrapper = createEl({
 
 const iconEyeSlash = createEl({
   tag: 'a',
-  classes: ['uk-form-icon', 'uk-form-icon-flip'],
+  classes: ['uk-form-icon', 'uk-form-icon-flip', 'login-icon'],
   attributes: { 'uk-icon': 'icon: eye-slash' },
   parent: passwordWrapper,
 });
@@ -122,7 +122,7 @@ const buttonSubmitLogin = createEl({
 
 createEl({
   tag: 'a',
-  classes: ['uk-link'],
+  classes: ['uk-link', 'login-link'],
   text: 'Don’t have account? Sign Up',
   parent: buttonsWrapper,
 });
