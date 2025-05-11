@@ -1,5 +1,4 @@
 import { createEl } from '../../utils/createElement';
-import { createInput } from '../../components/input/input';
 import {
   REGISTRATION_INPUTS,
   REGISTRATION_FIELDSET_LEGENDS,
@@ -27,11 +26,12 @@ const regForm = createEl({
 const createRegInputs = () => {
   const getInputOptions = (index: number) => {
     return {
+      tag: 'input',
       classes: ['registration__input', 'uk-input'],
       parent: regForm,
-      type: REGISTRATION_INPUTS[index].type ?? 'text',
-      placeholder: REGISTRATION_INPUTS[index].placeholder,
       attributes: {
+        type: REGISTRATION_INPUTS[index].type ?? 'text',
+        placeholder: REGISTRATION_INPUTS[index].placeholder,
         ...REGISTRATION_INPUTS[index]['attributes'],
         required: '',
       },
@@ -39,7 +39,7 @@ const createRegInputs = () => {
   };
 
   for (let i = 0; i < REGISTRATION_INPUTS.length - 4; i++) {
-    createInput(getInputOptions(i));
+    createEl(getInputOptions(i));
   }
 
   for (let i = 0; i < REGISTRATION_FIELDSET_LEGENDS.length; i++) {
@@ -60,7 +60,7 @@ const createRegInputs = () => {
       j < REGISTRATION_INPUTS.length;
       j++
     ) {
-      createInput(getInputOptions(j));
+      createEl(getInputOptions(j));
     }
   }
 };
