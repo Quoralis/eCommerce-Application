@@ -12,6 +12,8 @@ const regExpAZLowerCase = /[a-z]+/;
 const regExpNumbers = /[0-9]+/;
 const regExpSpecialCharacter = /[@#$%^&*()!]+/;
 const limitSymbols = 8;
+const firstSymbol = 0;
+const lastSymbol = 1;
 
 const incorrectDataInInput = (typeInput: string): void => {
   if (typeInput === loginType.email) {
@@ -50,17 +52,16 @@ export const isValidDomain = (text: string): void => {
   if (!regExp.test(text)) {
     errorMessage = "don't have domain name: example.ars@mail.com";
   }
-  if (text[0] === ' ') {
+  if (text[firstSymbol] === ' ') {
     errorMessage = 'the beginning cannot start with a space';
   }
-  if (text[text.length - 1] === ' ') {
+  if (text[text.length - lastSymbol] === ' ') {
     errorMessage = 'the end cannot end with spaces';
   }
   errorInputOrOk(errorMessage, loginType.email, errorMessageEmail);
 };
 
 export const isValidPassword = (text: string): void => {
-  console.log(text, 'text');
   let errorMessage = '';
   if (text.length < limitSymbols) {
     errorMessage = 'symbols need more than 8';
@@ -73,10 +74,10 @@ export const isValidPassword = (text: string): void => {
   } else if (!regExpSpecialCharacter.test(text)) {
     errorMessage = 'password need 1 special character: @#$%^&*()!';
   }
-  if (text[0] === ' ') {
+  if (text[firstSymbol] === ' ') {
     errorMessage = 'the beginning cannot start with a space';
   }
-  if (text[text.length - 1] === ' ') {
+  if (text[text.length - lastSymbol] === ' ') {
     errorMessage = 'the end cannot end with spaces';
   }
 
