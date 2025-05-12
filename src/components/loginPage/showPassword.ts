@@ -1,7 +1,6 @@
-import './authorization.js';
 import { iconEyeSlash, inputPassword } from './loginStructure.js';
 
-const showPasswordOrHide = (): void => {
+export const showPasswordOrHide = (): void => {
   iconEyeSlash.classList.toggle('active');
   if (iconEyeSlash.classList.contains('active')) {
     iconEyeSlash.setAttribute('uk-icon', 'icon: eye');
@@ -11,5 +10,3 @@ const showPasswordOrHide = (): void => {
     inputPassword.setAttribute('type', 'password');
   }
 };
-
-iconEyeSlash.addEventListener('click', showPasswordOrHide);
