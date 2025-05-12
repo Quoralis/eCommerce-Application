@@ -3,6 +3,7 @@ import {
   requestAnonymousToken,
   requestBearerToken,
 } from './clients/authClient.js';
+
 import { login } from './services/authService.js';
 import { showMainPage } from './components/mainPage/mainStructure.js';
 showMainPage();
