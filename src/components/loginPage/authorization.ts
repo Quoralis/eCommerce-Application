@@ -22,15 +22,6 @@ export enum loginType {
 const userAllData: UserFormValues = {
   email: '',
   password: '',
-  firstName: '',
-  lastName: '',
-  dateOfBirth: '',
-  address: {
-    street: '',
-    city: '',
-    postalCode: '',
-    country: '',
-  },
 };
 
 const validateEmailOrPassword = (inputValue: string, type: string): void => {
