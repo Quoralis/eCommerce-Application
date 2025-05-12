@@ -10,11 +10,19 @@ import {
   isValidDomain,
   isValidPassword,
 } from '../../services/validators/validationInputs.js';
+import { login } from '../../services/authService.js';
+import { UserFormValues } from '../../types/types.js';
+import { showNotification } from '../../services/notification/showNotification.js';
 
 export enum loginType {
   email = 'email',
   password = 'password',
 }
+
+const userAllData: UserFormValues = {
+  email: '',
+  password: '',
+};
 
 const validateEmailOrPassword = (inputValue: string, type: string): void => {
   if (type === loginType.email) {
@@ -42,7 +50,11 @@ const validationForm = (inputEmail: string, inputPassword: string): void => {
     errorMessageEmail.textContent === '' &&
     errorMessagePassword.textContent === ''
   ) {
-    console.log('+');
+    userAllData.email = inputEmail;
+    userAllData.password = inputPassword;
+    login(userAllData).catch(() => {
+      showNotification('something went wrong', 'danger');
+    });
   }
 };
 
