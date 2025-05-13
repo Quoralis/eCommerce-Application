@@ -8,6 +8,7 @@ import {
 import { registerCustomer } from './clients/customerClient.js';
 import { UserFormValues } from './types/types.js';
 
+
 //для теста и получения данных/токенов при логине
 const data: UserFormValues = {
   email: 'unfeel00@gmai.wedd',
