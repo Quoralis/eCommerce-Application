@@ -17,10 +17,11 @@ export interface UserFormValues {
   firstName?: string;
   lastName?: string;
   dateOfBirth?: string;
-  address?: {
-    street: string;
-    city: string;
-    postalCode: string;
-    country: string;
-  };
+  addresses?: BaseAddress[];
+}
+interface BaseAddress {
+  city: string;
+  country: string;
+  postalCode: string;
+  streetName: string;
 }
