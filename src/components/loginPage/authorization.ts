@@ -3,16 +3,22 @@ import {
   isValidDomain,
   isValidPassword,
 } from '../../services/validators/validationInputs.js';
+import { login } from '../../services/authService.js';
+import { UserFormValues } from '../../types/types.js';
+import { showNotification } from '../../services/notification/showNotification.js';
 
 export enum loginType {
   email = 'email',
   password = 'password',
 }
 
-export const validateEmailOrPassword = (
-  inputValue: string,
-  type: string
-): void => {
+
+const userAllData: UserFormValues = {
+  email: '',
+  password: '',
+};
+
+const validateEmailOrPassword = (inputValue: string, type: string): void => {
   if (type === loginType.email) {
     isValidDomain(inputValue);
   } else if (type === loginType.password) {
@@ -30,6 +36,10 @@ export const validationForm = (
     errorMessageEmail.textContent === '' &&
     errorMessagePassword.textContent === ''
   ) {
-    console.log('+');
+    userAllData.email = inputEmail;
+    userAllData.password = inputPassword;
+    login(userAllData).catch(() => {
+      showNotification('something went wrong', 'danger');
+    });
   }
 };
