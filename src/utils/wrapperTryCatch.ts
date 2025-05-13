@@ -12,7 +12,7 @@ export async function wrapperTryCatch<T = unknown>(
     return data;
   } catch (err: unknown) {
     if (err instanceof Error) {
-      console.error('API Error:', err.message);
+      console.error('API Error:', err);
     } else {
       console.error('API Error: Unknown', err);
     }

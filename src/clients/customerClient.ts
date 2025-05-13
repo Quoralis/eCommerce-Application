@@ -1,25 +1,20 @@
 import { apiUrl, projectKey } from '../config.js';
 import { wrapperTryCatch } from '../utils/wrapperTryCatch.js';
-import { UserFormValues } from '../types/types.js';
+import { RegistrationLoginData } from '../types/types.js';
 
-export async function registerCustomer(
-  data: UserFormValues,
-  bearerToken: string,
-  defShipIdx: number,
-  defBillIdx: number
-): Promise<{
+export async function registerCustomer(data: RegistrationLoginData): Promise<{
   id: string;
   version: number;
 }> {
   const dataUser = {
-    email: data.email,
-    password: data.password,
-    firstName: data.firstName,
-    lastName: data.lastName,
-    dateOfBirth: data.dateOfBirth,
-    addresses: data.addresses,
-    defaultShippingAddress: defShipIdx,
-    defaultBillingAddress: defBillIdx,
+    email: data.userData.email,
+    password: data.userData.password,
+    firstName: data.userData.firstName,
+    lastName: data.userData.lastName,
+    dateOfBirth: data.userData.dateOfBirth,
+    addresses: data.userData.addresses,
+    defaultShippingAddress: data.defShipIdx,
+    defaultBillingAddress: data.defBillIdx,
   };
 
   const dataCustomer = await wrapperTryCatch<{
@@ -31,7 +26,7 @@ export async function registerCustomer(
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${bearerToken}`,
+      Authorization: `Bearer ${data.bearerToken}`,
     },
     body: JSON.stringify(dataUser),
   });

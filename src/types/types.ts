@@ -11,7 +11,7 @@ export interface TokenResponse {
   refresh_token: string;
 }
 
-export interface UserFormValues {
+interface UserFormValues {
   email: string;
   password: string;
   firstName?: string;
@@ -24,4 +24,11 @@ interface BaseAddress {
   country: string;
   postalCode: string;
   streetName: string;
+}
+
+export interface RegistrationLoginData {
+  userData: UserFormValues;
+  bearerToken?: string;
+  defShipIdx?: number;
+  defBillIdx?: number;
 }
