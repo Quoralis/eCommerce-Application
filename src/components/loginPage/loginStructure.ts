@@ -1,5 +1,10 @@
 import { createEl } from '../../utils/createElement.js';
-
+import { showPasswordOrHide } from './showPassword.js';
+import {
+  validateEmailOrPassword,
+  validationForm,
+  loginType,
+} from './authorization.js';
 const loginPageWrapper = createEl({
   tag: 'div',
   classes: [
@@ -9,7 +14,6 @@ const loginPageWrapper = createEl({
     'uk-flex-middle',
     'uk-flex-center',
   ],
-  parent: document.body,
 });
 
 const cardLoginWrapper = createEl({
@@ -66,6 +70,12 @@ const inputEmail = <HTMLInputElement>createEl({
   parent: inputsForm,
 });
 
+inputEmail.addEventListener('input', (event: Event): void => {
+  if (event.target instanceof HTMLInputElement) {
+    validateEmailOrPassword(event.target.value, loginType.email);
+  }
+});
+
 const errorMessageEmail = createEl({
   tag: 'span',
   classes: ['uk-text-small', 'uk-margin-xsmall-left'],
@@ -85,6 +95,8 @@ const iconEyeSlash = createEl({
   parent: passwordWrapper,
 });
 
+iconEyeSlash.addEventListener('click', showPasswordOrHide);
+
 const inputPassword = <HTMLInputElement>createEl({
   tag: 'input',
   classes: ['uk-input', 'uk-border-rounded', 'input'],
@@ -93,6 +105,12 @@ const inputPassword = <HTMLInputElement>createEl({
     type: 'password',
   },
   parent: passwordWrapper,
+});
+
+inputPassword.addEventListener('input', (event: Event): void => {
+  if (event.target instanceof HTMLInputElement) {
+    validateEmailOrPassword(event.target.value, loginType.password);
+  }
 });
 
 const errorMessagePassword = createEl({
@@ -120,6 +138,10 @@ const buttonSubmitLogin = createEl({
   parent: buttonsWrapper,
 });
 
+buttonSubmitLogin.addEventListener('click', (): void => {
+  validationForm(inputEmail.value, inputPassword.value);
+});
+
 createEl({
   tag: 'a',
   classes: ['uk-link', 'login-link'],
@@ -127,12 +149,16 @@ createEl({
   parent: buttonsWrapper,
 });
 
+const showLoginPage = (): void => {
+  document.body.append(loginPageWrapper);
+};
+
 export {
-  buttonSubmitLogin,
   errorMessageEmail,
   inputEmail,
   inputPassword,
   errorMessagePassword,
   iconEyeSlash,
   passwordWrapper,
+  showLoginPage,
 };

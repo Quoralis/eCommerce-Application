@@ -3,7 +3,8 @@
 @import '../../../node_modules/uikit/src/scss/mixins.scss';
 @import '../../../node_modules/uikit/src/scss/uikit.scss';
 @import './loginPage/login.scss';
-
+@import './header/header.scss';
+@import './mainPage/main.scss';
 body {
   height: 100vh;
 }
