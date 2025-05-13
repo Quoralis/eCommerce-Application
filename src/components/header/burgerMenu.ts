@@ -31,6 +31,7 @@ export const showBurgerMenu = (): void => {
     ],
     parent: burgerMenuWrapper,
   });
+  
   document.addEventListener('click', (event): void => {
     if (event.target && event.target instanceof HTMLElement) {
       if (burgerMenu.classList.contains('uk-offcanvas-slide')) {
@@ -43,6 +44,7 @@ export const showBurgerMenu = (): void => {
       }
     }
   });
+
   burgerMenu.append(
     cloneMainBtn,
     cloneCatalogBtn,

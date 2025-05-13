@@ -12,6 +12,7 @@ export enum loginType {
   password = 'password',
 }
 
+
 const userAllData: UserFormValues = {
   email: '',
   password: '',

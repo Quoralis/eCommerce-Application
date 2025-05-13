@@ -33,6 +33,7 @@
   align-self: center;
 }
 
+
 .burger-menu {
   display: none;
 }
@@ -71,6 +72,7 @@
   }
 }
 
+
 .logo-burger-menu span:nth-child(1) {
   transform: translateY(-7px);
 }
@@ -83,10 +85,13 @@
   .header {
     justify-content: space-between;
   }
+
+
   .link {
     display: none;
   }
   .logo-burger-menu {
+
     height: 30px;
     width: 30px;
     position: relative;

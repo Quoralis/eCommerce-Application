@@ -4,6 +4,7 @@ import img from '../../assets/images/logo.png';
 const startNum = 0;
 const limit = 3;
 
+
 const header = createEl({
   tag: 'header',
   classes: ['uk-background-default', 'uk-flex', 'uk-flex-around', 'header'],
@@ -81,6 +82,7 @@ const headerBurgerMenu = createEl({
   },
   parent: header,
 });
+
 
 headerBurgerMenu.addEventListener('click', (): void => {
   headerBurgerMenu.classList.toggle('open');
