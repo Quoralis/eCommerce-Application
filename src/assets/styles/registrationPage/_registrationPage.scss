@@ -45,9 +45,8 @@ fieldset {
   }
 
   &__input {
-    min-width: 346px;
+    width: 346px;
     height: 40px;
-    margin-bottom: 16px;
     border-radius: 8px;
     color: $dark-color;
 
@@ -57,6 +56,20 @@ fieldset {
 
     &::placeholder {
       color: $text-secondary;
+    }
+  }
+
+  &__error {
+    color: transparent;
+    transition: 0.3s;
+
+    &_active {
+      color: $global-danger-background;
+    }
+
+    &-wrapper {
+      height: 24px;
+      padding: 0 2px 3px;
     }
   }
 

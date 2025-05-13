@@ -6,10 +6,11 @@ export interface typeCreateElOptions {
   parent?: HTMLElement;
 }
 
-interface IInputOptions {
-  placeholder: string;
-  type: string;
+interface IValidationRule {
+  regExp: RegExp;
+  errMessage: string;
 }
 
-export type CreateInputOptions = Omit<typeCreateElOptions, 'tag'> &
-  Partial<IInputOptions>;
+export interface IRegValidationRules {
+  [key: string]: IValidationRule;
+}

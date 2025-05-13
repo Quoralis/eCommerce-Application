@@ -1,8 +1,7 @@
 import { createEl } from '../../utils/createElement';
-import {
-  REGISTRATION_INPUTS,
-  REGISTRATION_FIELDSET_LEGENDS,
-} from '../../constants/registrationInputs';
+import { checkInputValue } from '../../services/registrationValidation/validation';
+import { createRegInputs } from '../../components/registrationPage/registrationInputs';
+import { submitForm } from '../../services/registrationValidation/validation';
 
 const regWrapper = createEl({
   tag: 'div',
@@ -17,61 +16,31 @@ createEl({
   parent: regWrapper,
 });
 
-const regForm = createEl({
+export const regForm = createEl({
   tag: 'form',
   classes: ['registration__form'],
+  attributes: {
+    novalidate: '',
+  },
   parent: regWrapper,
 });
 
-const createRegInputs = () => {
-  const getInputOptions = (index: number) => {
-    return {
-      tag: 'input',
-      classes: ['registration__input', 'uk-input'],
-      parent: regForm,
-      attributes: {
-        type: REGISTRATION_INPUTS[index].type ?? 'text',
-        placeholder: REGISTRATION_INPUTS[index].placeholder,
-        ...REGISTRATION_INPUTS[index]['attributes'],
-        required: '',
-      },
-    };
-  };
+regForm.addEventListener('change', (event) => {
+  checkInputValue(event);
+});
 
-  for (let i = 0; i < REGISTRATION_INPUTS.length - 4; i++) {
-    createEl(getInputOptions(i));
-  }
-
-  for (let i = 0; i < REGISTRATION_FIELDSET_LEGENDS.length; i++) {
-    const fieldset = createEl({
-      tag: 'fieldset',
-      parent: regForm,
-    });
-
-    const legend = createEl({
-      tag: 'legend',
-      classes: ['legend'],
-      parent: fieldset,
-    });
-    legend.textContent = REGISTRATION_FIELDSET_LEGENDS[i];
-
-    for (
-      let j = REGISTRATION_INPUTS.length - 4;
-      j < REGISTRATION_INPUTS.length;
-      j++
-    ) {
-      createEl(getInputOptions(j));
-    }
-  }
-};
 createRegInputs();
 
-createEl({
+const submitBtn = createEl({
   tag: 'button',
   classes: ['button', 'uk-button', 'uk-button-primary'],
   text: 'Sign Up',
   attributes: { type: 'submit' },
   parent: regForm,
+});
+
+submitBtn.addEventListener('click', (event) => {
+  submitForm(event);
 });
 
 createEl({
