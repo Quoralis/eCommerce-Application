@@ -18,7 +18,10 @@ const userAllData: UserFormValues = {
   password: '',
 };
 
-const validateEmailOrPassword = (inputValue: string, type: string): void => {
+export const validateEmailOrPassword = (
+  inputValue: string,
+  type: string
+): void => {
   if (type === loginType.email) {
     isValidDomain(inputValue);
   } else if (type === loginType.password) {

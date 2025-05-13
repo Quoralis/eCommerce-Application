@@ -6,6 +6,7 @@ import {
   cloneCatalogBtn,
   cloneLoginBtn,
   cloneSignBtn,
+  headerBurgerMenu,
 } from './headerStructure.js';
 
 export const showBurgerMenu = (): void => {
@@ -30,11 +31,18 @@ export const showBurgerMenu = (): void => {
     ],
     parent: burgerMenuWrapper,
   });
-  createEl({
-    tag: 'button',
-    classes: ['uk-offcanvas-close'],
-    attributes: { 'uk-close': '' },
-    parent: burgerMenuWrapper,
+  
+  document.addEventListener('click', (event): void => {
+    if (event.target && event.target instanceof HTMLElement) {
+      if (burgerMenu.classList.contains('uk-offcanvas-slide')) {
+        if (
+          !burgerMenu.contains(event.target) &&
+          !headerBurgerMenu.contains(event.target)
+        ) {
+          headerBurgerMenu.classList.remove('open');
+        }
+      }
+    }
   });
 
   burgerMenu.append(
