@@ -1,6 +1,9 @@
 import { createEl } from '../../utils/createElement.js';
 import img from '../../assets/images/logo.png';
 
+const startNum = 0;
+const limit = 3;
+
 const header = createEl({
   tag: 'header',
   classes: ['uk-background-default', 'uk-flex', 'uk-flex-around', 'header'],
@@ -14,6 +17,7 @@ const navWrapper = createEl({
 
 createEl({
   tag: 'img',
+  classes: ['logo'],
   attributes: { src: img },
   parent: navWrapper,
 });
@@ -69,15 +73,30 @@ const signBtn = createEl({
   parent: autorisationWrapper,
 });
 
-createEl({
+const headerBurgerMenu = createEl({
   tag: 'a',
-  classes: ['logo-burger-menu'],
+  classes: ['logo-burger-menu', 'uk-margin-small-right'],
   attributes: {
-    'uk-icon': 'icon: menu',
     'uk-toggle': 'target: #offcanvas-flip',
   },
   parent: header,
 });
+
+headerBurgerMenu.addEventListener('click', (): void => {
+  headerBurgerMenu.classList.toggle('open');
+});
+
+const createLine = (): void => {
+  createEl({
+    tag: 'span',
+    classes: ['line'],
+    parent: headerBurgerMenu,
+  });
+};
+
+for (let i = startNum; i < limit; i++) {
+  createLine();
+}
 
 const cloneMainBtn = mainBtn.cloneNode(true);
 const cloneCatalogBtn = catalogBtn.cloneNode(true);
@@ -98,4 +117,5 @@ export {
   cloneLoginBtn,
   cloneSignBtn,
   showHeaderComponent,
+  headerBurgerMenu,
 };
