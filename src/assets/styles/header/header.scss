@@ -1,0 +1,78 @@
+@use '../globalVariables.scss' as *;
+
+.header {
+  height: 66px;
+}
+
+.basket-btn {
+  color: $white;
+  padding: 10px;
+  background-color: $blue;
+  &:hover {
+    color: $white;
+  }
+}
+
+.nav-wrapper img,
+.nav-wrapper a:nth-child(1n) {
+  margin-right: 2rem;
+}
+
+.autorisation-wrapper a,
+.autorisation-wrapper button:nth-child(1n) {
+  margin-right: 1rem;
+}
+
+.login-btn {
+  background-color: $blue;
+  color: $white;
+}
+
+.logo-burger-menu {
+  display: none;
+  align-self: center;
+}
+
+.burger-menu a,
+.burger-menu button:nth-child(1n) {
+  margin-bottom: 2rem;
+  font-size: 1.5rem;
+  color: $blue;
+  svg {
+    color: $blue;
+    width: 40px;
+    height: 40px;
+  }
+  &:hover {
+    color: $blue;
+    text-decoration: none;
+  }
+}
+
+.burger-menu button:nth-child(1n) {
+  background-color: $blue;
+  color: $white;
+  &:hover {
+    background-color: $blue;
+    color: $white;
+  }
+}
+
+.burger-menu :last-child {
+  background-color: $blue;
+  color: $white;
+  &:hover {
+    background-color: $blue;
+    color: $white;
+  }
+}
+
+@media (max-width: 700px) and (min-width: 350px) {
+  .link {
+    display: none;
+  }
+  .logo-burger-menu {
+    display: block;
+    align-self: center;
+  }
+}

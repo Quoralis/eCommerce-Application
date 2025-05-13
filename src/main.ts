@@ -5,10 +5,10 @@ import {
   requestAnonymousToken,
   requestBearerToken,
 } from './clients/authClient.js';
-import { registerCustomer } from './clients/customerClient.js';
-import { UserFormValues } from './types/types.js';
 
-
+import { showMainPage } from './components/mainPage/mainStructure.js';
+showMainPage();
+// showLoginPage();
 //для теста и получения данных/токенов при логине
 const data: UserFormValues = {
   email: 'unfeel00@gmai.wedd',
