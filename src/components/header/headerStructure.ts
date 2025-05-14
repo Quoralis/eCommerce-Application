@@ -69,7 +69,12 @@ const loginBtn = createEl({
 const signBtn = createEl({
   tag: 'button',
   text: 'Sign Up',
-  classes: ['uk-button', 'uk-border-rounded', 'uk-button-primary', 'login-btn'],
+  classes: [
+    'uk-button',
+    'uk-border-rounded',
+    'uk-button-primary',
+    'sign-up-btn',
+  ],
   parent: autorisationWrapper,
 });
 
