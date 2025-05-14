@@ -4,7 +4,6 @@ import img from '../../assets/images/logo.png';
 const startNum = 0;
 const limit = 3;
 
-
 const header = createEl({
   tag: 'header',
   classes: ['uk-background-default', 'uk-flex', 'uk-flex-around', 'header'],
@@ -70,7 +69,12 @@ const loginBtn = createEl({
 const signBtn = createEl({
   tag: 'button',
   text: 'Sign Up',
-  classes: ['uk-button', 'uk-border-rounded', 'uk-button-primary', 'login-btn'],
+  classes: [
+    'uk-button',
+    'uk-border-rounded',
+    'uk-button-primary',
+    'sign-up-btn',
+  ],
   parent: autorisationWrapper,
 });
 
@@ -82,7 +86,6 @@ const headerBurgerMenu = createEl({
   },
   parent: header,
 });
-
 
 headerBurgerMenu.addEventListener('click', (): void => {
   headerBurgerMenu.classList.toggle('open');
