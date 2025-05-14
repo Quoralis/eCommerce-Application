@@ -1,4 +1,4 @@
-@import '../variablesAndMixins/variablesAndMixins';
+@import '../globalVariables.scss';
 @import '../fonts/fonts';
 
 fieldset {
@@ -23,7 +23,7 @@ fieldset {
   width: fit-content;
   margin: 0 auto;
   padding: 75px 60px 27px;
-  background: $background-white;
+  background: $white;
   border-radius: 10px;
   font-family: $font-family, sans-serif;
 
@@ -55,7 +55,7 @@ fieldset {
     }
 
     &::placeholder {
-      color: $text-secondary;
+      color: $grey;
     }
   }
 
@@ -76,7 +76,7 @@ fieldset {
   .button {
     border-radius: 8px;
     border: none;
-    color: $background-white;
+    color: $white;
   }
 
   .link {
