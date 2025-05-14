@@ -1,4 +1,4 @@
-import { IRegValidationRules } from '../../types/types';
+import { IRegValidationRules } from '../../types/types.js';
 
 export const regValidationRules: IRegValidationRules = {
   name: {

@@ -1,7 +1,7 @@
-import { createEl } from '../../utils/createElement';
-import { checkInputValue } from '../../services/registrationValidation/validation';
-import { createRegInputs } from '../../components/registrationPage/registrationInputs';
-import { submitForm } from '../../services/registrationValidation/validation';
+import { createEl } from '../../utils/createElement.js';
+import { checkInputValue } from '../../services/validators/registrationValidation.js';
+import { createRegInputs } from '../../components/registrationPage/registrationInputs.js';
+import { submitForm } from '../../services/validators/registrationValidation.js';
 
 const regWrapper = createEl({
   tag: 'div',

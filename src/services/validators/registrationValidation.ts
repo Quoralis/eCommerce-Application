@@ -1,5 +1,5 @@
-import { createEl } from '../../utils/createElement';
-import { regValidationRules, specialRulesForId } from './validationRules';
+import { createEl } from '../../utils/createElement.js';
+import { regValidationRules, specialRulesForId } from './validationRules.js';
 
 export const checkInputValue = (e: Event) => {
   if (e.target instanceof HTMLInputElement) {
