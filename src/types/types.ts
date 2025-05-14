@@ -12,18 +12,26 @@ export interface TokenResponse {
   refresh_token: string;
 }
 
-export interface UserFormValues {
+interface UserFormValues {
   email: string;
   password: string;
   firstName?: string;
   lastName?: string;
   dateOfBirth?: string;
-  address?: {
-    street: string;
-    city: string;
-    postalCode: string;
-    country: string;
-  };
+  addresses?: BaseAddress[];
+}
+interface BaseAddress {
+  city: string;
+  country: string;
+  postalCode: string;
+  streetName: string;
+}
+
+export interface RegistrationLoginData {
+  userData: UserFormValues;
+  bearerToken?: string;
+  defShipIdx?: number;
+  defBillIdx?: number;
 }
 
 interface IValidationRule {

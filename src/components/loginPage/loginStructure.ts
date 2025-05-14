@@ -2,8 +2,8 @@ import { createEl } from '../../utils/createElement.js';
 import { showPasswordOrHide } from './showPassword.js';
 import {
   validateEmailOrPassword,
-  validationForm,
   loginType,
+  submitLoginForm,
 } from './authorization.js';
 const loginPageWrapper = createEl({
   tag: 'div',
@@ -138,8 +138,8 @@ const buttonSubmitLogin = createEl({
   parent: buttonsWrapper,
 });
 
-buttonSubmitLogin.addEventListener('click', (): void => {
-  validationForm(inputEmail.value, inputPassword.value);
+buttonSubmitLogin.addEventListener('click', async (): Promise<void> => {
+  await submitLoginForm(inputEmail.value, inputPassword.value);
 });
 
 createEl({

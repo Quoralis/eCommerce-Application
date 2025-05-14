@@ -1,23 +1,21 @@
 import './assets/styles/app.scss';
-import {
-  requestAnonymousToken,
-  requestBearerToken,
-} from './clients/authClient.js';
+import '../node_modules/uikit/dist/js/uikit.min.js';
+import '../node_modules/uikit/dist/js/uikit-icons.js';
+import Router from './router/Router.js';
 
-import { login } from './services/authService.js';
-import { showMainPage } from './components/mainPage/mainStructure.js';
-showMainPage();
-// showLoginPage();
-//для теста и получения данных/токенов при логине
-const data = {
-  email: 'unfeel00@gmail.com',
-  password: '123456',
-};
+Router.getInstance().navigate(window.location.pathname);
 
-// ф-я для демонстрации работы запросов токенов.
-async function init() {
-  await requestBearerToken(); //  получили главный токен для дальнейших действий
-  await requestAnonymousToken();
-  await login(data);
-}
-document.addEventListener('DOMContentLoaded', init);
+document.addEventListener('DOMContentLoaded', () => {
+  const router = Router.getInstance();
+
+  // покажем текущий путь при загрузке
+  router.navigate(window.location.pathname);
+
+  // навигация по кнопкам
+  document
+    .querySelector('.login-btn')
+    ?.addEventListener('click', () => router.navigate('/login'));
+  document
+    .querySelector('.sign-up-btn')
+    ?.addEventListener('click', () => router.navigate('/registration'));
+});

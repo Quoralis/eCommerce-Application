@@ -4,7 +4,7 @@ import {
   isValidPassword,
 } from '../../services/validators/validationInputs.js';
 import { login } from '../../services/authService.js';
-import { UserFormValues } from '../../types/types.js';
+import { RegistrationLoginData } from '../../types/types.js';
 import { showNotification } from '../../services/notification/showNotification.js';
 
 export enum loginType {
@@ -12,9 +12,11 @@ export enum loginType {
   password = 'password',
 }
 
-const userAllData: UserFormValues = {
-  email: '',
-  password: '',
+const userAllData: RegistrationLoginData = {
+  userData: {
+    email: '',
+    password: '',
+  },
 };
 
 export const validateEmailOrPassword = (
@@ -28,20 +30,26 @@ export const validateEmailOrPassword = (
   }
 };
 
-export const validationForm = (
+export const submitLoginForm = async (
   inputEmail: string,
   inputPassword: string
-): void => {
+): Promise<void> => {
   validateEmailOrPassword(inputEmail, loginType.email);
   validateEmailOrPassword(inputPassword, loginType.password);
   if (
     errorMessageEmail.textContent === '' &&
     errorMessagePassword.textContent === ''
   ) {
-    userAllData.email = inputEmail;
-    userAllData.password = inputPassword;
-    login(userAllData).catch(() => {
+    userAllData.userData.email = inputEmail;
+    userAllData.userData.password = inputPassword;
+    try {
+      const token = await login(userAllData);
+      if (token) {
+        localStorage.setItem('token', token);
+        window.location.href = '/';
+      }
+    } catch {
       showNotification('something went wrong', 'danger');
-    });
+    }
   }
 };
