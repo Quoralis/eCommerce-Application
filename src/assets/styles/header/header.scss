@@ -33,11 +33,6 @@
   align-self: center;
 }
 
-
-.burger-menu {
-  display: none;
-}
-
 .burger-menu a,
 .burger-menu button:nth-child(1n) {
   margin-bottom: 2rem;
@@ -72,7 +67,6 @@
   }
 }
 
-
 .logo-burger-menu span:nth-child(1) {
   transform: translateY(-7px);
 }
@@ -86,12 +80,10 @@
     justify-content: space-between;
   }
 
-
   .link {
     display: none;
   }
   .logo-burger-menu {
-
     height: 30px;
     width: 30px;
     position: relative;
