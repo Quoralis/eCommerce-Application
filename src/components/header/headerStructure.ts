@@ -58,6 +58,12 @@ const basketBtn = createEl({
   attributes: { 'uk-icon': 'cart' },
   parent: autorisationWrapper,
 });
+const profileBtn = createEl({
+  tag: 'a',
+  classes: ['uk-border-rounded', 'uk-button-primary', 'profile-btn', 'hidden'],
+  attributes: { 'uk-icon': 'user' },
+  parent: autorisationWrapper,
+});
 
 const loginBtn = createEl({
   tag: 'button',
@@ -122,7 +128,7 @@ const cloneBasketBtn = basketBtn.cloneNode(true);
 const cloneLoginBtn = loginBtn.cloneNode(true);
 const cloneSignBtn = signBtn.cloneNode(true);
 const cloneSignOut = signOut.cloneNode(true);
-
+const cloneProfileBtn = profileBtn.cloneNode(true);
 const showHeaderComponent = (): void => {
   document.body.append(header);
 };
@@ -137,4 +143,5 @@ export {
   cloneSignOut,
   showHeaderComponent,
   headerBurgerMenu,
+  cloneProfileBtn,
 };

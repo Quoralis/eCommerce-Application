@@ -8,6 +8,7 @@ import {
   cloneSignBtn,
   headerBurgerMenu,
   cloneSignOut,
+  cloneProfileBtn,
 } from './headerStructure.js';
 
 export const showBurgerMenu = (): void => {
@@ -53,6 +54,7 @@ export const showBurgerMenu = (): void => {
     cloneLoginBtn,
     cloneSignBtn,
     cloneSignOut,
-    cloneBasketBtn
+    cloneBasketBtn,
+    cloneProfileBtn
   );
 };
