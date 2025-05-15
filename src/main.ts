@@ -2,20 +2,20 @@ import './assets/styles/app.scss';
 import '../node_modules/uikit/dist/js/uikit.min.js';
 import '../node_modules/uikit/dist/js/uikit-icons.js';
 import Router from './router/Router.js';
-
-Router.getInstance().navigate(window.location.pathname);
+import { showBurgerMenu } from './components/header/burgerMenu.js';
+import { showHeaderComponent } from './components/header/headerStructure.js';
 
 document.addEventListener('DOMContentLoaded', () => {
+  showBurgerMenu();
+  showHeaderComponent();
   const router = Router.getInstance();
-
-  // покажем текущий путь при загрузке
-  router.navigate(window.location.pathname);
-
-  // навигация по кнопкам
-  document
-    .querySelector('.login-btn')
-    ?.addEventListener('click', () => router.navigate('/login'));
-  document
-    .querySelector('.sign-up-btn')
-    ?.addEventListener('click', () => router.navigate('/registration'));
+  router.initialRender();
+  document.querySelectorAll('.login-btn, .sign-up-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const path = btn.classList.contains('login-btn')
+        ? '/login'
+        : '/registration';
+      router.navigate(path);
+    });
+  });
 });
