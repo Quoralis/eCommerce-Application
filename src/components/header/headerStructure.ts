@@ -1,6 +1,6 @@
 import { createEl } from '../../utils/createElement.js';
 import img from '../../assets/images/logo.png';
-
+import Uikit from 'uikit';
 const startNum = 0;
 const limit = 3;
 
@@ -120,6 +120,13 @@ const createLine = (): void => {
 for (let i = startNum; i < limit; i++) {
   createLine();
 }
+
+window.addEventListener('resize', (): void => {
+  if (window.innerWidth > 700) {
+    Uikit.offcanvas('#offcanvas-flip').hide();
+    headerBurgerMenu.classList.remove('open');
+  }
+});
 
 const cloneMainBtn = mainBtn.cloneNode(true);
 const cloneCatalogBtn = catalogBtn.cloneNode(true);
