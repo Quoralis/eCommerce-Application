@@ -6,6 +6,7 @@ import {
 import { login } from '../../services/authService.js';
 import { RegistrationLoginData } from '../../types/types.js';
 import { showNotification } from '../../services/notification/showNotification.js';
+import Router from '../../router/Router.js';
 
 export enum loginType {
   email = 'email',
@@ -45,8 +46,18 @@ export const submitLoginForm = async (
     try {
       const token = await login(userAllData);
       if (token) {
-        localStorage.setItem('token', token);
-        window.location.href = '/';
+        localStorage.setItem('accessToken', token);
+        const loginBtns = document.querySelectorAll('.login-btn, .sign-up-btn');
+        loginBtns.forEach((btn) => {
+          btn.classList.add('hidden');
+        });
+        const profileBtns = document.querySelectorAll(
+          '.profile-btn, .sign-out-btn'
+        );
+        profileBtns.forEach((btn) => {
+          btn.classList.remove('hidden');
+        });
+        Router.getInstance().navigate('/');
       }
     } catch {
       showNotification('something went wrong', 'danger');

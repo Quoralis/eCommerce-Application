@@ -31,12 +31,23 @@ export default class Router {
   }
 
   private render(path: string): void {
-    clearDom('body');
+    clearDom('main');
     const renderPage = this.routes[path];
     if (renderPage) {
       renderPage();
     } else {
       console.warn(`Not found page: ${path}`);
+    }
+
+    const header = document.querySelector('header');
+    const footer = document.querySelector('footer');
+    const pathLoginAuth = ['/login', '/registration'];
+    if (pathLoginAuth.includes(path)) {
+      header?.classList.add('hidden');
+      footer?.classList.add('hidden');
+    } else {
+      header?.classList.remove('hidden');
+      footer?.classList.remove('hidden');
     }
   }
 

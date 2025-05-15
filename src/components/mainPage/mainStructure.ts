@@ -3,7 +3,7 @@ import { showHeaderComponent } from '../header/headerStructure.js';
 import { showBurgerMenu } from '../header/burgerMenu.js';
 
 const mainPageWrapper = createEl({
-  tag: 'div',
+  tag: 'main',
   classes: ['uk-height-1-1', 'main-page-wrapper'],
 });
 
