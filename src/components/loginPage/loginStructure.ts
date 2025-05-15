@@ -150,7 +150,8 @@ createEl({
 });
 
 const showLoginPage = (): void => {
-  document.body.append(loginPageWrapper);
+  const main = document.querySelector('main');
+  main?.append(loginPageWrapper);
 };
 
 export {
