@@ -6,7 +6,6 @@ import { submitForm } from '../../services/validators/registrationValidation.js'
 const regWrapper = createEl({
   tag: 'div',
   classes: ['registration'],
-  parent: document.body,
 });
 
 createEl({
@@ -52,3 +51,7 @@ createEl({
   },
   parent: regWrapper,
 });
+
+export const showRegistrationPage = () => {
+  document.body.append(regWrapper);
+};
