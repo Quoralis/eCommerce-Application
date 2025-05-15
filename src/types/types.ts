@@ -5,6 +5,7 @@ export interface typeCreateElOptions {
   attributes?: Record<string, string>;
   parent?: HTMLElement;
 }
+
 export interface TokenResponse {
   access_token: string;
   expires_in: number;
@@ -31,4 +32,13 @@ export interface RegistrationLoginData {
   bearerToken?: string;
   defShipIdx?: number;
   defBillIdx?: number;
+}
+
+interface IValidationRule {
+  regExp: RegExp;
+  errMessage: string;
+}
+
+export interface IRegValidationRules {
+  [key: string]: IValidationRule;
 }
