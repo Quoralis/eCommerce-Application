@@ -18,6 +18,8 @@ fieldset {
 }
 
 .registration {
+  position: relative;
+  top: 20px;
   display: flex;
   flex-direction: column;
   width: fit-content;
@@ -83,4 +85,14 @@ fieldset {
     margin: 12px auto 0;
     font-size: 16px;
   }
+}
+
+body:has(.main-page-wrapper):has(.registration) {
+  min-height: 100vh;
+  height: auto;
+}
+
+.main-page-wrapper:has(.registration) {
+  min-height: 100%;
+  padding-bottom: 40px;
 }

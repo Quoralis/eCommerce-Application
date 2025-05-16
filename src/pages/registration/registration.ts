@@ -53,5 +53,5 @@ createEl({
 });
 
 export const showRegistrationPage = () => {
-  document.body.append(regWrapper);
+  document.querySelector('main')?.append(regWrapper);
 };
