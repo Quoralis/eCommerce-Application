@@ -2,7 +2,6 @@ import { createEl } from '../../utils/createElement.js';
 import { checkInputValue } from '../../services/validators/registrationValidation.js';
 import { createRegInputs } from '../../components/registrationPage/registrationInputs.js';
 import { submitForm } from '../../services/validators/registrationValidation.js';
-import Router from '../../router/Router.js';
 
 const regWrapper = createEl({
   tag: 'div',
@@ -43,20 +42,12 @@ submitBtn.addEventListener('click', (event) => {
   submitForm(event);
 });
 
-const getLoginLink = () => {
-  const loginLink = createEl({
-    tag: 'a',
-    classes: ['link', 'registration__login-link', 'uk-link'],
-    text: 'Already have an account? Log In',
-    parent: regWrapper,
-  });
-
-  loginLink.addEventListener('click', () => {
-    const router = Router.getInstance();
-    router.navigate('/login');
-  });
-};
-getLoginLink();
+createEl({
+  tag: 'a',
+  classes: ['link', 'registration__login-link', 'uk-link'],
+  text: 'Already have an account? Log In',
+  parent: regWrapper,
+});
 
 export const showRegistrationPage = () => {
   document.querySelector('main')?.append(regWrapper);

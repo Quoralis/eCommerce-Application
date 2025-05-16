@@ -23,4 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
       router.navigate(path);
     });
   });
+  document
+    .querySelector('.registration__login-link')
+    ?.addEventListener('click', () => router.navigate('/login'));
 });
