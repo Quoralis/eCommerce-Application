@@ -5,12 +5,11 @@
 @import './loginPage/login.scss';
 @import './header/header.scss';
 @import './mainPage/main.scss';
+@import './utils/helpers';
 @import './registrationPage/registrationPage';
-
 * {
   box-sizing: border-box;
 }
-
 body {
   height: 100vh;
 }

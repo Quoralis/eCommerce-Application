@@ -58,11 +58,29 @@ const basketBtn = createEl({
   attributes: { 'uk-icon': 'cart' },
   parent: autorisationWrapper,
 });
+const profileBtn = createEl({
+  tag: 'a',
+  classes: ['uk-border-rounded', 'uk-button-primary', 'profile-btn', 'hidden'],
+  attributes: { 'uk-icon': 'user' },
+  parent: autorisationWrapper,
+});
 
 const loginBtn = createEl({
   tag: 'button',
   text: 'Login',
   classes: ['uk-button', 'uk-border-rounded', 'uk-button-primary', 'login-btn'],
+  parent: autorisationWrapper,
+});
+const signOut = createEl({
+  tag: 'button',
+  text: 'Sign out',
+  classes: [
+    'uk-button',
+    'uk-border-rounded',
+    'uk-button-primary',
+    'sign-out-btn',
+    'hidden',
+  ],
   parent: autorisationWrapper,
 });
 
@@ -116,7 +134,8 @@ const cloneAboutBtn = aboutBtn.cloneNode(true);
 const cloneBasketBtn = basketBtn.cloneNode(true);
 const cloneLoginBtn = loginBtn.cloneNode(true);
 const cloneSignBtn = signBtn.cloneNode(true);
-
+const cloneSignOut = signOut.cloneNode(true);
+const cloneProfileBtn = profileBtn.cloneNode(true);
 const showHeaderComponent = (): void => {
   document.body.append(header);
 };
@@ -128,6 +147,8 @@ export {
   cloneBasketBtn,
   cloneLoginBtn,
   cloneSignBtn,
+  cloneSignOut,
   showHeaderComponent,
   headerBurgerMenu,
+  cloneProfileBtn,
 };

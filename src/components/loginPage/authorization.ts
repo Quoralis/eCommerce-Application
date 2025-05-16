@@ -6,6 +6,7 @@ import {
 import { login } from '../../services/authService.js';
 import { RegistrationLoginData } from '../../types/types.js';
 import { showNotification } from '../../services/notification/showNotification.js';
+import { updateAuthUI } from '../../utils/auth.js';
 
 export enum loginType {
   email = 'email',
@@ -45,8 +46,8 @@ export const submitLoginForm = async (
     try {
       const token = await login(userAllData);
       if (token) {
-        localStorage.setItem('token', token);
-        window.location.href = '/';
+        localStorage.setItem('accessToken', token);
+        updateAuthUI();
       }
     } catch {
       showNotification('something went wrong', 'danger');
