@@ -6,7 +6,6 @@ import { submitForm } from '../../services/validators/registrationValidation.js'
 const regWrapper = createEl({
   tag: 'div',
   classes: ['registration'],
-  parent: document.body,
 });
 
 createEl({
@@ -43,12 +42,13 @@ submitBtn.addEventListener('click', (event) => {
   submitForm(event);
 });
 
-createEl({
+export const loginLink = createEl({
   tag: 'a',
-  classes: ['link'],
+  classes: ['link', 'registration__login-link', 'uk-link'],
   text: 'Already have an account? Log In',
-  attributes: {
-    href: '#',
-  },
   parent: regWrapper,
 });
+
+export const showRegistrationPage = () => {
+  document.querySelector('main')?.append(regWrapper);
+};
