@@ -42,7 +42,7 @@ submitBtn.addEventListener('click', (event) => {
   submitForm(event);
 });
 
-createEl({
+export const loginLink = createEl({
   tag: 'a',
   classes: ['link', 'registration__login-link', 'uk-link'],
   text: 'Already have an account? Log In',
