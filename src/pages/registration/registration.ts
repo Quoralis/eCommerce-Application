@@ -44,10 +44,10 @@ submitBtn.addEventListener('click', (event) => {
 
 createEl({
   tag: 'a',
-  classes: ['link'],
+  classes: ['link', 'registration__login-link', 'uk-link'],
   text: 'Already have an account? Log In',
   attributes: {
-    href: '#',
+    href: '/login',
   },
   parent: regWrapper,
 });
