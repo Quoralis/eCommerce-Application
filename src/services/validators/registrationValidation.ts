@@ -1,13 +1,12 @@
 import { createEl } from '../../utils/createElement.js';
 import { regValidationRules, specialRulesForId } from './validationRules.js';
+import { regForm } from '../../pages/registration/registration.js';
 
-export const checkInputValue = (e: Event) => {
-  if (e.type === 'click') {
-    console.log('click');
-  } else if (e.type === 'change') {
-    if (e.target instanceof HTMLInputElement) {
-      const inputId = e.target.id;
-      const inputValue = e.target.value.trim();
+export const validateInput = (e: Event) => {
+  const checkInputValue = (input: Element) => {
+    if (input instanceof HTMLInputElement) {
+      const inputId = input.id;
+      const inputValue = input.value.trim();
       let validationRule;
 
       if (inputId in regValidationRules) {
@@ -16,12 +15,30 @@ export const checkInputValue = (e: Event) => {
         const inputRule = specialRulesForId[inputId];
         validationRule = regValidationRules[inputRule];
       }
-      const errorMessage = validationRule?.errMessage;
+
       const isValidInput = validationRule?.regExp.test(inputValue);
+      const errorMessage =
+        inputValue === ''
+          ? 'This field is required'
+          : validationRule?.errMessage;
 
       if (!isValidInput) {
-        showRegError(e.target, errorMessage);
+        showRegError(input, errorMessage);
       }
+    }
+  };
+
+  if (e.type === 'click') {
+    for (let i = 0; i < regForm.children.length; i++) {
+      if (regForm.children[i].matches('.registration__input')) {
+        const inputEl = regForm.children[i];
+        checkInputValue(inputEl);
+      }
+    }
+  } else if (e.type === 'change') {
+    if (e.target instanceof HTMLInputElement) {
+      const input = e.target;
+      checkInputValue(input);
     }
   }
 };
@@ -65,5 +82,5 @@ export const showRegError = (
 export const submitForm = (e: Event) => {
   e.preventDefault();
 
-  checkInputValue(e);
+  validateInput(e);
 };

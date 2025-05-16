@@ -1,5 +1,5 @@
 import { createEl } from '../../utils/createElement.js';
-import { checkInputValue } from '../../services/validators/registrationValidation.js';
+import { validateInput } from '../../services/validators/registrationValidation.js';
 import { createRegInputs } from '../../components/registrationPage/registrationInputs.js';
 import { submitForm } from '../../services/validators/registrationValidation.js';
 
@@ -25,7 +25,7 @@ export const regForm = createEl({
 });
 
 regForm.addEventListener('change', (event) => {
-  checkInputValue(event);
+  validateInput(event);
 });
 
 createRegInputs();
