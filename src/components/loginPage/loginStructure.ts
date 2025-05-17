@@ -10,7 +10,6 @@ const loginPageWrapper = createEl({
   classes: [
     'login-page-wrapper',
     'uk-flex',
-    'uk-height-1-1',
     'uk-flex-middle',
     'uk-flex-center',
   ],
@@ -142,7 +141,7 @@ buttonSubmitLogin.addEventListener('click', async (): Promise<void> => {
   await submitLoginForm(inputEmail.value, inputPassword.value);
 });
 
-createEl({
+const reverseToRegistarationPage = createEl({
   tag: 'a',
   classes: ['uk-link', 'login-link'],
   text: 'Don’t have account? Sign Up',
@@ -162,4 +161,5 @@ export {
   iconEyeSlash,
   passwordWrapper,
   showLoginPage,
+  reverseToRegistarationPage,
 };

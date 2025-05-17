@@ -31,18 +31,21 @@ const generalLinks = createEl({
 const mainBtn = createEl({
   tag: 'a',
   text: 'Main',
+  classes: ['el-nav'],
   parent: generalLinks,
 });
 
 const catalogBtn = createEl({
   tag: 'a',
   text: 'Catalog',
+  classes: ['el-nav'],
   parent: generalLinks,
 });
 
 const aboutBtn = createEl({
   tag: 'a',
   text: 'About',
+  classes: ['el-nav'],
   parent: generalLinks,
 });
 
@@ -54,13 +57,19 @@ const autorisationWrapper = createEl({
 
 const basketBtn = createEl({
   tag: 'a',
-  classes: ['uk-border-rounded', 'uk-button-primary', 'basket-btn'],
+  classes: ['el-nav', 'uk-border-rounded', 'uk-button-primary', 'basket-btn'],
   attributes: { 'uk-icon': 'cart' },
   parent: autorisationWrapper,
 });
 const profileBtn = createEl({
   tag: 'a',
-  classes: ['uk-border-rounded', 'uk-button-primary', 'profile-btn', 'hidden'],
+  classes: [
+    'uk-border-rounded',
+    'uk-button-primary',
+    'profile-btn',
+    'hidden',
+    'el-nav',
+  ],
   attributes: { 'uk-icon': 'user' },
   parent: autorisationWrapper,
 });
@@ -68,7 +77,13 @@ const profileBtn = createEl({
 const loginBtn = createEl({
   tag: 'button',
   text: 'Login',
-  classes: ['uk-button', 'uk-border-rounded', 'uk-button-primary', 'login-btn'],
+  classes: [
+    'uk-button',
+    'uk-border-rounded',
+    'uk-button-primary',
+    'login-btn',
+    'el-nav',
+  ],
   parent: autorisationWrapper,
 });
 const signOut = createEl({
@@ -80,6 +95,7 @@ const signOut = createEl({
     'uk-button-primary',
     'sign-out-btn',
     'hidden',
+    'el-nav',
   ],
   parent: autorisationWrapper,
 });
@@ -92,6 +108,7 @@ const signBtn = createEl({
     'uk-border-rounded',
     'uk-button-primary',
     'sign-up-btn',
+    'el-nav',
   ],
   parent: autorisationWrapper,
 });
@@ -121,10 +138,14 @@ for (let i = startNum; i < limit; i++) {
   createLine();
 }
 
+const closeHeaderBurger = (): void => {
+  Uikit.offcanvas('#offcanvas-flip').hide();
+  headerBurgerMenu.classList.remove('open');
+};
+
 window.addEventListener('resize', (): void => {
   if (window.innerWidth > 700) {
-    Uikit.offcanvas('#offcanvas-flip').hide();
-    headerBurgerMenu.classList.remove('open');
+    closeHeaderBurger();
   }
 });
 
@@ -136,9 +157,18 @@ const cloneLoginBtn = loginBtn.cloneNode(true);
 const cloneSignBtn = signBtn.cloneNode(true);
 const cloneSignOut = signOut.cloneNode(true);
 const cloneProfileBtn = profileBtn.cloneNode(true);
+
 const showHeaderComponent = (): void => {
   document.body.append(header);
 };
+
+document.addEventListener('click', (event: Event): void => {
+  if (event.target instanceof HTMLElement) {
+    if (event.target.classList.contains('el-nav')) {
+      closeHeaderBurger();
+    }
+  }
+});
 
 export {
   cloneMainBtn,
@@ -151,4 +181,8 @@ export {
   showHeaderComponent,
   headerBurgerMenu,
   cloneProfileBtn,
+  mainBtn,
+  signBtn,
+  loginBtn,
+  closeHeaderBurger,
 };

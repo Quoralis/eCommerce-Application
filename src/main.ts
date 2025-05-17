@@ -6,7 +6,7 @@ import { showBurgerMenu } from './components/header/burgerMenu.js';
 import { showHeaderComponent } from './components/header/headerStructure.js';
 import { updateAuthUI } from './utils/auth.js';
 import { loginLink } from './pages/registration/registration.js';
-
+import { reverseToRegistarationPage } from './components/loginPage/loginStructure.js';
 document.addEventListener('DOMContentLoaded', () => {
   showBurgerMenu();
   showHeaderComponent();
@@ -25,4 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
   loginLink.addEventListener('click', () => router.navigate('/login'));
+  reverseToRegistarationPage.addEventListener('click', () =>
+    router.navigate('/registration')
+  );
 });
