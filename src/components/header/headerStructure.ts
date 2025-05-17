@@ -1,5 +1,7 @@
 import { createEl } from '../../utils/createElement.js';
 import img from '../../assets/images/logo.png';
+import { pathes } from '../../constants/pathes.js';
+import { openPage } from '../../pages/openPage.js';
 import Uikit from 'uikit';
 const startNum = 0;
 const limit = 3;
@@ -35,6 +37,10 @@ const mainBtn = createEl({
   parent: generalLinks,
 });
 
+mainBtn.addEventListener('click', (): void => {
+  openPage(pathes.main);
+});
+
 const catalogBtn = createEl({
   tag: 'a',
   text: 'Catalog',
@@ -57,10 +63,16 @@ const autorisationWrapper = createEl({
 
 const basketBtn = createEl({
   tag: 'a',
-  classes: ['el-nav', 'uk-border-rounded', 'uk-button-primary', 'basket-btn'],
+  classes: [
+    'el-nav',
+    'uk-border-rounded' /* , 'uk-button-primary' */,
+    'basket-btn',
+    'icon',
+  ],
   attributes: { 'uk-icon': 'cart' },
   parent: autorisationWrapper,
 });
+
 const profileBtn = createEl({
   tag: 'a',
   classes: [
@@ -69,6 +81,7 @@ const profileBtn = createEl({
     'profile-btn',
     'hidden',
     'el-nav',
+    'icon',
   ],
   attributes: { 'uk-icon': 'user' },
   parent: autorisationWrapper,
@@ -86,6 +99,11 @@ const loginBtn = createEl({
   ],
   parent: autorisationWrapper,
 });
+
+loginBtn.addEventListener('click', (): void => {
+  openPage(pathes.login);
+});
+
 const signOut = createEl({
   tag: 'button',
   text: 'Sign out',
@@ -100,6 +118,10 @@ const signOut = createEl({
   parent: autorisationWrapper,
 });
 
+// signOut.addEventListener('click', (): void => {
+//   localStorage.clear();
+// });
+
 const signBtn = createEl({
   tag: 'button',
   text: 'Sign Up',
@@ -111,6 +133,10 @@ const signBtn = createEl({
     'el-nav',
   ],
   parent: autorisationWrapper,
+});
+
+signBtn.addEventListener('click', (): void => {
+  openPage(pathes.registration);
 });
 
 const headerBurgerMenu = createEl({
@@ -162,6 +188,12 @@ const showHeaderComponent = (): void => {
   document.body.append(header);
 };
 
+setTimeout(() => {
+  document.querySelectorAll('.icon').forEach((el) => {
+    el.addEventListener('click', closeHeaderBurger);
+  });
+}, 50);
+
 document.addEventListener('click', (event: Event): void => {
   if (event.target instanceof HTMLElement) {
     if (event.target.classList.contains('el-nav')) {
@@ -185,4 +217,5 @@ export {
   signBtn,
   loginBtn,
   closeHeaderBurger,
+  header,
 };

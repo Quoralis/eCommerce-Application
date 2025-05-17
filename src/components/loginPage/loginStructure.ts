@@ -5,6 +5,8 @@ import {
   loginType,
   submitLoginForm,
 } from './authorization.js';
+import { pathes } from '../../constants/pathes.js';
+import { openPage } from '../../pages/openPage.js';
 const loginPageWrapper = createEl({
   tag: 'div',
   classes: [
@@ -143,9 +145,13 @@ buttonSubmitLogin.addEventListener('click', async (): Promise<void> => {
 
 const reverseToRegistarationPage = createEl({
   tag: 'a',
-  classes: ['uk-link', 'login-link'],
+  classes: ['uk-link', 'login-link', 'sign-up-btn'],
   text: 'Don’t have account? Sign Up',
   parent: buttonsWrapper,
+});
+
+reverseToRegistarationPage.addEventListener('click', (): void => {
+  openPage(pathes.registration);
 });
 
 const showLoginPage = (): void => {

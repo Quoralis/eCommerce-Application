@@ -3,7 +3,7 @@ import { clearDom } from '../utils/clearDom.js';
 import { createEl } from '../utils/createElement.js';
 import { showRegistrationPage } from '../pages/registration/registration.js';
 import { showErrorPage } from '../components/errorPage/errorPageStructure.js';
-
+import { header } from '../components/header/headerStructure.js';
 export default class Router {
   private readonly routes: Record<string, () => void>;
   private static instance: Router | null = null;
@@ -38,6 +38,7 @@ export default class Router {
   public initialRender(): void {
     this.render(window.location.pathname);
   }
+
   public navigate(path: string): void {
     history.pushState({}, '', path);
     this.render(path);
@@ -49,6 +50,7 @@ export default class Router {
     if (renderPage) {
       renderPage();
     } else {
+      header.style.display = 'none';
       showErrorPage();
       console.warn(`Not found page: ${path}`);
     }

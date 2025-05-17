@@ -1,9 +1,9 @@
-import { createEl } from '../../utils/createElement';
-import { regForm } from '../../pages/registration/registration';
+import { createEl } from '../../utils/createElement.js';
+import { regForm } from '../../pages/registration/registration.js';
 import {
   INPUT_ATTRIBUTES,
   COUNTRY_VALUES,
-} from '../../constants/registrationConstants';
+} from '../../constants/registrationConstants.js';
 
 export const getCountrySelect = (index: number, callback: () => void) => {
   const countrySelect = createEl({
