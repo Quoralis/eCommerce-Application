@@ -46,6 +46,24 @@ export const createRegInputs = () => {
       });
       legend.textContent = FIELDSET_LEGENDS[i];
 
+      const defaultAddressRadio = createEl({
+        tag: 'input',
+        attributes: {
+          id: FIELDSET_LEGENDS[i].toLowerCase().split(' ').join('-'),
+          type: 'radio',
+          name: 'default-address',
+        },
+        parent: fieldset,
+      });
+      createEl({
+        tag: 'label',
+        text: 'Set as default shipping & billing address',
+        attributes: {
+          for: defaultAddressRadio.id,
+        },
+        parent: fieldset,
+      });
+
       getCountrySelect(i, getErrorTextWrapper);
 
       for (
