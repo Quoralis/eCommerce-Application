@@ -1,11 +1,11 @@
-import { regForm } from '../../pages/registration/registration';
+import { regForm } from '../../pages/registration/registration.js';
 import {
   INPUT_ATTRIBUTES,
   FIELDSET_LEGENDS,
-} from '../../constants/registrationConstants';
-import { createEl } from '../../utils/createElement';
-import { typeCreateElOptions } from '../../types/types';
-import { getCountrySelect } from '../../components/registrationPage/registrationSelect';
+} from '../../constants/registrationConstants.js';
+import { createEl } from '../../utils/createElement.js';
+import { typeCreateElOptions } from '../../types/types.js';
+import { getCountrySelect } from '../../components/registrationPage/registrationSelect.js';
 
 export const createRegInputs = () => {
   const getInputOptions = (index: number, htmlTag: string) => {
