@@ -1,6 +1,7 @@
 import { showLoginPage } from '../components/loginPage/loginStructure.js';
 import { clearDom } from '../utils/clearDom.js';
 import { createEl } from '../utils/createElement.js';
+import { showRegistrationPage } from '../pages/registration/registration.js';
 
 export default class Router {
   private readonly routes: Record<string, () => void>;
@@ -57,5 +58,7 @@ export default class Router {
     showLoginPage();
   }
 
-  private renderRegistrationPage(): void {}
+  private renderRegistrationPage(): void {
+    showRegistrationPage();
+  }
 }

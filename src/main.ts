@@ -5,6 +5,7 @@ import Router from './router/Router.js';
 import { showBurgerMenu } from './components/header/burgerMenu.js';
 import { showHeaderComponent } from './components/header/headerStructure.js';
 import { updateAuthUI } from './utils/auth.js';
+import { loginLink } from './pages/registration/registration.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   showBurgerMenu();
@@ -23,4 +24,5 @@ document.addEventListener('DOMContentLoaded', () => {
       router.navigate(path);
     });
   });
+  loginLink.addEventListener('click', () => router.navigate('/login'));
 });
