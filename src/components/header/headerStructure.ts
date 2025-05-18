@@ -1,5 +1,7 @@
 import { createEl } from '../../utils/createElement.js';
 import img from '../../assets/images/logo.png';
+import { pathes } from '../../constants/pathes.js';
+import { openPage } from '../../pages/openPage.js';
 import Uikit from 'uikit';
 const startNum = 0;
 const limit = 3;
@@ -31,18 +33,25 @@ const generalLinks = createEl({
 const mainBtn = createEl({
   tag: 'a',
   text: 'Main',
+  classes: ['el-nav'],
   parent: generalLinks,
+});
+
+mainBtn.addEventListener('click', (): void => {
+  openPage(pathes.main);
 });
 
 const catalogBtn = createEl({
   tag: 'a',
   text: 'Catalog',
+  classes: ['el-nav'],
   parent: generalLinks,
 });
 
 const aboutBtn = createEl({
   tag: 'a',
   text: 'About',
+  classes: ['el-nav'],
   parent: generalLinks,
 });
 
@@ -54,13 +63,26 @@ const autorisationWrapper = createEl({
 
 const basketBtn = createEl({
   tag: 'a',
-  classes: ['uk-border-rounded', 'uk-button-primary', 'basket-btn'],
+  classes: [
+    'el-nav',
+    'uk-border-rounded' /* , 'uk-button-primary' */,
+    'basket-btn',
+    'icon',
+  ],
   attributes: { 'uk-icon': 'cart' },
   parent: autorisationWrapper,
 });
+
 const profileBtn = createEl({
   tag: 'a',
-  classes: ['uk-border-rounded', 'uk-button-primary', 'profile-btn', 'hidden'],
+  classes: [
+    'uk-border-rounded',
+    'uk-button-primary',
+    'profile-btn',
+    'hidden',
+    'el-nav',
+    'icon',
+  ],
   attributes: { 'uk-icon': 'user' },
   parent: autorisationWrapper,
 });
@@ -68,9 +90,20 @@ const profileBtn = createEl({
 const loginBtn = createEl({
   tag: 'button',
   text: 'Login',
-  classes: ['uk-button', 'uk-border-rounded', 'uk-button-primary', 'login-btn'],
+  classes: [
+    'uk-button',
+    'uk-border-rounded',
+    'uk-button-primary',
+    'login-btn',
+    'el-nav',
+  ],
   parent: autorisationWrapper,
 });
+
+loginBtn.addEventListener('click', (): void => {
+  openPage(pathes.login);
+});
+
 const signOut = createEl({
   tag: 'button',
   text: 'Sign out',
@@ -80,9 +113,14 @@ const signOut = createEl({
     'uk-button-primary',
     'sign-out-btn',
     'hidden',
+    'el-nav',
   ],
   parent: autorisationWrapper,
 });
+
+// signOut.addEventListener('click', (): void => {
+//   localStorage.clear();
+// });
 
 const signBtn = createEl({
   tag: 'button',
@@ -92,8 +130,13 @@ const signBtn = createEl({
     'uk-border-rounded',
     'uk-button-primary',
     'sign-up-btn',
+    'el-nav',
   ],
   parent: autorisationWrapper,
+});
+
+signBtn.addEventListener('click', (): void => {
+  openPage(pathes.registration);
 });
 
 const headerBurgerMenu = createEl({
@@ -121,10 +164,14 @@ for (let i = startNum; i < limit; i++) {
   createLine();
 }
 
+const closeHeaderBurger = (): void => {
+  Uikit.offcanvas('#offcanvas-flip').hide();
+  headerBurgerMenu.classList.remove('open');
+};
+
 window.addEventListener('resize', (): void => {
   if (window.innerWidth > 700) {
-    Uikit.offcanvas('#offcanvas-flip').hide();
-    headerBurgerMenu.classList.remove('open');
+    closeHeaderBurger();
   }
 });
 
@@ -136,9 +183,36 @@ const cloneLoginBtn = loginBtn.cloneNode(true);
 const cloneSignBtn = signBtn.cloneNode(true);
 const cloneSignOut = signOut.cloneNode(true);
 const cloneProfileBtn = profileBtn.cloneNode(true);
+
+cloneMainBtn.addEventListener('click', (): void => {
+  openPage(pathes.main);
+});
+
+cloneLoginBtn.addEventListener('click', (): void => {
+  openPage(pathes.login);
+});
+
+cloneSignBtn.addEventListener('click', (): void => {
+  openPage(pathes.registration);
+});
+
 const showHeaderComponent = (): void => {
   document.body.append(header);
 };
+
+setTimeout(() => {
+  document.querySelectorAll('.icon').forEach((el) => {
+    el.addEventListener('click', closeHeaderBurger);
+  });
+}, 50);
+
+document.addEventListener('click', (event: Event): void => {
+  if (event.target instanceof HTMLElement) {
+    if (event.target.classList.contains('el-nav')) {
+      closeHeaderBurger();
+    }
+  }
+});
 
 export {
   cloneMainBtn,
@@ -151,4 +225,9 @@ export {
   showHeaderComponent,
   headerBurgerMenu,
   cloneProfileBtn,
+  mainBtn,
+  signBtn,
+  loginBtn,
+  closeHeaderBurger,
+  header,
 };

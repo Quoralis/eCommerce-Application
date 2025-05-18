@@ -5,12 +5,13 @@ import {
   loginType,
   submitLoginForm,
 } from './authorization.js';
+import { pathes } from '../../constants/pathes.js';
+import { openPage } from '../../pages/openPage.js';
 const loginPageWrapper = createEl({
   tag: 'div',
   classes: [
     'login-page-wrapper',
     'uk-flex',
-    'uk-height-1-1',
     'uk-flex-middle',
     'uk-flex-center',
   ],
@@ -142,11 +143,15 @@ buttonSubmitLogin.addEventListener('click', async (): Promise<void> => {
   await submitLoginForm(inputEmail.value, inputPassword.value);
 });
 
-createEl({
+const reverseToRegistarationPage = createEl({
   tag: 'a',
-  classes: ['uk-link', 'login-link'],
+  classes: ['uk-link', 'login-link', 'sign-up-btn'],
   text: 'Don’t have account? Sign Up',
   parent: buttonsWrapper,
+});
+
+reverseToRegistarationPage.addEventListener('click', (): void => {
+  openPage(pathes.registration);
 });
 
 const showLoginPage = (): void => {
@@ -162,4 +167,5 @@ export {
   iconEyeSlash,
   passwordWrapper,
   showLoginPage,
+  reverseToRegistarationPage,
 };

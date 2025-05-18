@@ -2,7 +2,8 @@ import { createEl } from '../../utils/createElement.js';
 import { validateInput } from '../../services/validators/registrationValidation.js';
 import { createRegInputs } from '../../components/registrationPage/registrationInputs.js';
 import { submitForm } from '../../services/validators/registrationValidation.js';
-
+import { openPage } from '../openPage.js';
+import { pathes } from '../../constants/pathes.js';
 const regWrapper = createEl({
   tag: 'div',
   classes: ['registration'],
@@ -44,9 +45,13 @@ submitBtn.addEventListener('click', (event) => {
 
 export const loginLink = createEl({
   tag: 'a',
-  classes: ['link', 'registration__login-link', 'uk-link'],
+  classes: ['link-registaration', 'registration__login-link', 'uk-link'],
   text: 'Already have an account? Log In',
   parent: regWrapper,
+});
+
+loginLink.addEventListener('click', (): void => {
+  openPage(pathes.login);
 });
 
 export const showRegistrationPage = () => {
