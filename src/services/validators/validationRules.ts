@@ -10,7 +10,7 @@ export const regValidationRules: IRegValidationRules = {
     errMessage: 'Invalid email format',
   },
   'birth-date': {
-    regExp: /^\d{4}\-\d{2}\.\d{2}$/,
+    regExp: /^\d{4}\-\d{2}\-\d{2}$/,
     errMessage: 'Birth date must be in YYYY-MM-DD format',
   },
   password: {
