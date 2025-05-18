@@ -1,8 +1,15 @@
 import { createEl } from '../../utils/createElement.js';
-
+import { pathes } from '../../constants/pathes.js';
+import { openPage } from '../../pages/openPage.js';
+import { header } from '../header/headerStructure.js';
 const errorPageWrapper = createEl({
   tag: 'div',
-  classes: ['uk-flex', 'uk-flex-center', 'uk-flex-middle', 'uk-height-1-1'],
+  classes: [
+    'uk-flex',
+    'uk-flex-center',
+    'uk-flex-middle',
+    'uk-height-viewport',
+  ],
 });
 
 createEl({
@@ -31,13 +38,21 @@ createEl({
   parent: containerInf,
 });
 
-createEl({
+const backToMainBtn = createEl({
   tag: 'button',
   text: 'Back to Main',
   classes: ['uk-button', 'uk-border-rounded', 'uk-button-primary'],
   parent: containerInf,
 });
 
-// const showErrorPage = (): void => {
-//   document.body.append(errorPageWrapper);
-// };
+backToMainBtn.addEventListener('click', (): void => {
+  openPage(pathes.main);
+  header.style.display = 'flex';
+});
+
+export const showErrorPage = (): void => {
+  const main = document.querySelector('main');
+  main?.append(errorPageWrapper);
+};
+
+export { backToMainBtn };

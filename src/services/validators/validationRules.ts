@@ -10,12 +10,16 @@ export const regValidationRules: IRegValidationRules = {
     errMessage: 'Invalid email format',
   },
   'birth-date': {
-    regExp: /^\d{4}\-\d{2}\.\d{2}$/,
+    regExp: /^\d{4}\-\d{2}\-\d{2}$/,
     errMessage: 'Birth date must be in YYYY-MM-DD format',
   },
   password: {
     regExp: /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?!.*\s).{8,}$/,
     errMessage: 'Must contain 8+ chars with uppercase, lowercase & digit',
+  },
+  country: {
+    regExp: /^DE$/,
+    errMessage: '',
   },
   street: {
     regExp: /^\S+$/,
@@ -29,6 +33,8 @@ export const regValidationRules: IRegValidationRules = {
 
 export const specialRulesForId: Record<string, string> = {
   'last-name': 'name',
+  'country-1': 'country',
+  'country-2': 'country',
   'city-1': 'name',
   'city-2': 'name',
   'street-1': 'street',
