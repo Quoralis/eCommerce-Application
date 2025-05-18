@@ -20,6 +20,7 @@ interface UserFormValues {
   dateOfBirth?: string;
   addresses?: BaseAddress[];
 }
+
 interface BaseAddress {
   city: string;
   country: string;
@@ -41,4 +42,17 @@ interface IValidationRule {
 
 export interface IRegValidationRules {
   [key: string]: IValidationRule;
+}
+
+export interface Customer {
+  id: string;
+  version?: number;
+  email?: string;
+  firstName?: string;
+  lastName?: string;
+  dateOfBirth?: string;
+}
+
+export interface CustomerSearchResponse {
+  results: Customer[];
 }
