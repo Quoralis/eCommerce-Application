@@ -79,7 +79,12 @@ inputEmail.addEventListener('input', (event: Event): void => {
 
 const errorMessageEmail = createEl({
   tag: 'span',
-  classes: ['uk-text-small', 'uk-margin-xsmall-left', 'email-error'],
+  classes: [
+    'uk-text-small',
+    'uk-margin-xsmall-left',
+    'email-error',
+    'uk-text-danger',
+  ],
   parent: inputsForm,
 });
 
@@ -104,6 +109,7 @@ const inputPassword = <HTMLInputElement>createEl({
   attributes: {
     placeholder: 'Password',
     type: 'password',
+    autocomplete: 'current-password',
   },
   parent: passwordWrapper,
 });
@@ -116,7 +122,12 @@ inputPassword.addEventListener('input', (event: Event): void => {
 
 const errorMessagePassword = createEl({
   tag: 'span',
-  classes: ['uk-text-small', 'uk-margin-xsmall-left', 'password-error'],
+  classes: [
+    'uk-text-small',
+    'uk-margin-xsmall-left',
+    'password-error',
+    'uk-text-danger',
+  ],
   parent: inputsForm,
 });
 
@@ -145,7 +156,7 @@ buttonSubmitLogin.addEventListener('click', async (): Promise<void> => {
 
 const reverseToRegistarationPage = createEl({
   tag: 'a',
-  classes: ['uk-link', 'login-link', 'sign-up-btn'],
+  classes: ['uk-link', 'login-link', 'sign-up-btn', 'uk-text-center'],
   text: 'Don’t have account? Sign Up',
   parent: buttonsWrapper,
 });
