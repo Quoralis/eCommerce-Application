@@ -184,6 +184,18 @@ const cloneSignBtn = signBtn.cloneNode(true);
 const cloneSignOut = signOut.cloneNode(true);
 const cloneProfileBtn = profileBtn.cloneNode(true);
 
+cloneMainBtn.addEventListener('click', (): void => {
+  openPage(pathes.main);
+});
+
+cloneLoginBtn.addEventListener('click', (): void => {
+  openPage(pathes.login);
+});
+
+cloneSignBtn.addEventListener('click', (): void => {
+  openPage(pathes.registration);
+});
+
 const showHeaderComponent = (): void => {
   document.body.append(header);
 };
