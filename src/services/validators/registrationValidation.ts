@@ -45,7 +45,6 @@ export const validateInput = (e: Event) => {
       child.matches('.registration__input')
     );
     regFormInputs.forEach((inputEl) => verifyInput(inputEl));
-    regFormInputs.every((input) => verifyInput(input));
 
     const registerClient = async () => {
       const getFormData = () => {
@@ -101,7 +100,11 @@ export const validateInput = (e: Event) => {
         bearerToken: registrationToken,
       });
     };
-    registerClient();
+
+    const isValidForm = regFormInputs.every((input) => verifyInput(input));
+    if (isValidForm) {
+      registerClient();
+    }
   } else if (e.type === 'change') {
     if (
       e.target instanceof HTMLInputElement ||
