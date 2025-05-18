@@ -17,6 +17,10 @@ export const regValidationRules: IRegValidationRules = {
     regExp: /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?!.*\s).{8,}$/,
     errMessage: 'Must contain 8+ chars with uppercase, lowercase & digit',
   },
+  country: {
+    regExp: /^DE$/,
+    errMessage: '',
+  },
   street: {
     regExp: /^\S+$/,
     errMessage: 'Street must contain 1+ chars',
@@ -29,6 +33,8 @@ export const regValidationRules: IRegValidationRules = {
 
 export const specialRulesForId: Record<string, string> = {
   'last-name': 'name',
+  'country-1': 'country',
+  'country-2': 'country',
   'city-1': 'name',
   'city-2': 'name',
   'street-1': 'street',
