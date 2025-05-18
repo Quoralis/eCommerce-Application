@@ -5,15 +5,15 @@ import { submitForm } from '../../services/validators/registrationValidation.js'
 import { openPage } from '../openPage.js';
 import { pathes } from '../../constants/pathes.js';
 
-const containerRegistaration = createEl({
+const containerRegistration = createEl({
   tag: 'div',
-  classes: ['uk-height-1-1', 'container-registaration'],
+  classes: ['uk-height-1-1', 'container-registration'],
 });
 
 const regWrapper = createEl({
   tag: 'div',
   classes: ['registration'],
-  parent: containerRegistaration,
+  parent: containerRegistration,
 });
 
 createEl({
@@ -67,5 +67,5 @@ loginLink.addEventListener('click', (): void => {
 });
 
 export const showRegistrationPage = () => {
-  document.querySelector('main')?.append(containerRegistaration);
+  document.querySelector('main')?.append(containerRegistration);
 };
