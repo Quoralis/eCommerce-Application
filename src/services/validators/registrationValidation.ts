@@ -95,7 +95,7 @@ export const validateInput = (e: Event) => {
       const registrationData = getFormData();
       const registrationToken = await requestBearerToken();
 
-      registerCustomer({
+      await registerCustomer({
         userData: registrationData,
         bearerToken: registrationToken,
       });
