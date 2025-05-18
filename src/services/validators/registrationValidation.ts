@@ -1,10 +1,19 @@
 import { createEl } from '../../utils/createElement.js';
 import { regValidationRules, specialRulesForId } from './validationRules.js';
 import { regForm } from '../../pages/registration/registration.js';
+import { registerCustomer } from '../../clients/customerClient.js';
+import { requestBearerToken } from '../../clients/authClient.js';
+import {
+  ModifiedUserFormValues,
+  PartialBaseAddress,
+} from '../../types/types.js';
 
 export const validateInput = (e: Event) => {
-  const checkInputValue = (input: Element) => {
-    if (input instanceof HTMLInputElement) {
+  const verifyInput = (input: Element) => {
+    if (
+      input instanceof HTMLInputElement ||
+      input instanceof HTMLSelectElement
+    ) {
       const inputId = input.id;
       const inputValue = input.value.trim();
       let validationRule;
@@ -24,27 +33,88 @@ export const validateInput = (e: Event) => {
 
       if (!isValidInput) {
         showRegError(input, errorMessage);
+        return false;
       }
     }
+
+    return true;
   };
 
   if (e.type === 'click') {
-    for (let i = 0; i < regForm.children.length; i++) {
-      if (regForm.children[i].matches('.registration__input')) {
-        const inputEl = regForm.children[i];
-        checkInputValue(inputEl);
-      }
-    }
+    const regFormInputs = [...regForm.children].filter((child) =>
+      child.matches('.registration__input')
+    );
+    regFormInputs.forEach((inputEl) => verifyInput(inputEl));
+    regFormInputs.every((input) => verifyInput(input));
+
+    const registerClient = async () => {
+      const getFormData = () => {
+        const formValues = regFormInputs.map((input) => {
+          if (
+            input instanceof HTMLInputElement ||
+            input instanceof HTMLSelectElement
+          ) {
+            return input.value;
+          }
+        });
+
+        const clientData: ModifiedUserFormValues = {
+          email: '',
+          password: '',
+          addresses: [],
+        };
+
+        const mainInputs: (keyof ModifiedUserFormValues)[] = [
+          'firstName',
+          'lastName',
+          'email',
+          'dateOfBirth',
+          'password',
+        ];
+        mainInputs.forEach((key, index) => {
+          const value = formValues[index] ?? '';
+          clientData[key] = value;
+        });
+
+        for (let i = 0; i < 2; i++) {
+          const address: PartialBaseAddress = {};
+          const addressInputs = ['country', 'city', 'streetName', 'postalCode'];
+          const addressesIndex = 5;
+          const startIndex = addressesIndex + i * addressInputs.length;
+
+          addressInputs.forEach((value, index) => {
+            address[value] = formValues[startIndex + index];
+          });
+
+          if (Array.isArray(clientData.addresses)) {
+            clientData.addresses?.push(address);
+          }
+        }
+        return clientData;
+      };
+
+      const registrationData = getFormData();
+      const registrationToken = await requestBearerToken();
+
+      registerCustomer({
+        userData: registrationData,
+        bearerToken: registrationToken,
+      });
+    };
+    registerClient();
   } else if (e.type === 'change') {
-    if (e.target instanceof HTMLInputElement) {
+    if (
+      e.target instanceof HTMLInputElement ||
+      e.target instanceof HTMLSelectElement
+    ) {
       const input = e.target;
-      checkInputValue(input);
+      verifyInput(input);
     }
   }
 };
 
 export const showRegError = (
-  inputEl: HTMLInputElement,
+  inputEl: HTMLInputElement | HTMLSelectElement,
   errText: string | undefined
 ) => {
   const inputErrText = createEl({

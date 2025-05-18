@@ -12,7 +12,7 @@ export interface TokenResponse {
   refresh_token: string;
 }
 
-interface UserFormValues {
+export interface UserFormValues {
   email: string;
   password: string;
   firstName?: string;
@@ -43,6 +43,14 @@ interface IValidationRule {
 export interface IRegValidationRules {
   [key: string]: IValidationRule;
 }
+
+export type PartialBaseAddress = Partial<BaseAddress> & {
+  [key: string]: string | undefined;
+};
+
+export type ModifiedUserFormValues = Omit<UserFormValues, 'addresses'> & {
+  [key: string]: string | PartialBaseAddress[];
+};
 
 export interface Customer {
   id: string;
