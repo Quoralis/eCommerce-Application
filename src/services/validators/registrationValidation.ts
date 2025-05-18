@@ -7,6 +7,7 @@ import {
   PartialBaseAddress,
 } from '../../types/types.js';
 import { toggleValidationNotification } from '../notification/validationNotification.js';
+import { showNotification } from '../notification/showNotification.js';
 
 export const validateInput = (e: Event) => {
   const verifyInput = (input: Element) => {
@@ -95,10 +96,17 @@ export const validateInput = (e: Event) => {
       const registrationData = getFormData();
       const registrationToken = await requestBearerToken();
 
-      await registerCustomer({
+      const userData = await registerCustomer({
         userData: registrationData,
         bearerToken: registrationToken,
       });
+
+      if (userData.id && userData.version) {
+        showNotification(
+          'Your account has been successfully registered',
+          'success'
+        );
+      }
     };
 
     const isValidForm = regFormInputs.every((input) => verifyInput(input));
