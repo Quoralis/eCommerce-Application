@@ -11,11 +11,13 @@ export async function wrapperTryCatch<T = unknown>(
     const data = (await res.json()) as T;
     return data;
   } catch (err: unknown) {
+    /*
     if (err instanceof Error) {
       console.error('API Error:', err);
     } else {
       console.error('API Error: Unknown', err);
     }
+    */
     throw err;
   }
 }
