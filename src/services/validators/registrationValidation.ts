@@ -1,23 +1,44 @@
 import { createEl } from '../../utils/createElement.js';
 import { regValidationRules, specialRulesForId } from './validationRules.js';
+import { regForm } from '../../pages/registration/registration.js';
 
-export const checkInputValue = (e: Event) => {
-  if (e.target instanceof HTMLInputElement) {
-    const inputId = e.target.id;
-    const inputValue = e.target.value.trim();
-    let validationRule;
+export const validateInput = (e: Event) => {
+  const checkInputValue = (input: Element) => {
+    if (input instanceof HTMLInputElement) {
+      const inputId = input.id;
+      const inputValue = input.value.trim();
+      let validationRule;
 
-    if (inputId in regValidationRules) {
-      validationRule = regValidationRules[inputId];
-    } else if (inputId in specialRulesForId) {
-      const inputRule = specialRulesForId[inputId];
-      validationRule = regValidationRules[inputRule];
+      if (inputId in regValidationRules) {
+        validationRule = regValidationRules[inputId];
+      } else if (inputId in specialRulesForId) {
+        const inputRule = specialRulesForId[inputId];
+        validationRule = regValidationRules[inputRule];
+      }
+
+      const isValidInput = validationRule?.regExp.test(inputValue);
+      const errorMessage =
+        inputValue === ''
+          ? 'This field is required'
+          : validationRule?.errMessage;
+
+      if (!isValidInput) {
+        showRegError(input, errorMessage);
+      }
     }
-    const errorMessage = validationRule?.errMessage;
-    const isValidInput = validationRule?.regExp.test(inputValue);
+  };
 
-    if (!isValidInput) {
-      showRegError(e.target, errorMessage);
+  if (e.type === 'click') {
+    for (let i = 0; i < regForm.children.length; i++) {
+      if (regForm.children[i].matches('.registration__input')) {
+        const inputEl = regForm.children[i];
+        checkInputValue(inputEl);
+      }
+    }
+  } else if (e.type === 'change') {
+    if (e.target instanceof HTMLInputElement) {
+      const input = e.target;
+      checkInputValue(input);
     }
   }
 };
@@ -60,4 +81,6 @@ export const showRegError = (
 
 export const submitForm = (e: Event) => {
   e.preventDefault();
+
+  validateInput(e);
 };

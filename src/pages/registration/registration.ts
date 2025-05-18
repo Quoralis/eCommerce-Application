@@ -1,12 +1,12 @@
 import { createEl } from '../../utils/createElement.js';
-import { checkInputValue } from '../../services/validators/registrationValidation.js';
+import { validateInput } from '../../services/validators/registrationValidation.js';
 import { createRegInputs } from '../../components/registrationPage/registrationInputs.js';
 import { submitForm } from '../../services/validators/registrationValidation.js';
-
+import { openPage } from '../openPage.js';
+import { pathes } from '../../constants/pathes.js';
 const regWrapper = createEl({
   tag: 'div',
   classes: ['registration'],
-  parent: document.body,
 });
 
 createEl({
@@ -26,7 +26,7 @@ export const regForm = createEl({
 });
 
 regForm.addEventListener('change', (event) => {
-  checkInputValue(event);
+  validateInput(event);
 });
 
 createRegInputs();
@@ -43,12 +43,17 @@ submitBtn.addEventListener('click', (event) => {
   submitForm(event);
 });
 
-createEl({
+export const loginLink = createEl({
   tag: 'a',
-  classes: ['link'],
+  classes: ['link-registaration', 'registration__login-link', 'uk-link'],
   text: 'Already have an account? Log In',
-  attributes: {
-    href: '#',
-  },
   parent: regWrapper,
 });
+
+loginLink.addEventListener('click', (): void => {
+  openPage(pathes.login);
+});
+
+export const showRegistrationPage = () => {
+  document.querySelector('main')?.append(regWrapper);
+};
