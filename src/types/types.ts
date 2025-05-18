@@ -20,6 +20,7 @@ export interface UserFormValues {
   dateOfBirth?: string;
   addresses?: BaseAddress[];
 }
+
 interface BaseAddress {
   city: string;
   country: string;
@@ -50,3 +51,16 @@ export type PartialBaseAddress = Partial<BaseAddress> & {
 export type ModifiedUserFormValues = Omit<UserFormValues, 'addresses'> & {
   [key: string]: string | PartialBaseAddress[];
 };
+
+export interface Customer {
+  id: string;
+  version?: number;
+  email?: string;
+  firstName?: string;
+  lastName?: string;
+  dateOfBirth?: string;
+}
+
+export interface CustomerSearchResponse {
+  results: Customer[];
+}

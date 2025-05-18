@@ -7,6 +7,7 @@ import { login } from '../../services/authService.js';
 import { RegistrationLoginData } from '../../types/types.js';
 import { showNotification } from '../../services/notification/showNotification.js';
 import { updateAuthUI } from '../../utils/auth.js';
+import { getCustomerByEmail } from '../../clients/customerSearchClient.js';
 
 export enum loginType {
   email = 'email',
@@ -44,13 +45,28 @@ export const submitLoginForm = async (
     userAllData.userData.email = inputEmail;
     userAllData.userData.password = inputPassword;
     try {
-      const token = await login(userAllData);
-      if (token) {
-        localStorage.setItem('accessToken', token);
-        updateAuthUI();
+      const errorMailElement = document.querySelector('.email-error');
+      const errorPasswordElement = document.querySelector('.password-error');
+      const bearerToken = localStorage.getItem('bearerToken');
+      if (!bearerToken) {
+        showNotification("Can't get bearer token", 'danger');
+        return;
       }
-    } catch {
-      showNotification('something went wrong', 'danger');
+      const customers = await getCustomerByEmail(bearerToken, inputEmail);
+      if (customers.length === 0 && errorMailElement) {
+        errorMailElement.textContent = 'Invalid email';
+        return;
+      }
+      const accessToken = await login(userAllData);
+      if (accessToken) {
+        localStorage.setItem('accessToken', accessToken);
+        updateAuthUI();
+      } else {
+        if (errorPasswordElement)
+          errorPasswordElement.textContent = 'Invalid password';
+      }
+    } catch (err: unknown) {
+      console.log(err, 'warning');
     }
   }
 };
