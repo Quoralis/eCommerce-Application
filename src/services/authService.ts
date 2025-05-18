@@ -19,14 +19,11 @@ export async function login(data: RegistrationLoginData) {
     tokenCache.accessToken = response.access_token;
     tokenCache.refreshToken = response.refresh_token;
     tokenCache.timeEndTokenMs = Date.now() + response.expires_in * 1000; // в мс переводим
-    console.log('Authentication success,Token: ', response.access_token);
     return tokenCache.accessToken;
   } catch (err) {
     if (err instanceof Error) {
-      const errorParse = parseError(err.message);
-      console.log('loginError', errorParse.errors[0].message); //сделать вывод на страницу
+      console.log(err);
     }
-    throw err;
   }
 }
 

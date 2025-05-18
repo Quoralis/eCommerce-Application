@@ -79,7 +79,7 @@ inputEmail.addEventListener('input', (event: Event): void => {
 
 const errorMessageEmail = createEl({
   tag: 'span',
-  classes: ['uk-text-small', 'uk-margin-xsmall-left'],
+  classes: ['uk-text-small', 'uk-margin-xsmall-left', 'email-error'],
   parent: inputsForm,
 });
 
@@ -116,7 +116,7 @@ inputPassword.addEventListener('input', (event: Event): void => {
 
 const errorMessagePassword = createEl({
   tag: 'span',
-  classes: ['uk-text-small', 'uk-margin-xsmall-left'],
+  classes: ['uk-text-small', 'uk-margin-xsmall-left', 'password-error'],
   parent: inputsForm,
 });
 
