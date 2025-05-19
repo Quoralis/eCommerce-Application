@@ -1,7 +1,8 @@
-import { requestLoginToken } from '../clients/authClient.js';
+import { requestLoginToken, revokeAccessToken } from '../clients/authClient.js';
 import { RegistrationLoginData } from '../types/types.js';
 import { registerCustomer } from '../clients/customerClient.js';
 import { parseError } from '../utils/parseError.js';
+import { updateAuthUI } from '../utils/auth.js';
 
 //cache token
 const tokenCache = {
@@ -38,5 +39,16 @@ export async function registerAndLogin(data: RegistrationLoginData) {
       console.error('Registration/Login failed', errorParse.errors[0].message); //  сделать вывод на страницу
     }
     throw err;
+  }
+}
+
+export async function logOut(): Promise<void> {
+  const accessToken = localStorage.getItem('accessToken');
+  if (!accessToken) return;
+  const statusRevokeToken: number | undefined =
+    await revokeAccessToken(accessToken);
+  if (statusRevokeToken === 200) {
+    localStorage.removeItem('accessToken');
+    updateAuthUI();
   }
 }
