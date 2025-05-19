@@ -1,4 +1,5 @@
 import { createEl } from '../../utils/createElement.js';
+import { validateDate } from '../validators/dateValidation.js';
 
 export const toggleValidationNotification = (
   inputEl: HTMLInputElement | HTMLSelectElement,
@@ -24,14 +25,31 @@ export const toggleValidationNotification = (
   setTimeout(() => {
     error?.classList.add('registration__error_active');
   }, 0);
-  inputEl?.addEventListener(
-    'input',
-    () => {
-      inputErrText.classList.remove('registration__error_active');
-      setTimeout(() => {
-        error?.remove();
-      }, 300);
-    },
-    { once: true }
-  );
+
+  if (inputEl.id !== 'birth-date') {
+    inputEl?.addEventListener(
+      'input',
+      () => {
+        inputErrText.classList.remove('registration__error_active');
+        setTimeout(() => {
+          error?.remove();
+        }, 300);
+      },
+      { once: true }
+    );
+  } else {
+    inputEl.addEventListener(
+      'change',
+      () => {
+        const isValid = validateDate();
+        if (isValid) {
+          inputErrText.classList.remove('registration__error_active');
+          setTimeout(() => {
+            error?.remove();
+          }, 300);
+        }
+      },
+      { once: true }
+    );
+  }
 };
