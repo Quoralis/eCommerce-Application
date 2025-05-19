@@ -55,6 +55,7 @@ fieldset {
     height: 40px;
     border-radius: 8px;
     color: $dark-color;
+    transition: .3s;
 
     &:nth-last-child(2) {
       margin-bottom: 32px;
