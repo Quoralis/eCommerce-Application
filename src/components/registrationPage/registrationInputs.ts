@@ -7,6 +7,7 @@ import { createEl } from '../../utils/createElement.js';
 import { typeCreateElOptions } from '../../types/types.js';
 import { getCountrySelect } from '../../components/registrationPage/registrationSelect.js';
 import { copyAddressValues } from '../../components/registrationPage/selectedDefaultAddress.js';
+import { validateDate } from '../../services/validators/dateValidation.js';
 
 export const createRegInputs = () => {
   const getInputOptions = (index: number, htmlTag: string) => {
@@ -35,6 +36,10 @@ export const createRegInputs = () => {
     if (i === 3 && input instanceof HTMLInputElement) {
       input.addEventListener('focus', () => (input.type = 'date'));
       input.addEventListener('blur', () => (input.type = 'text'));
+
+      input.addEventListener('change', () => {
+        validateDate();
+      });
     }
   }
 

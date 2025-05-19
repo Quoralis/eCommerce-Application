@@ -10,6 +10,7 @@ import { showNotification } from '../notification/showNotification.js';
 import { getDefaultAddress } from '../../components/registrationPage/selectedDefaultAddress.js';
 import { registerAndLogin } from '../../services/authService.js';
 import { updateAuthUI } from '../../utils/auth.js';
+import { validateDate } from '../validators/dateValidation.js';
 
 export const validateInput = (e: Event) => {
   const verifyInput = (input: Element) => {
@@ -28,7 +29,15 @@ export const validateInput = (e: Event) => {
         validationRule = regValidationRules[inputRule];
       }
 
-      const isValidInput = validationRule?.regExp.test(inputValue);
+      let isValidInput;
+
+      if (inputId !== 'birth-date') {
+        isValidInput = validationRule?.regExp.test(inputValue);
+      } else {
+        const isCorrect = validateDate();
+        isValidInput = inputValue && isCorrect;
+      }
+
       const errorMessage =
         inputValue === ''
           ? 'This field is required'
