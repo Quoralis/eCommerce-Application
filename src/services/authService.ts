@@ -32,6 +32,7 @@ export async function registerAndLogin(data: RegistrationLoginData) {
   try {
     const customerID = await registerCustomer(data);
     const accessToken = await login(data);
+    updateAuthUI();
     return { customerID, accessToken };
   } catch (err) {
     if (err instanceof Error) {
