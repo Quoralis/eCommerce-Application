@@ -1,6 +1,5 @@
 import { regValidationRules, specialRulesForId } from './validationRules.js';
 import { regForm } from '../../pages/registration/registration.js';
-import { requestBearerToken } from '../../clients/authClient.js';
 import {
   ModifiedUserFormValues,
   PartialBaseAddress,
@@ -11,6 +10,7 @@ import { getDefaultAddress } from '../../components/registrationPage/selectedDef
 import { registerAndLogin } from '../../services/authService.js';
 import { updateAuthUI } from '../../utils/auth.js';
 import { validateDate } from '../validators/dateValidation.js';
+import { getCustomerByEmail } from '../../clients/customerSearchClient.js';
 
 export const validateInput = (e: Event) => {
   const verifyInput = (input: Element) => {
@@ -112,25 +112,33 @@ export const validateInput = (e: Event) => {
       };
 
       const registrationData = getFormData();
-      const registrationToken = await requestBearerToken();
-
-      const userData = await registerAndLogin({
-        userData: registrationData,
-        bearerToken: registrationToken,
-      });
-
-      if (userData.accessToken && userData.customerID) {
-        showNotification(
-          'Your account has been successfully registered',
-          'success'
-        );
-        localStorage.setItem('accessToken', userData.accessToken);
-        updateAuthUI();
-      } else {
-        showNotification(
-          'Customer with this email already exists. Try to log in or use another email',
-          'danger'
-        );
+      const registrationToken = localStorage.getItem('bearerToken');
+      if (registrationData && registrationToken) {
+        const customers = await getCustomerByEmail(registrationData.email);
+        if (customers.length !== 0) {
+          showNotification(
+            'Customer with this email already exists. Try to log in or use another email',
+            'danger'
+          );
+          return;
+        }
+        const userData = await registerAndLogin({
+          userData: registrationData,
+          bearerToken: registrationToken,
+        });
+        if (userData.accessToken && userData.customerID) {
+          showNotification(
+            'Your account has been successfully registered',
+            'success'
+          );
+          localStorage.setItem('accessToken', userData.accessToken);
+          updateAuthUI();
+        } else {
+          showNotification(
+            'Customer with this email already exists. Try to log in or use another email',
+            'danger'
+          );
+        }
       }
     };
 
