@@ -10,7 +10,6 @@ const regExp = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
 const regExpAZ = /[A-Z]+/;
 const regExpAZLowerCase = /[a-z]+/;
 const regExpNumbers = /[0-9]+/;
-const regExpSpecialCharacter = /[@#$%^&*()!]+/;
 const limitSymbols = 8;
 const firstSymbol = 0;
 const lastSymbol = 1;
@@ -71,8 +70,6 @@ export const isValidPassword = (text: string): void => {
     errorMessage = 'password need 1 a-z';
   } else if (!regExpNumbers.test(text)) {
     errorMessage = 'password need number 0-9';
-  } else if (!regExpSpecialCharacter.test(text)) {
-    errorMessage = 'password need 1 special character: @#$%^&*()!';
   }
   if (text[firstSymbol] === ' ') {
     errorMessage = 'the beginning cannot start with a space';
