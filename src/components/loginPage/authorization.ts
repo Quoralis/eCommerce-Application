@@ -5,7 +5,6 @@ import {
 } from '../../services/validators/validationInputs.js';
 import { login } from '../../services/authService.js';
 import { RegistrationLoginData } from '../../types/types.js';
-import { showNotification } from '../../services/notification/showNotification.js';
 import { updateAuthUI } from '../../utils/auth.js';
 import { getCustomerByEmail } from '../../clients/customerSearchClient.js';
 
@@ -47,12 +46,8 @@ export const submitLoginForm = async (
     try {
       const errorMailElement = document.querySelector('.email-error');
       const errorPasswordElement = document.querySelector('.password-error');
-      const bearerToken = localStorage.getItem('bearerToken');
-      if (!bearerToken) {
-        showNotification("Can't get bearer token", 'danger');
-        return;
-      }
-      const customers = await getCustomerByEmail(bearerToken, inputEmail);
+
+      const customers = await getCustomerByEmail(inputEmail);
       if (customers.length === 0 && errorMailElement) {
         errorMailElement.textContent = 'Invalid email, try again';
         return;
