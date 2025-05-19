@@ -1,6 +1,5 @@
 import { regValidationRules, specialRulesForId } from './validationRules.js';
 import { regForm } from '../../pages/registration/registration.js';
-import { registerCustomer } from '../../clients/customerClient.js';
 import { requestBearerToken } from '../../clients/authClient.js';
 import {
   ModifiedUserFormValues,
@@ -9,6 +8,7 @@ import {
 import { toggleValidationNotification } from '../notification/validationNotification.js';
 import { showNotification } from '../notification/showNotification.js';
 import { getDefaultAddress } from '../../components/registrationPage/selectedDefaultAddress.js';
+import { registerAndLogin } from '../../services/authService.js';
 
 export const validateInput = (e: Event) => {
   const verifyInput = (input: Element) => {
@@ -104,12 +104,12 @@ export const validateInput = (e: Event) => {
       const registrationData = getFormData();
       const registrationToken = await requestBearerToken();
 
-      const userData = await registerCustomer({
+      const userData = await registerAndLogin({
         userData: registrationData,
         bearerToken: registrationToken,
       });
 
-      if (userData.id && userData.version) {
+      if (userData.accessToken && userData.customerID) {
         showNotification(
           'Your account has been successfully registered',
           'success'

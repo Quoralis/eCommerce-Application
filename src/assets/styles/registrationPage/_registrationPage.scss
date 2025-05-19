@@ -55,7 +55,7 @@ fieldset {
     height: 40px;
     border-radius: 8px;
     color: $dark-color;
-    transition: .3s;
+    transition: 0.3s;
 
     &:nth-last-child(2) {
       margin-bottom: 32px;
@@ -78,6 +78,10 @@ fieldset {
       height: 24px;
       padding: 0 2px 3px;
     }
+  }
+
+  &__default-address {
+    margin-bottom: 24px;
   }
 
   .button {
