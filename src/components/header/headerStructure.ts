@@ -192,6 +192,10 @@ cloneSignBtn.addEventListener('click', (): void => {
   openPage(pathes.registration);
 });
 
+cloneSignOut.addEventListener('click', async (): Promise<void> => {
+  await logOut();
+});
+
 const showHeaderComponent = (): void => {
   document.body.append(header);
 };
