@@ -6,6 +6,7 @@ import {
 import { createEl } from '../../utils/createElement.js';
 import { typeCreateElOptions } from '../../types/types.js';
 import { getCountrySelect } from '../../components/registrationPage/registrationSelect.js';
+import { copyAddressValues } from '../../components/registrationPage/selectedDefaultAddress.js';
 
 export const createRegInputs = () => {
   const getInputOptions = (index: number, htmlTag: string) => {
@@ -55,6 +56,9 @@ export const createRegInputs = () => {
           name: 'default-address',
         },
         parent: fieldset,
+      });
+      defaultAddressRadio.addEventListener('change', (event) => {
+        copyAddressValues(event);
       });
       createEl({
         tag: 'label',
