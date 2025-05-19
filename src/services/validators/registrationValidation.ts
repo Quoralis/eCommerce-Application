@@ -9,6 +9,7 @@ import { toggleValidationNotification } from '../notification/validationNotifica
 import { showNotification } from '../notification/showNotification.js';
 import { getDefaultAddress } from '../../components/registrationPage/selectedDefaultAddress.js';
 import { registerAndLogin } from '../../services/authService.js';
+import { updateAuthUI } from '../../utils/auth.js';
 
 export const validateInput = (e: Event) => {
   const verifyInput = (input: Element) => {
@@ -113,6 +114,13 @@ export const validateInput = (e: Event) => {
         showNotification(
           'Your account has been successfully registered',
           'success'
+        );
+        localStorage.setItem('accessToken', userData.accessToken);
+        updateAuthUI();
+      } else {
+        showNotification(
+          'Customer with this email already exists. Try to log in or use another email',
+          'danger'
         );
       }
     };
