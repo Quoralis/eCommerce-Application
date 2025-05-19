@@ -6,6 +6,7 @@ export default defineConfig(({ mode }) => {
   return {
     base: './',
     root: 'src',
+    envDir: '../',
     server: {
       open: true,
     },

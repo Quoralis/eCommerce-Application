@@ -1,0 +1,15 @@
+@import './loginPage/loginVariables.scss';
+@import '../../../node_modules/uikit/src/scss/variables.scss';
+@import '../../../node_modules/uikit/src/scss/mixins.scss';
+@import '../../../node_modules/uikit/src/scss/uikit.scss';
+@import './loginPage/login.scss';
+@import './header/header.scss';
+@import './mainPage/main.scss';
+@import './utils/helpers';
+@import './registrationPage/registrationPage';
+* {
+  box-sizing: border-box;
+}
+body {
+  min-height: 100vh;
+}

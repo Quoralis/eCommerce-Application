@@ -1,0 +1,44 @@
+@use '../globalVariables.scss' as *;
+
+.login-page-wrapper {
+  background-color: $dark-white;
+  height: 93vh;
+}
+
+.input {
+  white-space: pre;
+  width: 100vw;
+  border: 1px solid $light-grey;
+  background-color: $white;
+  &:focus {
+    background-color: $white;
+    border-color: $light-grey;
+  }
+}
+
+.input.uk-form-danger {
+  border: 1px solid $red;
+  &:focus {
+    border-color: $red;
+  }
+}
+
+.uk-card input,
+.uk-card div,
+.uk-card a:nth-child(2n) {
+  margin-top: 0.5rem;
+}
+
+.login-link {
+  color: $blue;
+}
+
+.login-icon {
+  top: 9px;
+}
+
+@media (min-width: 350px) and (max-width: 1199px) {
+  .card-login {
+    padding: 70px;
+  }
+}

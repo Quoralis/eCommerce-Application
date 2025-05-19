@@ -1,4 +1,5 @@
 {
+  "type": "module",
   "name": "ecommerce-application",
   "version": "1.0.0",
   "description": "e-commerce application (vanilla  TS)",
@@ -38,6 +39,7 @@
     "tsx": "^4.19.4",
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.31.1",
+    "uikit": "^3.23.6",
     "vite": "^6.3.3",
     "vitest": "^3.1.2"
   },
