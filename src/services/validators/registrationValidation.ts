@@ -115,6 +115,7 @@ export const validateInput = (e: Event) => {
           'Your account has been successfully registered',
           'success'
         );
+        localStorage.setItem('accessToken', userData.accessToken);
         updateAuthUI();
       } else {
         showNotification(
