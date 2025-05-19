@@ -55,3 +55,16 @@ export async function requestLoginToken(email: string, password: string) {
   // console.log('loginToken' + ' ' + loginToken.access_token);
   return loginToken;
 }
+
+export async function revokeAccessToken(accessToken: string) {
+  const bodyRevokeToken = new URLSearchParams({
+    token: accessToken,
+    hint: 'access_token',
+  }).toString();
+  const response = await fetchToken(
+    `${authUrl}/oauth/token/revoke`,
+    bodyRevokeToken
+  );
+  console.log(response.status);
+  return response.status;
+}
