@@ -8,6 +8,7 @@ import {
 } from '../../types/types.js';
 import { toggleValidationNotification } from '../notification/validationNotification.js';
 import { showNotification } from '../notification/showNotification.js';
+import { getDefaultAddress } from '../../components/registrationPage/selectedDefaultAddress.js';
 
 export const validateInput = (e: Event) => {
   const verifyInput = (input: Element) => {
@@ -90,6 +91,13 @@ export const validateInput = (e: Event) => {
             clientData.addresses?.push(address);
           }
         }
+
+        const defaultAddressIndex = getDefaultAddress();
+        if (defaultAddressIndex !== undefined) {
+          clientData.defaultShippingAddress = defaultAddressIndex;
+          clientData.defaultBillingAddress = defaultAddressIndex;
+        }
+
         return clientData;
       };
 
