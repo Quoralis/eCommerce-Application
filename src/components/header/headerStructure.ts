@@ -3,6 +3,7 @@ import img from '../../assets/images/logo.png';
 import { pathes } from '../../constants/pathes.js';
 import { openPage } from '../../pages/openPage.js';
 import Uikit from 'uikit';
+import { logOut } from '../../services/authService.js';
 const startNum = 0;
 const limit = 3;
 
@@ -113,8 +114,8 @@ const signOut = createEl({
   parent: autorisationWrapper,
 });
 
-signOut.addEventListener('click', (): void => {
-  localStorage.clear();
+signOut.addEventListener('click', async (): Promise<void> => {
+  await logOut();
 });
 
 const signBtn = createEl({

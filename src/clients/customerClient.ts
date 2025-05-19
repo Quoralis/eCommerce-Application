@@ -1,6 +1,7 @@
 import { apiUrl, projectKey } from '../config.js';
 import { wrapperTryCatch } from '../utils/wrapperTryCatch.js';
 import { RegistrationLoginData } from '../types/types.js';
+import { showNotification } from '../services/notification/showNotification.js';
 
 export async function registerCustomer(data: RegistrationLoginData): Promise<{
   id: string;
@@ -18,10 +19,12 @@ export async function registerCustomer(data: RegistrationLoginData): Promise<{
   };
 
   const dataCustomer = await wrapperTryCatch<{
-    customer: {
+    customer?: {
       id: string;
       version: number;
     };
+    statusCode?: number;
+    message?: string;
   }>(`${apiUrl}/${projectKey}/customers`, {
     method: 'POST',
     headers: {
@@ -30,9 +33,17 @@ export async function registerCustomer(data: RegistrationLoginData): Promise<{
     },
     body: JSON.stringify(dataUser),
   });
+
+  if (
+    dataCustomer.statusCode === 400 &&
+    dataCustomer.message ===
+      'There is already an existing customer with the provided email.'
+  ) {
+    showNotification('The customer with this email already exists', 'danger');
+  }
   const costumerIdVersion = {
-    id: dataCustomer.customer.id,
-    version: dataCustomer.customer.version,
+    id: dataCustomer.customer?.id ?? '',
+    version: dataCustomer.customer?.version ?? 0,
   };
   console.log(costumerIdVersion);
   return costumerIdVersion;

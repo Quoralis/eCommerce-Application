@@ -55,3 +55,23 @@ export async function requestLoginToken(email: string, password: string) {
   // console.log('loginToken' + ' ' + loginToken.access_token);
   return loginToken;
 }
+
+export async function revokeAccessToken(accessToken: string): Promise<number> {
+  const body = new URLSearchParams({
+    token: accessToken,
+    token_type_hint: 'access_token',
+  }).toString();
+  const res = await fetch(`${authUrl}/oauth/token/revoke`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      Authorization: `Basic ${dataAuth}`,
+    },
+    body,
+  });
+  if (!res.ok) {
+    const errText = await res.text();
+    throw new Error(`Failed to revoke token: ${res.status} — ${errText}`);
+  }
+  return res.status;
+}
