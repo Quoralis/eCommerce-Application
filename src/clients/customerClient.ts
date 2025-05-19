@@ -42,5 +42,6 @@ export async function registerCustomer(data: RegistrationLoginData): Promise<{
     return costumerIdVersion;
   } catch (err) {
     console.log(err);
+    throw err;
   }
 }
