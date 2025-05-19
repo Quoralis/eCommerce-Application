@@ -17,27 +17,30 @@ export async function registerCustomer(data: RegistrationLoginData): Promise<{
     defaultBillingAddress: data.defBillIdx,
   };
 
-  const dataCustomer = await wrapperTryCatch<{
-    customer?: {
-      id: string;
-      version: number;
+  try {
+    const dataCustomer = await wrapperTryCatch<{
+      customer?: {
+        id: string;
+        version: number;
+      };
+      statusCode?: number;
+      message?: string;
+    }>(`${apiUrl}/${projectKey}/customers`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${data.bearerToken}`,
+      },
+      body: JSON.stringify(dataUser),
+    });
+    const costumerIdVersion = {
+      id: dataCustomer.customer?.id ?? '',
+      version: dataCustomer.customer?.version ?? 0,
     };
-    statusCode?: number;
-    message?: string;
-  }>(`${apiUrl}/${projectKey}/customers`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${data.bearerToken}`,
-    },
-    body: JSON.stringify(dataUser),
-  });
 
-  const costumerIdVersion = {
-    id: dataCustomer.customer?.id ?? '',
-    version: dataCustomer.customer?.version ?? 0,
-  };
-
-  console.log(costumerIdVersion);
-  return costumerIdVersion;
+    console.log(costumerIdVersion);
+    return costumerIdVersion;
+  } catch (err) {
+    console.log(err);
+  }
 }

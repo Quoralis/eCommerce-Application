@@ -45,10 +45,14 @@ export async function registerAndLogin(data: RegistrationLoginData) {
 export async function logOut(): Promise<void> {
   const accessToken = localStorage.getItem('accessToken');
   if (!accessToken) return;
-  const statusRevokeToken: number | undefined =
-    await revokeAccessToken(accessToken);
-  if (statusRevokeToken === 200) {
-    localStorage.removeItem('accessToken');
-    updateAuthUI();
+  try {
+    const statusRevokeToken: number | undefined =
+      await revokeAccessToken(accessToken);
+    if (statusRevokeToken === 200) {
+      localStorage.removeItem('accessToken');
+      updateAuthUI();
+    }
+  } catch (err) {
+    console.error('Logout error:', err);
   }
 }
