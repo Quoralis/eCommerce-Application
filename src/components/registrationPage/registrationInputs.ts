@@ -28,9 +28,14 @@ export const createRegInputs = () => {
       parent: regForm,
     });
 
-  for (let i = 0; i < INPUT_ATTRIBUTES.length - 4; i++) {
-    createEl(getInputOptions(i, 'input'));
+  for (let i = 0; i < 5; i++) {
+    const input = createEl(getInputOptions(i, 'input'));
     getErrorTextWrapper();
+
+    if (i === 3 && input instanceof HTMLInputElement) {
+      input.addEventListener('focus', () => (input.type = 'date'));
+      input.addEventListener('blur', () => (input.type = 'text'));
+    }
   }
 
   for (let i = 0; i < FIELDSET_LEGENDS.length; i++) {

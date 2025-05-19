@@ -25,7 +25,7 @@ createEl({
 
 export const regForm = createEl({
   tag: 'form',
-  classes: ['registration__form'],
+  classes: ['uk-form', 'registration__form'],
   attributes: {
     novalidate: '',
   },
