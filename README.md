@@ -10,6 +10,7 @@ Modern online store built with cutting-edge frontend technologies for seamless s
 - **Linting**: ESLint + Prettier
 - **Git Hooks**: Husky
 - **Styling**: SASS
+- **framework**: Uikit
 
 ---
 

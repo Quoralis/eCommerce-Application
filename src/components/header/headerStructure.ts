@@ -63,12 +63,7 @@ const autorisationWrapper = createEl({
 
 const basketBtn = createEl({
   tag: 'a',
-  classes: [
-    'el-nav',
-    'uk-border-rounded' /* , 'uk-button-primary' */,
-    'basket-btn',
-    'icon',
-  ],
+  classes: ['el-nav', 'uk-border-rounded', 'basket-btn', 'icon'],
   attributes: { 'uk-icon': 'cart' },
   parent: autorisationWrapper,
 });
@@ -118,9 +113,9 @@ const signOut = createEl({
   parent: autorisationWrapper,
 });
 
-// signOut.addEventListener('click', (): void => {
-//   localStorage.clear();
-// });
+signOut.addEventListener('click', (): void => {
+  localStorage.clear();
+});
 
 const signBtn = createEl({
   tag: 'button',

@@ -54,7 +54,7 @@ export const submitLoginForm = async (
       }
       const customers = await getCustomerByEmail(bearerToken, inputEmail);
       if (customers.length === 0 && errorMailElement) {
-        errorMailElement.textContent = 'Invalid email';
+        errorMailElement.textContent = 'Invalid email, try again';
         return;
       }
       const accessToken = await login(userAllData);
@@ -63,7 +63,7 @@ export const submitLoginForm = async (
         updateAuthUI();
       } else {
         if (errorPasswordElement)
-          errorPasswordElement.textContent = 'Invalid password';
+          errorPasswordElement.textContent = 'Invalid password, try again';
       }
     } catch (err: unknown) {
       console.log(err, 'warning');
