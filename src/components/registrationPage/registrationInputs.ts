@@ -6,6 +6,7 @@ import {
 import { createEl } from '../../utils/createElement.js';
 import { typeCreateElOptions } from '../../types/types.js';
 import { getCountrySelect } from '../../components/registrationPage/registrationSelect.js';
+import { copyAddressValues } from '../../components/registrationPage/selectedDefaultAddress.js';
 
 export const createRegInputs = () => {
   const getInputOptions = (index: number, htmlTag: string) => {
@@ -27,9 +28,14 @@ export const createRegInputs = () => {
       parent: regForm,
     });
 
-  for (let i = 0; i < INPUT_ATTRIBUTES.length - 4; i++) {
-    createEl(getInputOptions(i, 'input'));
+  for (let i = 0; i < 5; i++) {
+    const input = createEl(getInputOptions(i, 'input'));
     getErrorTextWrapper();
+
+    if (i === 3 && input instanceof HTMLInputElement) {
+      input.addEventListener('focus', () => (input.type = 'date'));
+      input.addEventListener('blur', () => (input.type = 'text'));
+    }
   }
 
   for (let i = 0; i < FIELDSET_LEGENDS.length; i++) {
@@ -45,24 +51,6 @@ export const createRegInputs = () => {
         parent: fieldset,
       });
       legend.textContent = FIELDSET_LEGENDS[i];
-
-      const defaultAddressRadio = createEl({
-        tag: 'input',
-        attributes: {
-          id: FIELDSET_LEGENDS[i].toLowerCase().split(' ').join('-'),
-          type: 'radio',
-          name: 'default-address',
-        },
-        parent: fieldset,
-      });
-      createEl({
-        tag: 'label',
-        text: 'Set as default shipping & billing address',
-        attributes: {
-          for: defaultAddressRadio.id,
-        },
-        parent: fieldset,
-      });
 
       getCountrySelect(i, getErrorTextWrapper);
 
@@ -85,6 +73,26 @@ export const createRegInputs = () => {
         createEl(inputOptionsWithChangedId);
         getErrorTextWrapper();
       }
+
+      const label = createEl({
+        tag: 'label',
+        text: 'Set as default shipping & billing address',
+        parent: regForm,
+      });
+      const defaultAddressRadio = createEl({
+        tag: 'input',
+        classes: ['registration__default-address'],
+        attributes: {
+          id: FIELDSET_LEGENDS[i].toLowerCase().split(' ').join('-'),
+          type: 'radio',
+          name: 'default-address',
+        },
+        parent: regForm,
+      });
+      label.setAttribute('for', defaultAddressRadio.id);
+      defaultAddressRadio.addEventListener('change', (event) => {
+        copyAddressValues(event);
+      });
     };
 
     getAddress();

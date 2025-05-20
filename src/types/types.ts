@@ -10,6 +10,7 @@ export interface TokenResponse {
   access_token: string;
   expires_in: number;
   refresh_token: string;
+  status?: number;
 }
 
 export interface UserFormValues {
@@ -49,7 +50,7 @@ export type PartialBaseAddress = Partial<BaseAddress> & {
 };
 
 export type ModifiedUserFormValues = Omit<UserFormValues, 'addresses'> & {
-  [key: string]: string | PartialBaseAddress[];
+  [key: string]: string | number | PartialBaseAddress[];
 };
 
 export interface Customer {
