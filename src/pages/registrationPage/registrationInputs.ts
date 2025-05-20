@@ -1,12 +1,13 @@
-import { regForm } from '../../pages/registration/registration.js';
+// import { regForm } from '../registration/registration.js';
+import { regForm } from './registration.js';
 import {
   INPUT_ATTRIBUTES,
   FIELDSET_LEGENDS,
 } from '../../constants/registrationConstants.js';
 import { createEl } from '../../utils/createElement.js';
 import { typeCreateElOptions } from '../../types/types.js';
-import { getCountrySelect } from '../../components/registrationPage/registrationSelect.js';
-import { copyAddressValues } from '../../components/registrationPage/selectedDefaultAddress.js';
+import { getCountrySelect } from './registrationSelect.js';
+import { copyAddressValues } from './selectedDefaultAddress.js';
 import { validateDate } from '../../services/validators/dateValidation.js';
 
 export const createRegInputs = () => {

@@ -1,6 +1,7 @@
 import { createEl } from '../../utils/createElement.js';
 import { pathes } from '../../constants/pathes.js';
-import { openPage } from '../../pages/openPage.js';
+import { openPage } from '../openPage.js';
+// import { header } from '../header/headerStructure.js';
 import { header } from '../header/headerStructure.js';
 const errorPageWrapper = createEl({
   tag: 'div',

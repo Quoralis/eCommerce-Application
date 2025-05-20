@@ -1,5 +1,6 @@
 import { createEl } from '../../utils/createElement.js';
-import { regForm } from '../../pages/registration/registration.js';
+// import { regForm } from '../registration/registration.js';
+import { regForm } from './registration.js';
 import {
   INPUT_ATTRIBUTES,
   COUNTRY_VALUES,
