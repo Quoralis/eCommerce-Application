@@ -3,8 +3,8 @@ import {
   inputPassword,
   errorMessageEmail,
   errorMessagePassword,
-} from '../../components/loginPage/loginStructure.js';
-import { loginType } from '../../components/loginPage/authorization.js';
+} from '../../pages/loginPage/loginStructure.js';
+import { loginType } from '../../pages/loginPage/authorization.js';
 
 const regExp = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
 const regExpAZ = /[A-Z]+/;

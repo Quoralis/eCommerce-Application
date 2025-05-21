@@ -6,7 +6,7 @@ import {
   submitLoginForm,
 } from './authorization.js';
 import { pathes } from '../../constants/pathes.js';
-import { openPage } from '../../pages/openPage.js';
+import { openPage } from '../openPage.js';
 const loginPageWrapper = createEl({
   tag: 'div',
   classes: [

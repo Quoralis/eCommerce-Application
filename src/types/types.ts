@@ -65,3 +65,11 @@ export interface Customer {
 export interface CustomerSearchResponse {
   results: Customer[];
 }
+
+export interface CurrentProduct {
+  name: string;
+  description: string;
+  masterVariant: {
+    images?: string;
+  };
+}

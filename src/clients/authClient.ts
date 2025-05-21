@@ -2,6 +2,12 @@ import { authUrl, scopes, dataAuth, projectKey } from '../config.js';
 import { wrapperTryCatch } from '../utils/wrapperTryCatch.js';
 import { TokenResponse } from '../types/types.js';
 
+// export let bearerToken: Promise<string>;
+
+// document.addEventListener('DOMContentLoaded', (): void => {
+//   bearerToken = requestBearerToken();
+// });
+
 const body = new URLSearchParams({
   grant_type: 'client_credentials',
   scope: scopes,

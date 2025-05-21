@@ -1,9 +1,10 @@
-import { showLoginPage } from '../components/loginPage/loginStructure.js';
+import { showLoginPage } from '../pages/loginPage/loginStructure.js';
 import { clearDom } from '../utils/clearDom.js';
 import { createEl } from '../utils/createElement.js';
-import { showRegistrationPage } from '../pages/registration/registration.js';
-import { showErrorPage } from '../components/errorPage/errorPageStructure.js';
-import { header } from '../components/header/headerStructure.js';
+import { showRegistrationPage } from '../pages/registrationPage/registration.js';
+import { showErrorPage } from '../pages/errorPage/errorPageStructure.js';
+import { header } from '../pages/header/headerStructure.js';
+// import { showProductPage } from '../pages/detailedProductPage/showProductPage.js';
 export default class Router {
   private readonly routes: Record<string, () => void>;
   private static instance: Router | null = null;

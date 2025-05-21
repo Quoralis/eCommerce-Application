@@ -1,12 +1,12 @@
 import { regValidationRules, specialRulesForId } from './validationRules.js';
-import { regForm } from '../../pages/registration/registration.js';
+import { regForm } from '../../pages/registrationPage/registration.js';
 import {
   ModifiedUserFormValues,
   PartialBaseAddress,
 } from '../../types/types.js';
 import { toggleValidationNotification } from '../notification/validationNotification.js';
 import { showNotification } from '../notification/showNotification.js';
-import { getDefaultAddress } from '../../components/registrationPage/selectedDefaultAddress.js';
+import { getDefaultAddress } from '../../pages/registrationPage/selectedDefaultAddress.js';
 import { registerAndLogin } from '../../services/authService.js';
 import { updateAuthUI } from '../../utils/auth.js';
 import { validateDate } from '../validators/dateValidation.js';

@@ -1,10 +1,11 @@
+// import { createEl } from '../../utils/createElement.js';
 import { createEl } from '../../utils/createElement.js';
 import { validateInput } from '../../services/validators/registrationValidation.js';
-import { createRegInputs } from '../../components/registrationPage/registrationInputs.js';
+// import { createRegInputs } from '../../components/registrationPage/registrationInputs.js';
 import { submitForm } from '../../services/validators/registrationValidation.js';
 import { openPage } from '../openPage.js';
 import { pathes } from '../../constants/pathes.js';
-
+import { createRegInputs } from './registrationInputs.js';
 const containerRegistration = createEl({
   tag: 'div',
   classes: ['uk-height-1-1', 'container-registration'],
