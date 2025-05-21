@@ -1,6 +1,6 @@
 import { createEl } from '../../utils/createElement.js';
 import img from '../../assets/images/logo.png';
-import { pathes } from '../../constants/pathes.js';
+import { paths } from '../../constants/paths.js';
 // import { openPage } from '../openPage.js';
 import { openPage } from '../openPage.js';
 import Uikit from 'uikit';
@@ -40,7 +40,7 @@ const mainBtn = createEl({
 });
 
 mainBtn.addEventListener('click', (): void => {
-  openPage(pathes.main);
+  openPage(paths.main);
 });
 
 const catalogBtn = createEl({
@@ -48,6 +48,9 @@ const catalogBtn = createEl({
   text: 'Catalog',
   classes: ['el-nav'],
   parent: generalLinks,
+});
+catalogBtn.addEventListener('click', (): void => {
+  openPage(paths.catalog);
 });
 
 const aboutBtn = createEl({
@@ -98,7 +101,7 @@ const loginBtn = createEl({
 });
 
 loginBtn.addEventListener('click', (): void => {
-  openPage(pathes.login);
+  openPage(paths.login);
 });
 
 const signOut = createEl({
@@ -133,7 +136,7 @@ const signBtn = createEl({
 });
 
 signBtn.addEventListener('click', (): void => {
-  openPage(pathes.registration);
+  openPage(paths.registration);
 });
 
 const headerBurgerMenu = createEl({
@@ -182,15 +185,15 @@ const cloneSignOut = signOut.cloneNode(true);
 const cloneProfileBtn = profileBtn.cloneNode(true);
 
 cloneMainBtn.addEventListener('click', (): void => {
-  openPage(pathes.main);
+  openPage(paths.main);
 });
 
 cloneLoginBtn.addEventListener('click', (): void => {
-  openPage(pathes.login);
+  openPage(paths.login);
 });
 
 cloneSignBtn.addEventListener('click', (): void => {
-  openPage(pathes.registration);
+  openPage(paths.registration);
 });
 
 cloneSignOut.addEventListener('click', async (): Promise<void> => {

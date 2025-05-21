@@ -1,5 +1,5 @@
 import { createEl } from '../../utils/createElement.js';
-import { pathes } from '../../constants/pathes.js';
+import { paths } from '../../constants/paths.js';
 import { openPage } from '../openPage.js';
 // import { header } from '../header/headerStructure.js';
 import { header } from '../header/headerStructure.js';
@@ -47,7 +47,7 @@ const backToMainBtn = createEl({
 });
 
 backToMainBtn.addEventListener('click', (): void => {
-  openPage(pathes.main);
+  openPage(paths.main);
   header.style.display = 'flex';
 });
 
