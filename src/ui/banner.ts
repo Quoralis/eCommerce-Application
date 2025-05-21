@@ -1,12 +1,12 @@
 import { createEl } from '../utils/createElement.js';
 
-export function renderBanner() {
+export function renderBanner(parent: HTMLElement) {
   const main = document.querySelector('main');
   if (main) {
     const catalogContainer = createEl({
       tag: 'div',
       classes: ['catalog-container'],
-      parent: main,
+      parent: parent,
     });
     const banner = createEl({
       tag: 'div',
