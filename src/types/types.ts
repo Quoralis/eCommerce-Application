@@ -4,7 +4,12 @@ export interface typeCreateElOptions<K extends keyof HTMLElementTagNameMap> {
   text?: string;
   attributes?: Record<string, string>;
   parent?: HTMLElement;
-  onClick?: () => void;
+  onClick?: (e: MouseEvent) => void;
+}
+declare global {
+  interface HTMLElementTagNameMap {
+    'dotlottie-player': HTMLElement;
+  }
 }
 declare global {
   interface HTMLElementTagNameMap {

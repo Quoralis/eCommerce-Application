@@ -1,4 +1,5 @@
 @use '../globalVariables.scss' as *;
+
 .catalog-container {
   width: 100%;
   border-radius: 10px;
@@ -17,5 +18,63 @@
     height: 100%;
     object-fit: cover;
     border-radius: 10px;
+  }
+}
+
+.catalog-section {
+  display: flex;
+  width: 100%;
+  background-color: white;
+
+  aside {
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+    border: 1px solid $dark-white;
+  }
+
+  .product-container {
+    display: flex;
+    max-width: 80%;
+    flex-wrap: wrap;
+    border: 1px solid $dark-white;
+    justify-content: center;
+
+    gap: 4em;
+  }
+
+  .card {
+    display: grid;
+    width: 10em;
+    border: 1px solid $dark-white;
+    justify-items: center;
+    cursor: pointer;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    will-change: transform;
+    transition:
+      transform 0.2s ease-out,
+      box-shadow 0.2s ease-out,
+      background-color 0.2s ease-out;
+
+    &:hover {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+  }
+
+  h3 {
+    margin: 0;
+  }
+
+  p {
+    margin: 0;
+  }
+
+  .button-to-cart {
+    background-color: white;
+    color: #4889f7;
+    border: 1px solid #4889f7;
+    font-weight: bold;
+    font-size: 0.8em;
   }
 }
