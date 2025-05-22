@@ -1,9 +1,10 @@
-export interface typeCreateElOptions {
-  tag: string;
+export interface typeCreateElOptions<K extends keyof HTMLElementTagNameMap> {
+  tag: K;
   classes?: string[];
   text?: string;
   attributes?: Record<string, string>;
   parent?: HTMLElement;
+  onClick?: () => void;
 }
 
 export interface TokenResponse {
