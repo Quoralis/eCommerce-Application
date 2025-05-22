@@ -60,6 +60,10 @@ const aboutBtn = createEl({
   parent: generalLinks,
 });
 
+aboutBtn.addEventListener('click', (): void => {
+  openPage(paths.detailedProduct);
+});
+
 const autorisationWrapper = createEl({
   tag: 'nav',
   classes: ['uk-flex', 'uk-flex-middle', 'autorisation-wrapper', 'link'],
@@ -198,6 +202,10 @@ cloneSignBtn.addEventListener('click', (): void => {
 
 cloneSignOut.addEventListener('click', async (): Promise<void> => {
   await logOut();
+});
+
+cloneCatalogBtn.addEventListener('click', (): void => {
+  openPage(paths.catalog);
 });
 
 const showHeaderComponent = (): void => {

@@ -5,7 +5,7 @@ import { showRegistrationPage } from '../pages/registrationPage/registration.js'
 import { showErrorPage } from '../pages/errorPage/errorPageStructure.js';
 import { header } from '../pages/header/headerStructure.js';
 import { showCatalogPage } from '../pages/catalogPage/showCatalogPage.js';
-
+import { showProductPage } from '../pages/detailedProductPage/showProductPage.js';
 export default class Router {
   private readonly routes: Record<string, () => void>;
   private static instance: Router | null = null;
@@ -24,6 +24,7 @@ export default class Router {
       '/login': this.renderLogin.bind(this),
       '/registration': this.renderRegistrationPage.bind(this),
       '/catalog': this.renderCatalogPage.bind(this),
+      '/detailed-product': this.renderDetailedProductPage.bind(this),
     };
     window.addEventListener('popstate', () => {
       this.render(window.location.pathname);
@@ -63,6 +64,10 @@ export default class Router {
 
   private renderLogin(): void {
     showLoginPage();
+  }
+
+  private async renderDetailedProductPage(): Promise<void> {
+    showProductPage();
   }
 
   private renderRegistrationPage(): void {
