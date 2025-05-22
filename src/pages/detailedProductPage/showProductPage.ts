@@ -1,5 +1,5 @@
 import { createEl } from '../../utils/createElement.js';
-import { getCurrentProduct } from '../../clients/getCurrentProduct.js';
+import { getCurrentProductClient } from '../../clients/getCurrentProductClient.js';
 import { CurrentProduct } from '../../types/types.js';
 
 const productAllComponents = (
@@ -91,7 +91,7 @@ const productComponentText = (
 };
 
 export const showProductPage = async () => {
-  const data = await getCurrentProduct('4dbb3fb7-24e6-4c31-84fd-f76e414de2fd');
+  const data = await getCurrentProductClient('MB-Air');
   const main = <HTMLElement>document.querySelector('main');
   productAllComponents(data, main);
 };
