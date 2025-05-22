@@ -1,0 +1,7 @@
+@use '../globalVariables.scss' as *;
+
+@media (max-width: 700px) and (min-width: 350px) {
+  .detailed-product-page {
+    flex-direction: column;
+  }
+}

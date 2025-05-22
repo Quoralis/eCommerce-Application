@@ -4,9 +4,8 @@ import { createEl } from '../utils/createElement.js';
 import { showRegistrationPage } from '../pages/registrationPage/registration.js';
 import { showErrorPage } from '../pages/errorPage/errorPageStructure.js';
 import { header } from '../pages/header/headerStructure.js';
-// import { showProductPage } from '../pages/detailedProductPage/showProductPage.js';
 import { showCatalogPage } from '../pages/catalogPage/showCatalogPage.js';
-
+// import { showProductPage } from '../pages/detailedProductPage/showProductPage.js';
 export default class Router {
   private readonly routes: Record<string, () => void>;
   private static instance: Router | null = null;
