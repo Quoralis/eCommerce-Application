@@ -7,6 +7,9 @@ export function renderCatalogSection(parent: HTMLElement): void {
     tag: 'section',
     classes: ['catalog-section'],
     parent: parent,
+    onClick: (e) => {
+      console.log('clicked', e.target);
+    },
   });
   renderSideBar(section);
   renderProductLContainer(section);
