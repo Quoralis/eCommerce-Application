@@ -4,7 +4,7 @@ import { validateInput } from '../../services/validators/registrationValidation.
 // import { createRegInputs } from '../../components/registrationPage/registrationInputs.js';
 import { submitForm } from '../../services/validators/registrationValidation.js';
 import { openPage } from '../openPage.js';
-import { pathes } from '../../constants/pathes.js';
+import { paths } from '../../constants/paths.js';
 import { createRegInputs } from './registrationInputs.js';
 const containerRegistration = createEl({
   tag: 'div',
@@ -64,7 +64,7 @@ export const loginLink = createEl({
 });
 
 loginLink.addEventListener('click', (): void => {
-  openPage(pathes.login);
+  openPage(paths.login);
 });
 
 export const showRegistrationPage = () => {

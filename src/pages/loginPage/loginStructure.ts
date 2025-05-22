@@ -5,7 +5,7 @@ import {
   loginType,
   submitLoginForm,
 } from './authorization.js';
-import { pathes } from '../../constants/pathes.js';
+import { paths } from '../../constants/paths.js';
 import { openPage } from '../openPage.js';
 const loginPageWrapper = createEl({
   tag: 'div',
@@ -162,7 +162,7 @@ const reverseToRegistarationPage = createEl({
 });
 
 reverseToRegistarationPage.addEventListener('click', (): void => {
-  openPage(pathes.registration);
+  openPage(paths.registration);
 });
 
 const showLoginPage = (): void => {
