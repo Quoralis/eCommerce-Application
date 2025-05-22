@@ -4,7 +4,7 @@ export interface typeCreateElOptions<K extends keyof HTMLElementTagNameMap> {
   text?: string;
   attributes?: Record<string, string>;
   parent?: HTMLElement;
-  onClick?: () => void;
+  onClick?: (e: MouseEvent) => void;
 }
 
 export interface TokenResponse {
