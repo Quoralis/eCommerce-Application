@@ -6,6 +6,11 @@ export interface typeCreateElOptions<K extends keyof HTMLElementTagNameMap> {
   parent?: HTMLElement;
   onClick?: () => void;
 }
+declare global {
+  interface HTMLElementTagNameMap {
+    'dotlottie-player': HTMLElement;
+  }
+}
 
 export interface TokenResponse {
   access_token: string;
@@ -68,9 +73,29 @@ export interface CustomerSearchResponse {
 }
 
 export interface CurrentProduct {
-  name: string;
-  description: string;
+  name: {
+    en: string;
+  };
+  description: {
+    en: string;
+  };
   masterVariant: {
-    images?: string;
+    prices: [
+      {
+        value: {
+          centAmount: number;
+        };
+        discounted: {
+          value: {
+            centAmount: number;
+          };
+        };
+      },
+    ];
+    images?: [
+      {
+        url: string;
+      },
+    ];
   };
 }
