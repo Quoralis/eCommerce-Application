@@ -62,12 +62,14 @@
       height: 150px;
     }
 
+
     &:hover {
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     }
   }
 
   h3 {
+
     margin: 0.3em 0 0.3em 0;
     font-size: 0.9em;
     font-weight: 600;
@@ -84,10 +86,12 @@
 
   span {
     font-size: 0.7em;
+
   }
 
   p {
     margin: 0;
+
     font-size: 0.7em;
     font-weight: 600;
   }
@@ -106,3 +110,4 @@
 .card__discount {
   color: red;
 }
+

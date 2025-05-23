@@ -15,24 +15,29 @@ export function renderProductCard(
     tag: 'article',
     classes: ['card'],
     attributes: { 'data-product-key': options.productKey },
+
     parent: parent,
   });
   createEl({
     tag: 'img',
     classes: ['card-img'],
     attributes: {
+
       src: options.imageUrl,
       alt: options.productName,
+
     },
     parent: cardElement,
   });
   createEl({
     tag: 'h3',
     text: options.productName,
+
     parent: cardElement,
   });
   createEl({
     tag: 'span',
+
     text: shortDescription,
     classes: ['card__description'],
     parent: cardElement,
@@ -56,6 +61,7 @@ export function renderProductCard(
     classes: ['card__discount'],
     text: discountText,
     parent: wrapperPrices,
+
   });
   createEl({
     tag: 'button',
