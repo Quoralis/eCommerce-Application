@@ -6,6 +6,7 @@ export interface typeCreateElOptions<K extends keyof HTMLElementTagNameMap> {
   parent?: HTMLElement;
   onClick?: (e: MouseEvent) => void;
 }
+
 declare global {
   interface HTMLElementTagNameMap {
     'dotlottie-player': HTMLElement;
@@ -70,6 +71,13 @@ export interface Customer {
 
 export interface CustomerSearchResponse {
   results: Customer[];
+}
+
+export interface ProductsResponse {
+  count: number;
+  limit: number;
+  results: [CurrentProduct];
+  total: number;
 }
 
 export interface CurrentProduct {
