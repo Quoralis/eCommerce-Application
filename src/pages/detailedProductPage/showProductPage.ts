@@ -1,6 +1,9 @@
 import { createEl } from '../../utils/createElement.js';
 import { getCurrentProductClient } from '../../clients/getCurrentProductClient.js';
 import { CurrentProduct } from '../../types/types.js';
+import { showModalWindow } from '../../ui/modalWindow.js';
+import { showSlideShow } from '../../ui/slideShow.js';
+import { productComponentText } from './productComponentText.js';
 
 const productAllComponents = (
   data: CurrentProduct,
@@ -17,81 +20,26 @@ const productAllComponents = (
     ],
     parent: parent,
   });
-  productComponentImgPagination(data, detailedProductPage);
-  productComponentText(data, detailedProductPage);
-};
 
-const productComponentImgPagination = (
-  data: CurrentProduct,
-  parent: HTMLElement
-): void => {
-  const wrapperPagination = createEl({
+  const childProductPage = createEl({
     tag: 'div',
     classes: [
-      'uk-position-relative',
-      'uk-dark',
-      'uk-width-1-2',
-      'wrapper-pagination',
+      'uk-flex',
+      'uk-width-1-1',
+      'uk-flex-center',
+      'uk-flex-middle',
+      'uk-padding-small',
+      'child-product-page',
     ],
-    attributes: { 'uk-slideshow': '', tabindex: '-1' },
-    parent: parent,
+    parent: detailedProductPage,
   });
-
-  const wrapperImgs = createEl({
-    tag: 'ul',
-    classes: ['uk-slideshow-items'],
-    parent: wrapperPagination,
-  });
-
-  data.masterVariant.images?.forEach((el) => {
-    const wrapperImg = createEl({
-      tag: 'li',
-      parent: wrapperImgs,
-    });
-
-    /* const paginationImg = */ createEl({
-      tag: 'img',
-      attributes: {
-        src: el.url,
-        alt: 'electronic equipment',
-        'uk-cover': '',
-      },
-      parent: wrapperImg,
-    });
-  });
-};
-
-const productComponentText = (
-  data: CurrentProduct,
-  parent: HTMLElement
-): void => {
-  const wrapperAllText = createEl({
-    tag: 'div',
-    classes: ['uk-flex', 'uk-flex-column'],
-    parent: parent,
-  });
-
-  /* const titleProduct = */ createEl({
-    tag: 'span',
-    text: data.name.en,
-    parent: wrapperAllText,
-  });
-
-  /* const priceProduct = */ createEl({
-    tag: 'span',
-    text: `${data.masterVariant.prices[0].value.centAmount}EUR`,
-    parent: wrapperAllText,
-  });
-
-  /* const descriptionProduct = */ createEl({
-    tag: 'span',
-    text: data.description.en,
-    parent: wrapperAllText,
-  });
+  showSlideShow('slide', childProductPage, data);
+  productComponentText(data, childProductPage);
 };
 
 export const showProductPage = async () => {
   const data = await getCurrentProductClient('MB-Air');
   const main = <HTMLElement>document.querySelector('main');
+  showModalWindow('pagination', data);
   productAllComponents(data, main);
 };
