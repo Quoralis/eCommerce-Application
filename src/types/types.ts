@@ -93,7 +93,7 @@ export interface CurrentProduct {
         value: {
           centAmount: number;
         };
-        discounted: {
+        discounted?: {
           value: {
             centAmount: number;
           };
@@ -105,5 +105,14 @@ export interface CurrentProduct {
         url: string;
       },
     ];
+    key: string;
   };
+}
+export interface DisplayProduct {
+  productName: string;
+  imageUrl: string;
+  description: string;
+  productKey: string;
+  price: number;
+  discountedPrice?: number;
 }

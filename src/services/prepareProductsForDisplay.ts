@@ -1,13 +1,16 @@
 import { getAllProductsClients } from '../clients/getCurrentProductClient.js';
+import { CurrentProduct } from '../types/types.js';
 
 export async function prepareProductsForDisplay() {
   const responseProducts = await getAllProductsClients();
   if ('results' in responseProducts)
-    return responseProducts.results.map((currentValue) => ({
+    return responseProducts.results.map((currentValue: CurrentProduct) => ({
       nameCard: currentValue.name,
-      urlImageCard: '',
+      urlImageCard: currentValue.masterVariant.images![0].url,
+      productKey: currentValue.masterVariant.key,
       descriptionCard: currentValue.description,
-      priceProduct: '',
+      priceProduct: currentValue.masterVariant.prices[0].value.centAmount,
+      priceDiscount:
+        currentValue.masterVariant.prices[0].discounted?.value.centAmount,
     }));
 }
-prepareProductsForDisplay();
