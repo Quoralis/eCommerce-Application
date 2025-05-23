@@ -37,17 +37,25 @@ export function renderProductCard(
     classes: ['card__description'],
     parent: cardElement,
   });
-  createEl({
+  const wrapperPrices = createEl({
+    tag: 'div',
+    classes: ['wrapper-prices'],
+    parent: cardElement,
+  });
+  const priceEl = createEl({
     tag: 'p',
     classes: ['card__price'],
     text: priceText,
-    parent: cardElement,
+    parent: wrapperPrices,
   });
+  if (options.discountedPrice != null) {
+    priceEl.classList.add('strikethrough');
+  }
   createEl({
     tag: 'p',
     classes: ['card__discount'],
     text: discountText,
-    parent: cardElement,
+    parent: wrapperPrices,
   });
   createEl({
     tag: 'button',
