@@ -7,7 +7,7 @@ export async function prepareProductsForDisplay() {
     return responseProducts.results.map((currentValue: CurrentProduct) => ({
       nameCard: currentValue.name,
       urlImageCard: currentValue.masterVariant.images![0].url,
-      productKey: currentValue.masterVariant.key,
+      productKey: currentValue.key,
       descriptionCard: currentValue.description,
       priceProduct: currentValue.masterVariant.prices[0].value.centAmount,
       priceDiscount:

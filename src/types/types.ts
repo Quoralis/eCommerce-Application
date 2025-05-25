@@ -93,6 +93,7 @@ export interface CurrentProduct {
   description: {
     en: string;
   };
+  key: string;
   masterVariant: {
     prices: [
       {
