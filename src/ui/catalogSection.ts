@@ -2,7 +2,7 @@ import { createEl } from '../utils/createElement.js';
 import { renderSideBar } from './catalogSidebar.js';
 import { renderProductLContainer } from './productContainer.js';
 
-export function renderCatalogSection(parent: HTMLElement): void {
+export async function renderCatalogSection(parent: HTMLElement): Promise<void> {
   const section = createEl({
     tag: 'section',
     classes: ['catalog-section'],
@@ -11,6 +11,6 @@ export function renderCatalogSection(parent: HTMLElement): void {
       console.log('clicked', e.target);
     },
   });
-  renderSideBar(section);
-  renderProductLContainer(section);
+  await renderSideBar(section);
+  await renderProductLContainer(section);
 }

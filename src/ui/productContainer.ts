@@ -7,7 +7,6 @@ import { DisplayProduct } from '../types/types.js';
 export async function renderProductLContainer(
   parent: HTMLElement
 ): Promise<void> {
-
   const section = createEl({
     tag: 'section',
     classes: ['product-container'],
@@ -30,5 +29,4 @@ export async function renderProductLContainer(
     };
     renderProductCard(section, dataCard);
   });
-
 }

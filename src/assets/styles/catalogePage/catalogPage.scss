@@ -53,15 +53,15 @@
     border-radius: 0.5em;
     backface-visibility: hidden;
     will-change: transform;
-    transition: transform 0.2s ease-out,
-    box-shadow 0.2s ease-out,
-    background-color 0.2s ease-out;
+    transition:
+      transform 0.2s ease-out,
+      box-shadow 0.2s ease-out,
+      background-color 0.2s ease-out;
 
     img {
       width: 150px;
       height: 150px;
     }
-
 
     &:hover {
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -69,7 +69,6 @@
   }
 
   h3 {
-
     margin: 0.3em 0 0.3em 0;
     font-size: 0.9em;
     font-weight: 600;
@@ -81,12 +80,10 @@
     width: 80%;
     flex-direction: row-reverse;
     gap: 0.5em;
-
   }
 
   span {
     font-size: 0.7em;
-
   }
 
   p {
@@ -110,4 +107,3 @@
 .card__discount {
   color: red;
 }
-

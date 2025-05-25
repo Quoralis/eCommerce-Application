@@ -108,6 +108,7 @@ export interface CurrentProduct {
     key: string;
   };
 }
+
 export interface DisplayProduct {
   productName: string;
   imageUrl: string;
@@ -115,4 +116,17 @@ export interface DisplayProduct {
   productKey: string;
   price: number;
   discountedPrice?: number;
+}
+
+export interface Categories {
+  count: number;
+  limit: number;
+  results: [DataCategory];
+  total: number;
+}
+
+interface DataCategory {
+  id: string;
+  key: string;
+  name: { en: string };
 }

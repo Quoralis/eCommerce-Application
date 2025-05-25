@@ -22,10 +22,8 @@ export function renderProductCard(
     tag: 'img',
     classes: ['card-img'],
     attributes: {
-
       src: options.imageUrl,
       alt: options.productName,
-
     },
     parent: cardElement,
   });
@@ -61,7 +59,6 @@ export function renderProductCard(
     classes: ['card__discount'],
     text: discountText,
     parent: wrapperPrices,
-
   });
   createEl({
     tag: 'button',
