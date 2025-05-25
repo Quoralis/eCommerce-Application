@@ -6,6 +6,12 @@ export interface typeCreateElOptions<K extends keyof HTMLElementTagNameMap> {
   parent?: HTMLElement;
   onClick?: (e: MouseEvent) => void;
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'dotlottie-player': HTMLElement;
+  }
+}
 declare global {
   interface HTMLElementTagNameMap {
     'dotlottie-player': HTMLElement;
@@ -73,6 +79,13 @@ export interface CustomerSearchResponse {
   results: Customer[];
 }
 
+export interface ProductsResponse {
+  count: number;
+  limit: number;
+  results: [CurrentProduct];
+  total: number;
+}
+
 export interface CurrentProduct {
   name: {
     en: string;
@@ -86,7 +99,7 @@ export interface CurrentProduct {
         value: {
           centAmount: number;
         };
-        discounted: {
+        discounted?: {
           value: {
             centAmount: number;
           };
@@ -98,9 +111,15 @@ export interface CurrentProduct {
         url: string;
       },
     ];
+    key: string;
   };
 }
 
-export interface IUser {
-  [key: string]: string | number;
+export interface DisplayProduct {
+  productName: string;
+  imageUrl: string;
+  description: string;
+  productKey: string;
+  price: number;
+  discountedPrice?: number;
 }

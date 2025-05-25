@@ -8,6 +8,7 @@ import { showCatalogPage } from '../pages/catalogPage/showCatalogPage.js';
 import { showProductPage } from '../pages/detailedProductPage/showProductPage.js';
 import { showUserProfilePage as showUserProfilePage } from '../pages/userProfilePage/userProfile.js';
 import { showUserAddresses } from '../pages/userProfilePage/userAddresses.js';
+import { currentProduct } from '../ui/productCard.js';
 
 export default class Router {
   private readonly routes: Record<string, () => void>;
@@ -72,7 +73,13 @@ export default class Router {
   }
 
   private async renderDetailedProductPage(): Promise<void> {
-    showProductPage();
+    // const path = window.location.pathname;
+
+    // const key = path.split('/').pop();
+    // console.log('key', key);
+    // if (key) {
+    showProductPage(currentProduct);
+    // }
   }
 
   private renderRegistrationPage(): void {
