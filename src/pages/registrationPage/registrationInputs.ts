@@ -1,4 +1,3 @@
-// import { regForm } from '../registration/registration.js';
 import { regForm } from './registration.js';
 import {
   INPUT_ATTRIBUTES,
