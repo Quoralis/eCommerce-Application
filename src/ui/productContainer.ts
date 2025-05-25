@@ -9,6 +9,5 @@ export async function renderProductLContainer(
     classes: ['product-container'],
     parent: parent,
   });
-
   await renderProductList(section);
 }

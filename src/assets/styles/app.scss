@@ -11,14 +11,22 @@
 @import './catalogePage/categories';
 
 @import './productPage/product.scss';
+@import './userProfilePage/userProfile';
 
 * {
   box-sizing: border-box;
 }
+
+// html {
+//   overflow-x: hidden;
+// }
+
 body {
   max-width: 1440px;
   width: 100%;
   margin: 0 auto;
+  // min;
+  // overflow-x: hidden;
 }
 .strikethrough {
   text-decoration-line: line-through;

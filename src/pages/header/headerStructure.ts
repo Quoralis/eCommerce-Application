@@ -60,10 +60,6 @@ const aboutBtn = createEl({
   parent: generalLinks,
 });
 
-aboutBtn.addEventListener('click', (): void => {
-  openPage(paths.detailedProduct);
-});
-
 const autorisationWrapper = createEl({
   tag: 'nav',
   classes: ['uk-flex', 'uk-flex-middle', 'autorisation-wrapper', 'link'],
@@ -89,6 +85,10 @@ const profileBtn = createEl({
   ],
   attributes: { 'uk-icon': 'user' },
   parent: autorisationWrapper,
+});
+
+profileBtn.addEventListener('click', (): void => {
+  openPage(paths.user);
 });
 
 const loginBtn = createEl({
