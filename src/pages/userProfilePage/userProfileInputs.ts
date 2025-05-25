@@ -1,6 +1,8 @@
 import { createEl } from '../../utils/createElement.js';
 import { userProfileWrapper } from './userProfile.js';
 import { getCustomerByEmail } from '../../clients/customerSearchClient.js';
+import { openPage } from '../openPage.js';
+import { paths } from '../../constants/paths.js';
 
 export const createUserProfileInputs = async () => {
   const user = await getCustomerByEmail('user@us.er');
@@ -59,7 +61,7 @@ export const createUserProfileInputs = async () => {
     },
   });
 
-  createEl({
+  const addressesButton = createEl({
     tag: 'button',
     text: 'Show saved addresses',
     classes: ['button', 'uk-button', 'uk-button-primary'],
@@ -67,5 +69,9 @@ export const createUserProfileInputs = async () => {
     attributes: {
       type: 'submit',
     },
+  });
+
+  addressesButton.addEventListener('click', (): void => {
+    openPage(paths.addresses);
   });
 };
