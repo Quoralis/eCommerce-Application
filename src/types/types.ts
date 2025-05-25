@@ -12,6 +12,11 @@ declare global {
     'dotlottie-player': HTMLElement;
   }
 }
+declare global {
+  interface HTMLElementTagNameMap {
+    'dotlottie-player': HTMLElement;
+  }
+}
 
 export interface TokenResponse {
   access_token: string;

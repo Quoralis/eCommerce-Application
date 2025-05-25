@@ -1,7 +1,33 @@
 @use '../globalVariables.scss' as *;
 
+.dialog {
+  width: 900px;
+}
+
+.wrapper-all-text {
+  flex-basis: fit-content;
+}
+
+.default-price.line-through {
+  text-decoration: line-through;
+}
+
 @media (max-width: 700px) and (min-width: 350px) {
-  .detailed-product-page {
-    flex-direction: column;
+  .child-product-page {
+    flex-direction: column-reverse;
+    align-items: center;
   }
+
+  // .wrapper-all-text {
+  //   margin-left: 0;
+  // }
+
+  .wrapper-pagination {
+    width: 100%;
+  }
+  // .title-and-price {
+  //   flex-direction: row;
+  //   justify-content: space-between;
+  //   align-items: center;
+  // }
 }

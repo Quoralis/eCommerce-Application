@@ -6,6 +6,7 @@ import { showErrorPage } from '../pages/errorPage/errorPageStructure.js';
 import { header } from '../pages/header/headerStructure.js';
 import { showCatalogPage } from '../pages/catalogPage/showCatalogPage.js';
 import { showProductPage } from '../pages/detailedProductPage/showProductPage.js';
+import { currentProduct } from '../ui/productCard.js';
 export default class Router {
   private readonly routes: Record<string, () => void>;
   private static instance: Router | null = null;
@@ -67,7 +68,13 @@ export default class Router {
   }
 
   private async renderDetailedProductPage(): Promise<void> {
-    showProductPage();
+    // const path = window.location.pathname;
+
+    // const key = path.split('/').pop();
+    // console.log('key', key);
+    // if (key) {
+    showProductPage(currentProduct);
+    // }
   }
 
   private renderRegistrationPage(): void {
