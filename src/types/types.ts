@@ -123,3 +123,16 @@ export interface DisplayProduct {
   price: number;
   discountedPrice?: number;
 }
+
+export interface Categories {
+  count: number;
+  limit: number;
+  results: [DataCategory];
+  total: number;
+}
+
+interface DataCategory {
+  id: string;
+  key: string;
+  name: { en: string };
+}

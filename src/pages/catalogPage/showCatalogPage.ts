@@ -3,6 +3,6 @@ import { renderCatalogSection } from '../../ui/catalogSection.js';
 export async function showCatalogPage() {
   const main = document.querySelector('main');
   if (main) {
-    renderCatalogSection(main);
+    await renderCatalogSection(main);
   }
 }

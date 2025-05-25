@@ -1,0 +1,43 @@
+.catalog-categories {
+  display: grid;
+  font-size: 1.3em;
+  font-weight: 500;
+
+  .catalog-categories-title {
+    display: inline-block;
+    font-size: 0.9em;
+    margin-bottom: 0;
+    margin-top: 1em;
+    padding-left: 1em;
+    font-weight: bold;
+    color: #666;
+  }
+  .categories-list {
+    display: grid;
+    list-style: none;
+    align-content: center;
+    gap: 0.7em;
+    padding-left: 1em;
+
+    .category-title {
+      display: flex;
+      gap: 1em;
+      cursor: pointer;
+      &:hover {
+        text-decoration: underline cornflowerblue;
+      }
+
+      .category-icon {
+        width: 25px;
+        height: 25px;
+        align-self: center;
+      }
+
+      .category-name {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+  }
+}
