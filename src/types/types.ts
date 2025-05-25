@@ -66,6 +66,7 @@ export interface Customer {
   firstName?: string;
   lastName?: string;
   dateOfBirth?: string;
+  addresses?: PartialBaseAddress[];
 }
 
 export interface CustomerSearchResponse {
@@ -98,4 +99,8 @@ export interface CurrentProduct {
       },
     ];
   };
+}
+
+export interface IUser {
+  [key: string]: string | number;
 }

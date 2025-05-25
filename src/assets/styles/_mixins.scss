@@ -1,0 +1,37 @@
+@use './globalVariables.scss' as *;
+
+@mixin text-label {
+  margin-bottom: 16px;
+  padding-top: 16px;
+  color: #000000;
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+}
+
+@mixin button {
+  border-radius: 8px;
+  border: none;
+  color: $white;
+}
+
+@mixin input-wrapper {
+  position: relative;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  max-width: 466px;
+  padding: 40px 60px;
+  border-radius: 10px;
+  background-color: $white;
+}
+
+@mixin input {
+  width: 100%;
+  height: 40px;
+  border-radius: 8px;
+  color: #424242;
+  transition: 0.3s;
+}

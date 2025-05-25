@@ -1,0 +1,53 @@
+@use '../globalVariables.scss' as *;
+@use './../mixins' as *;
+
+.user-profile {
+  @include input-wrapper;
+
+  &__label {
+    @include text-label;
+  }
+
+  &__input {
+    width: 100%;
+    height: 40px;
+    border-radius: 8px;
+    color: #424242;
+    transition: 0.3s;
+  }
+
+  .button {
+    @include button;
+    margin: 16px auto;
+    width: 240px;
+  }
+}
+
+.user-addresses {
+  @include input-wrapper;
+
+  &__input {
+    @include input;
+  }
+
+  &__label {
+    @include text-label;
+  }
+
+  .button {
+    @include button;
+    width: 200px;
+    margin: 0 auto;
+
+    &:last-child {
+      margin-top: 16px;
+    }
+  }
+}
+
+.main-page-wrapper:has(.user-profile),
+.main-page-wrapper:has(.user-addresses) {
+  height: 100%;
+  min-height: 100vh;
+  padding-bottom: 40px;
+}
