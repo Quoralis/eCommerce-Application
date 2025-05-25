@@ -18,7 +18,7 @@ export async function getProductsInCategory(
   categoryId: string,
   limit = 20,
   offset = 0
-): Promise<[]> {
+): Promise<ProductsResponse> {
   const url = `${apiUrl}/${projectKey}/product-projections/search`;
 
   const form = new URLSearchParams();
@@ -26,7 +26,7 @@ export async function getProductsInCategory(
   form.append('limit', limit.toString());
   form.append('offset', offset.toString());
 
-  const response = await wrapperTryCatch<{ results: [] }>(url, {
+  return await wrapperTryCatch<ProductsResponse>(url, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded',
@@ -34,5 +34,4 @@ export async function getProductsInCategory(
     },
     body: form.toString(),
   });
-  return response.results;
 }

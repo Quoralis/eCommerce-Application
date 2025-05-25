@@ -1,5 +1,6 @@
 import { createEl } from '../utils/createElement.js';
 import { fetchAllCategories } from '../clients/categoriesClient.js';
+import { handleCategoryClick } from './handleCategoryClick.js';
 
 export async function renderCategories(parent: HTMLElement): Promise<void> {
   const navCategories = createEl({
@@ -17,6 +18,7 @@ export async function renderCategories(parent: HTMLElement): Promise<void> {
   const ul = createEl({
     tag: 'ul',
     classes: ['categories-list'],
+    onClick: handleCategoryClick,
     parent: navCategories,
   });
   const li = createEl({
