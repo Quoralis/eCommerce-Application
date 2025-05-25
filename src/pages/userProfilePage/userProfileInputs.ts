@@ -5,7 +5,7 @@ import { openPage } from '../openPage.js';
 import { paths } from '../../constants/paths.js';
 
 export const createUserProfileInputs = async () => {
-  const user = await getCustomerByEmail('user@us.er');
+  const user = await getCustomerByEmail('user@us.er'); // email is used for example, it will be replaced later
   const personalInfo = {
     'First name': user[0].firstName,
     'Last name': user[0].lastName,
