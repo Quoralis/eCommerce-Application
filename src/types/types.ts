@@ -72,6 +72,7 @@ export interface Customer {
   firstName?: string;
   lastName?: string;
   dateOfBirth?: string;
+  addresses?: PartialBaseAddress[];
 }
 
 export interface CustomerSearchResponse {
@@ -113,6 +114,7 @@ export interface CurrentProduct {
     key: string;
   };
 }
+
 export interface DisplayProduct {
   productName: string;
   imageUrl: string;

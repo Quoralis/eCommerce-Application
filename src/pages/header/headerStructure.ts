@@ -87,6 +87,10 @@ const profileBtn = createEl({
   parent: autorisationWrapper,
 });
 
+profileBtn.addEventListener('click', (): void => {
+  openPage(paths.user);
+});
+
 const loginBtn = createEl({
   tag: 'button',
   text: 'Login',
