@@ -18,7 +18,7 @@ export async function renderProductsInCategory(
       const dataCard: DisplayProduct = {
         productName: product.name.en,
         imageUrl: product.masterVariant.images![0].url,
-        productKey: product.masterVariant.key,
+        productKey: product.key,
         description: product.description.en,
         price: product.masterVariant.prices[0].value.centAmount,
         discountedPrice:
