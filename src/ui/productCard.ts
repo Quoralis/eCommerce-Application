@@ -1,44 +1,78 @@
 import { createEl } from '../utils/createElement.js';
+import { formatPrice } from '../utils/formatPrice.js';
+import { DisplayProduct } from '../types/types.js';
+import { formatShortDescription } from '../utils/formatShortDescription.js';
+import { paths } from '../constants/paths.js';
+import { openPage } from '../pages/openPage.js';
+
+export let currentProduct = '';
 
 export function renderProductCard(
   parent: HTMLElement,
-  nameCard: string,
-  urlImageCard: string,
-  descriptionCard: string,
-  productKey: string,
-  priceProduct: string
+  options: DisplayProduct
 ): HTMLElement {
+  const priceText = formatPrice(options.price);
+  const discountText =
+    options.discountedPrice != null ? formatPrice(options.discountedPrice) : '';
+  const shortDescription = formatShortDescription(options.description);
   const cardElement = createEl({
     tag: 'article',
     classes: ['card'],
-    attributes: { 'data-product-key': productKey },
+    attributes: { 'data-product-key': options.productKey.slice(0, -4) },
+
     parent: parent,
+  });
+  cardElement.addEventListener('click', (): void => {
+    // console.log('options', options);
+    // console.log('dmkmk');
+    currentProduct = <string>cardElement.getAttribute('data-product-key');
+    openPage(paths.detailedProduct);
+    // openPage(
+    //   `${paths.detailedProduct}?${cardElement.getAttribute('data-product-key')}`
+    // );
+    // showProductPage(<string>cardElement.getAttribute('data-product-key'));
   });
   createEl({
     tag: 'img',
     classes: ['card-img'],
     attributes: {
-      src: urlImageCard,
-      alt: nameCard,
+      src: options.imageUrl,
+      alt: options.productName,
     },
     parent: cardElement,
   });
   createEl({
     tag: 'h3',
-    text: nameCard,
+    text: options.productName,
+
     parent: cardElement,
   });
   createEl({
     tag: 'span',
-    text: descriptionCard,
+
+    text: shortDescription,
     classes: ['card__description'],
     parent: cardElement,
   });
-  createEl({
+  const wrapperPrices = createEl({
+    tag: 'div',
+    classes: ['wrapper-prices'],
+    parent: cardElement,
+  });
+  const priceEl = createEl({
     tag: 'p',
     classes: ['card__price'],
-    text: priceProduct,
-    parent: cardElement,
+    text: priceText,
+    parent: wrapperPrices,
+  });
+  if (options.discountedPrice != null) {
+    priceEl.classList.add('strikethrough');
+  }
+  createEl({
+    tag: 'p',
+    classes: ['card__discount'],
+    text: discountText,
+    parent: wrapperPrices,
   });
   createEl({
     tag: 'button',

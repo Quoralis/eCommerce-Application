@@ -1,4 +1,3 @@
-// import { regForm } from '../registration/registration.js';
 import { regForm } from './registration.js';
 import {
   INPUT_ATTRIBUTES,
@@ -11,7 +10,10 @@ import { copyAddressValues } from './selectedDefaultAddress.js';
 import { validateDate } from '../../services/validators/dateValidation.js';
 
 export const createRegInputs = () => {
-  const getInputOptions = (index: number, htmlTag: string) => {
+  const getInputOptions = (
+    index: number,
+    htmlTag: keyof HTMLElementTagNameMap
+  ) => {
     return {
       tag: htmlTag,
       classes: ['registration__input', 'uk-input'],
@@ -65,7 +67,9 @@ export const createRegInputs = () => {
         j < INPUT_ATTRIBUTES.length;
         j++
       ) {
-        const changeInputId = (optionsObj: typeCreateElOptions) => {
+        const changeInputId = (
+          optionsObj: typeCreateElOptions<keyof HTMLElementTagNameMap>
+        ) => {
           if (optionsObj.attributes) {
             optionsObj.attributes.id += `-${i + 1}`;
           }

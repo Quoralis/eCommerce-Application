@@ -6,6 +6,10 @@ import { showErrorPage } from '../pages/errorPage/errorPageStructure.js';
 import { header } from '../pages/header/headerStructure.js';
 import { showCatalogPage } from '../pages/catalogPage/showCatalogPage.js';
 import { showProductPage } from '../pages/detailedProductPage/showProductPage.js';
+import { showUserProfilePage as showUserProfilePage } from '../pages/userProfilePage/userProfile.js';
+import { showUserAddresses } from '../pages/userProfilePage/userAddresses.js';
+import { currentProduct } from '../ui/productCard.js';
+
 export default class Router {
   private readonly routes: Record<string, () => void>;
   private static instance: Router | null = null;
@@ -25,6 +29,8 @@ export default class Router {
       '/registration': this.renderRegistrationPage.bind(this),
       '/catalog': this.renderCatalogPage.bind(this),
       '/detailed-product': this.renderDetailedProductPage.bind(this),
+      '/user': this.renderUserPage.bind(this),
+      '/user/addresses': this.renderAddressPage.bind(this),
     };
     window.addEventListener('popstate', () => {
       this.render(window.location.pathname);
@@ -67,7 +73,13 @@ export default class Router {
   }
 
   private async renderDetailedProductPage(): Promise<void> {
-    showProductPage();
+    // const path = window.location.pathname;
+
+    // const key = path.split('/').pop();
+    // console.log('key', key);
+    // if (key) {
+    showProductPage(currentProduct);
+    // }
   }
 
   private renderRegistrationPage(): void {
@@ -75,5 +87,13 @@ export default class Router {
   }
   private async renderCatalogPage(): Promise<void> {
     await showCatalogPage();
+  }
+
+  private renderUserPage(): void {
+    showUserProfilePage();
+  }
+
+  private renderAddressPage(): void {
+    showUserAddresses();
   }
 }

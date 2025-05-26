@@ -1,14 +1,22 @@
 import { createEl } from '../../utils/createElement.js';
 import { CurrentProduct } from '../../types/types.js';
 
+import { formatPrice } from '../../utils/formatPrice.js';
 const showSalePrice = (
   data: CurrentProduct,
   parent: HTMLElement
 ): HTMLElement => {
-  const sale = data.masterVariant.prices[0].discounted.value.centAmount;
+  let sale;
+  if (data.masterVariant.prices[0].discounted) {
+    sale = formatPrice(
+      data.masterVariant.prices[0].discounted.value.centAmount
+    );
+  } else {
+    sale = '';
+  }
   return createEl({
     tag: 'span',
-    text: `${sale}EUR`,
+    text: `${sale}`,
     classes: ['uk-text-danger'],
     parent: parent,
   });
@@ -57,10 +65,13 @@ export const productComponentText = (
 
   const priceWithSale = showSalePrice(data, TitleAndPrice);
 
+  const defaultPriceNum = formatPrice(
+    data.masterVariant.prices[0].value.centAmount
+  );
   const defaultPrice = createEl({
     tag: 'span',
     classes: ['uk-margin-small-bottom', 'default-price'],
-    text: `${data.masterVariant.prices[0].value.centAmount}EUR`,
+    text: `${defaultPriceNum}`,
     parent: TitleAndPrice,
   });
   if (priceWithSale.textContent) {
@@ -69,6 +80,7 @@ export const productComponentText = (
 
   createEl({
     tag: 'span',
+    classes: ['uk-margin-medium-bottom'],
     text: data.description.en,
     parent: wrapperAllText,
   });

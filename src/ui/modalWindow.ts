@@ -1,7 +1,11 @@
 import { createEl } from '../utils/createElement.js';
-// import { productComponentImgsPagination } from '../pages/detailedProductPage/showProductPage.js';
 import { CurrentProduct } from '../types/types.js';
 import { showSlideShow } from './slideShow.js';
+
+export const deleteModalWindow = (): void => {
+  document.getElementById('modal')?.remove();
+};
+
 export const showModalWindow = <T>(str: string, content: T): void => {
   const modalWindow = createEl({
     tag: 'div',
@@ -16,7 +20,6 @@ export const showModalWindow = <T>(str: string, content: T): void => {
       'uk-margin-auto-vertical',
       'uk-padding-large',
       'dialog',
-      // 'uk-width-1-1',
     ],
     parent: modalWindow,
   });

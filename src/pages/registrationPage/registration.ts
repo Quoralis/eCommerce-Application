@@ -1,7 +1,5 @@
-// import { createEl } from '../../utils/createElement.js';
 import { createEl } from '../../utils/createElement.js';
 import { validateInput } from '../../services/validators/registrationValidation.js';
-// import { createRegInputs } from '../../components/registrationPage/registrationInputs.js';
 import { submitForm } from '../../services/validators/registrationValidation.js';
 import { openPage } from '../openPage.js';
 import { paths } from '../../constants/paths.js';

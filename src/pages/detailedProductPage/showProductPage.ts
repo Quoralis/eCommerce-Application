@@ -4,11 +4,28 @@ import { CurrentProduct } from '../../types/types.js';
 import { showModalWindow } from '../../ui/modalWindow.js';
 import { showSlideShow } from '../../ui/slideShow.js';
 import { productComponentText } from './productComponentText.js';
-
+import { deleteModalWindow } from '../../ui/modalWindow.js';
 const productAllComponents = (
   data: CurrentProduct,
   parent: HTMLElement
 ): void => {
+  const backToCatalog = createEl({
+    tag: 'button',
+    text: 'Back',
+    classes: [
+      'uk-margin-small-top',
+      'uk-margin-small-left',
+      'uk-button',
+      'uk-border-rounded',
+      'uk-button-primary',
+      'login-btn',
+    ],
+    onClick: deleteModalWindow,
+    parent: parent,
+  });
+  backToCatalog.addEventListener('click', (): void => {
+    history.back();
+  });
   const detailedProductPage = createEl({
     tag: 'div',
     classes: [
@@ -37,9 +54,11 @@ const productAllComponents = (
   productComponentText(data, childProductPage);
 };
 
-export const showProductPage = async () => {
-  const data = await getCurrentProductClient('MB-Air');
-  const main = <HTMLElement>document.querySelector('main');
-  showModalWindow('pagination', data);
-  productAllComponents(data, main);
+export const showProductPage = async (key: string) => {
+  if (key) {
+    const data = await getCurrentProductClient(key);
+    const main = <HTMLElement>document.querySelector('main');
+    showModalWindow('pagination', data);
+    productAllComponents(data, main);
+  }
 };

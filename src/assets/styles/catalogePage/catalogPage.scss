@@ -46,10 +46,11 @@
   .card {
     display: grid;
     width: 10em;
-    border: 1px solid $dark-white;
     justify-items: center;
+    justify-content: space-between;
     cursor: pointer;
     transform: translateZ(0);
+    border-radius: 0.5em;
     backface-visibility: hidden;
     will-change: transform;
     transition:
@@ -57,24 +58,59 @@
       box-shadow 0.2s ease-out,
       background-color 0.2s ease-out;
 
+    img {
+      width: 150px;
+      height: 150px;
+    }
+
     &:hover {
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     }
   }
 
   h3 {
-    margin: 0;
+    margin: 0.3em 0 0.3em 0;
+    font-size: 0.9em;
+    font-weight: 600;
+  }
+
+  .wrapper-prices {
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    flex-direction: row-reverse;
+    gap: 0.5em;
+  }
+
+  span {
+    font-size: 0.7em;
   }
 
   p {
     margin: 0;
+
+    font-size: 0.7em;
+    font-weight: 600;
   }
 
   .button-to-cart {
+    width: 90%;
+    height: 40px;
     background-color: white;
     color: #4889f7;
     border: 1px solid #4889f7;
-    font-weight: bold;
+    font-weight: 500;
     font-size: 0.8em;
   }
 }
+
+.card__discount {
+  color: red;
+}
+
+.active__category {
+  font-weight: bold;
+  color: #4889f7;
+  cursor: default;
+}
+
