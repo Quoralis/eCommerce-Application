@@ -1,5 +1,6 @@
 import { createEl } from '../../utils/createElement.js';
 import { CurrentProduct } from '../../types/types.js';
+
 import { formatPrice } from '../../utils/formatPrice.js';
 const showSalePrice = (
   data: CurrentProduct,

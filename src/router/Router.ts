@@ -9,7 +9,8 @@ import { showProductPage } from '../pages/detailedProductPage/showProductPage.js
 import { showUserProfilePage as showUserProfilePage } from '../pages/userProfilePage/userProfile.js';
 import { showUserAddresses } from '../pages/userProfilePage/userAddresses.js';
 import { currentProduct } from '../ui/productCard.js';
-
+import { paths } from '../constants/paths.js';
+import { deleteModalWindow } from '../ui/modalWindow.js';
 export default class Router {
   private readonly routes: Record<string, () => void>;
   private static instance: Router | null = null;
@@ -57,6 +58,9 @@ export default class Router {
   private render(path: string): void {
     clearDom('main');
     const renderPage = this.routes[path];
+    if (path === paths.catalog) {
+      deleteModalWindow();
+    }
     if (renderPage) {
       renderPage();
     } else {
@@ -73,13 +77,7 @@ export default class Router {
   }
 
   private async renderDetailedProductPage(): Promise<void> {
-    // const path = window.location.pathname;
-
-    // const key = path.split('/').pop();
-    // console.log('key', key);
-    // if (key) {
     showProductPage(currentProduct);
-    // }
   }
 
   private renderRegistrationPage(): void {

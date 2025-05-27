@@ -3,12 +3,21 @@ import { productComponentImgsPagination } from '../pages/detailedProductPage/pag
 import { CurrentProduct } from '../types/types.js';
 import Uikit from 'uikit';
 
+export const slideShowInProductPage = 'slideShowInProductPage';
+
+const showPaginationBtns = (el: HTMLElement): void => {
+  if (window.innerWidth <= 700) {
+    el.classList.remove('uk-visible-toggle');
+  } else {
+    el.classList.add('uk-visible-toggle');
+  }
+};
+
 export const showSlideShow = <T>(
   str: string,
   parent: HTMLElement,
   data: T
 ): void => {
-  //   console.log(';;');
   const wrapperPagination = createEl({
     tag: 'div',
     classes: [
@@ -25,6 +34,11 @@ export const showSlideShow = <T>(
     parent: parent,
   });
 
+  showPaginationBtns(wrapperPagination);
+  window.addEventListener('resize', (): void => {
+    showPaginationBtns(wrapperPagination);
+  });
+
   const wrapperImgs = createEl({
     tag: 'ul',
     classes: ['uk-slideshow-items', 'wrapper-imgs'],
@@ -39,6 +53,7 @@ export const showSlideShow = <T>(
       'uk-hidden-hover',
       'uk-text-primary',
       'uk-slidenav-large',
+      'btn',
     ],
     attributes: {
       'uk-slidenav-previous': '',
@@ -55,6 +70,7 @@ export const showSlideShow = <T>(
       'uk-hidden-hover',
       'uk-text-primary',
       'uk-slidenav-large',
+      'btn',
     ],
     attributes: {
       'uk-slidenav-next': '',
@@ -64,7 +80,7 @@ export const showSlideShow = <T>(
     parent: wrapperPagination,
   });
 
-  if (str === 'slide') {
+  if (str === slideShowInProductPage) {
     productComponentImgsPagination(<CurrentProduct>data, wrapperImgs);
     wrapperImgs.addEventListener('mousedown', (event): void => {
       event.preventDefault();
