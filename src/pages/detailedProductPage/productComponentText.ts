@@ -32,7 +32,7 @@ export const productComponentText = (
       'uk-flex',
       'uk-flex-column',
       'uk-flex-between',
-      'uk-margin-medium-left',
+      'uk-margin-xsmall-left',
       'wrapper-all-text',
     ],
     parent: parent,
@@ -40,9 +40,9 @@ export const productComponentText = (
 
   window.addEventListener('resize', (): void => {
     if (window.innerWidth <= 700) {
-      wrapperAllText.classList.add('uk-margin-remove-left');
+      wrapperAllText.classList.add('uk-margin-xsmall-left');
     } else {
-      wrapperAllText.classList.remove('uk-margin-remove-left');
+      wrapperAllText.classList.remove('uk-margin-xsmall-left');
     }
   });
 

@@ -3,18 +3,50 @@ import { userProfileWrapper } from './userProfile.js';
 import { getCustomerByEmail } from '../../clients/customerSearchClient.js';
 import { openPage } from '../openPage.js';
 import { paths } from '../../constants/paths.js';
+import { updateCustomerInf } from '../../clients/updateCustomerInf.js';
+import { updateCustomer } from '../../types/types.js';
+import { validateInput } from '../../services/validators/registrationValidation.js';
+const newpersonalInfo: updateCustomer = {
+  // version:
+  actions: [
+    {
+      action: 'setFirstName',
+      firstName: '',
+      /* lastName: '',
+      email: '',
+      dateOfBirth: '', */
+    },
+  ],
+};
+
+const activeOrNoInputsPersonalInf = (
+  parent: HTMLFormElement,
+  disabled: boolean
+): void => {
+  for (let i = 0; i < parent.length; i++) {
+    const input = <HTMLInputElement>parent[i];
+    if (!disabled) {
+      input.disabled = false;
+    } else {
+      input.disabled = true;
+    }
+  }
+};
 
 export const createUserProfileInputs = async () => {
-  const user = await getCustomerByEmail('user@us.er'); // email is used for example, it will be replaced later
+  // let userProfileInput:
+  const user = await getCustomerByEmail('Lnsdfncv.@gmail.com'); // email is used for example, it will be replaced later
+  // console.log(user);
   const personalInfo = {
-    'First name': user[0].firstName,
-    'Last name': user[0].lastName,
-    'Birth date': user[0].dateOfBirth,
+    'First name:': user[0].firstName,
+    'Last name:': user[0].lastName,
+    'Email:': user[0].email,
+    'Birth date:': user[0].dateOfBirth,
   };
 
-  createEl({
+  const customerInf = createEl({
     tag: 'form',
-    classes: ['user-profile__form'],
+    classes: ['user-profile__form', 'uk-flex', 'uk-flex-column'],
     parent: userProfileWrapper,
   });
 
@@ -23,16 +55,16 @@ export const createUserProfileInputs = async () => {
       tag: 'label',
       text: Object.keys(personalInfo)[i],
       classes: ['user-profile__label'],
-      parent: userProfileWrapper,
+      parent: customerInf,
       attributes: {
         for: Object.keys(personalInfo)[i],
       },
     });
 
-    createEl({
+    /* userProfileInput =   */ createEl({
       tag: 'input',
       classes: ['user-profile__input', 'uk-input'],
-      parent: userProfileWrapper,
+      parent: customerInf,
       attributes: {
         id: Object.keys(personalInfo)[i],
         value: Object.values(personalInfo)[i] ?? '',
@@ -41,14 +73,67 @@ export const createUserProfileInputs = async () => {
     });
   }
 
-  createEl({
-    tag: 'button',
-    text: 'Edit personal information',
-    classes: ['button', 'uk-button', 'uk-button-primary'],
+  const btnsWrapper = createEl({
+    tag: 'div',
+    classes: ['uk-flex', 'uk-flex-center', 'uk-flex-middle'],
     parent: userProfileWrapper,
+  });
+
+  const editPersonalInf = createEl({
+    tag: 'button',
+    text: 'Edit',
+    classes: ['button', 'uk-button', 'uk-button-primary'],
+    parent: btnsWrapper,
     attributes: {
       type: 'submit',
     },
+  });
+
+  editPersonalInf.addEventListener('click', (): void => {
+    activeOrNoInputsPersonalInf(customerInf, false);
+    savePersonalInf.disabled = false;
+    editPersonalInf.disabled = true;
+  });
+
+  const savePersonalInf = createEl({
+    tag: 'button',
+    text: 'save',
+    classes: ['button', 'uk-button', 'uk-button-primary'],
+    parent: btnsWrapper,
+    attributes: {
+      type: 'submit',
+      disabled: '',
+    },
+  });
+
+  savePersonalInf.addEventListener('click', (event): void => {
+    // updateCustomerInf
+    // event.preventDefault();
+    validateInput(event);
+    const allInputs = <NodeListOf<HTMLInputElement>>(
+      customerInf.querySelectorAll('.user-profile__input')
+    );
+    // console.log(el);
+    // const el = document.querySelectorAll('.user-profile__input');
+    //  for (let i = 0; i < userProfileInput.length)
+    // console.log(el.)
+    // for (let i = 0; i < allInputs.length; i++) {
+    //   const obj = newpersonalInfo.actions[0];
+    //   // obj.action = user[0].version
+    //   const key /* : Record<string, string> */ = Object.keys(obj)[i];
+    //   // console.log((Object.values(obj)[i]));
+    //   // console.log(newpersonalInfo.actions[0]);
+    //   /*  obj[key] = allInputs[0].value; */
+    //   // newpersonalInfo.actions[0] = allInputs[i].value
+    //   // console.log(newpersonalInfo);
+    // }
+    console.log(newpersonalInfo);
+    newpersonalInfo.version = user[0].version;
+    newpersonalInfo.actions[0].firstName = allInputs[0].value;
+    updateCustomerInf(user[0].id, newpersonalInfo);
+    activeOrNoInputsPersonalInf(customerInf, true);
+    savePersonalInf.disabled = true;
+    editPersonalInf.disabled = false;
   });
 
   createEl({
