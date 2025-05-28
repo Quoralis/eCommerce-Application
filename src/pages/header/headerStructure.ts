@@ -1,15 +1,14 @@
 import { createEl } from '../../utils/createElement.js';
 import img from '../../assets/images/logo.png';
-import { paths } from '../../constants/paths.js';
-// import { openPage } from '../openPage.js';
-import { openPage } from '../openPage.js';
 import Uikit from 'uikit';
 import { logOut } from '../../services/authService.js';
+
 const startNum = 0;
 const limit = 3;
 
 const header = createEl({
   tag: 'header',
+
   classes: ['uk-background-default', 'uk-flex', 'uk-flex-around', 'header'],
 });
 
@@ -36,27 +35,29 @@ const mainBtn = createEl({
   tag: 'a',
   text: 'Main',
   classes: ['el-nav'],
+  attributes: {
+    'data-path': '/',
+  },
   parent: generalLinks,
-});
-
-mainBtn.addEventListener('click', (): void => {
-  openPage(paths.main);
 });
 
 const catalogBtn = createEl({
   tag: 'a',
   text: 'Catalog',
   classes: ['el-nav'],
+  attributes: {
+    'data-path': '/catalog',
+  },
   parent: generalLinks,
-});
-catalogBtn.addEventListener('click', (): void => {
-  openPage(paths.catalog);
 });
 
 const aboutBtn = createEl({
   tag: 'a',
   text: 'About',
   classes: ['el-nav'],
+  attributes: {
+    'data-path': '/',
+  },
   parent: generalLinks,
 });
 
@@ -83,12 +84,8 @@ const profileBtn = createEl({
     'el-nav',
     'icon',
   ],
-  attributes: { 'uk-icon': 'user' },
+  attributes: { 'uk-icon': 'user', 'data-path': '/user' },
   parent: autorisationWrapper,
-});
-
-profileBtn.addEventListener('click', (): void => {
-  openPage(paths.user);
 });
 
 const loginBtn = createEl({
@@ -101,11 +98,10 @@ const loginBtn = createEl({
     'login-btn',
     'el-nav',
   ],
+  attributes: {
+    'data-path': '/login',
+  },
   parent: autorisationWrapper,
-});
-
-loginBtn.addEventListener('click', (): void => {
-  openPage(paths.login);
 });
 
 const signOut = createEl({
@@ -119,11 +115,8 @@ const signOut = createEl({
     'hidden',
     'el-nav',
   ],
+  onClick: logOut,
   parent: autorisationWrapper,
-});
-
-signOut.addEventListener('click', async (): Promise<void> => {
-  await logOut();
 });
 
 const signBtn = createEl({
@@ -136,11 +129,10 @@ const signBtn = createEl({
     'sign-up-btn',
     'el-nav',
   ],
+  attributes: {
+    'data-path': '/registration',
+  },
   parent: autorisationWrapper,
-});
-
-signBtn.addEventListener('click', (): void => {
-  openPage(paths.registration);
 });
 
 const headerBurgerMenu = createEl({
@@ -187,26 +179,6 @@ const cloneLoginBtn = loginBtn.cloneNode(true);
 const cloneSignBtn = signBtn.cloneNode(true);
 const cloneSignOut = signOut.cloneNode(true);
 const cloneProfileBtn = profileBtn.cloneNode(true);
-
-cloneMainBtn.addEventListener('click', (): void => {
-  openPage(paths.main);
-});
-
-cloneLoginBtn.addEventListener('click', (): void => {
-  openPage(paths.login);
-});
-
-cloneSignBtn.addEventListener('click', (): void => {
-  openPage(paths.registration);
-});
-
-cloneSignOut.addEventListener('click', async (): Promise<void> => {
-  await logOut();
-});
-
-cloneCatalogBtn.addEventListener('click', (): void => {
-  openPage(paths.catalog);
-});
 
 const showHeaderComponent = (): void => {
   document.body.append(header);

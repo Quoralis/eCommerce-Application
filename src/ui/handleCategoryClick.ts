@@ -15,6 +15,7 @@ export async function handleCategoryClick(e: MouseEvent) {
   container.innerHTML = '';
   li.classList.add('active__category');
   const key = li.getAttribute('data-category-key');
+  console.log(key);
 
   if (key) {
     await renderProductsInCategory(key);

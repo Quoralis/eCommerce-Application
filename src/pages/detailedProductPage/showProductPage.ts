@@ -5,11 +5,12 @@ import { showModalWindow } from '../../ui/modalWindow.js';
 import { showSlideShow } from '../../ui/slideShow.js';
 import { productComponentText } from './productComponentText.js';
 import { deleteModalWindow } from '../../ui/modalWindow.js';
+
 const productAllComponents = (
   data: CurrentProduct,
   parent: HTMLElement
 ): void => {
-  const backToCatalog = createEl({
+  createEl({
     tag: 'button',
     text: 'Back',
     classes: [
@@ -21,10 +22,8 @@ const productAllComponents = (
       'login-btn',
     ],
     onClick: deleteModalWindow,
+    attributes: { 'data-path': '/catalog' },
     parent: parent,
-  });
-  backToCatalog.addEventListener('click', (): void => {
-    history.back();
   });
   const detailedProductPage = createEl({
     tag: 'div',

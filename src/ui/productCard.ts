@@ -2,8 +2,6 @@ import { createEl } from '../utils/createElement.js';
 import { formatPrice } from '../utils/formatPrice.js';
 import { DisplayProduct } from '../types/types.js';
 import { formatShortDescription } from '../utils/formatShortDescription.js';
-import { paths } from '../constants/paths.js';
-import { openPage } from '../pages/openPage.js';
 
 export let currentProduct = '';
 
@@ -18,19 +16,14 @@ export function renderProductCard(
   const cardElement = createEl({
     tag: 'article',
     classes: ['card'],
-    attributes: { 'data-product-key': options.productKey },
-
+    attributes: {
+      'data-product-key': options.productKey,
+      'data-path': '/catalog/detailed-product',
+    },
     parent: parent,
   });
   cardElement.addEventListener('click', (): void => {
-    // console.log('options', options);
-    // console.log('dmkmk');
     currentProduct = <string>cardElement.getAttribute('data-product-key');
-    openPage(paths.detailedProduct);
-    // openPage(
-    //   `${paths.detailedProduct}?${cardElement.getAttribute('data-product-key')}`
-    // );
-    // showProductPage(<string>cardElement.getAttribute('data-product-key'));
   });
   createEl({
     tag: 'img',
