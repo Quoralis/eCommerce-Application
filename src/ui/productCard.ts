@@ -18,7 +18,7 @@ export function renderProductCard(
   const cardElement = createEl({
     tag: 'article',
     classes: ['card'],
-    attributes: { 'data-product-key': options.productKey.slice(0, -4) },
+    attributes: { 'data-product-key': options.productKey },
 
     parent: parent,
   });

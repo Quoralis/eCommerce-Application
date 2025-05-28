@@ -17,6 +17,11 @@ declare global {
     'dotlottie-player': HTMLElement;
   }
 }
+declare global {
+  interface HTMLElementTagNameMap {
+    'dotlottie-player': HTMLElement;
+  }
+}
 
 export interface TokenResponse {
   access_token: string;
@@ -96,6 +101,7 @@ export interface CurrentProduct {
   description: {
     en: string;
   };
+  key: string;
   masterVariant: {
     prices: [
       {
@@ -125,4 +131,17 @@ export interface DisplayProduct {
   productKey: string;
   price: number;
   discountedPrice?: number;
+}
+
+export interface Categories {
+  count: number;
+  limit: number;
+  results: [DataCategory];
+  total: number;
+}
+
+interface DataCategory {
+  id: string;
+  key: string;
+  name: { en: string };
 }
