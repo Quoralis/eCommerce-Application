@@ -73,6 +73,8 @@ export interface Customer {
   lastName?: string;
   dateOfBirth?: string;
   addresses?: PartialBaseAddress[];
+  shippingAddressIds?: string[];
+  billingAddressIds?: string[];
 }
 
 export interface CustomerSearchResponse {

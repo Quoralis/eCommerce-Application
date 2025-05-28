@@ -1,6 +1,10 @@
 @use '../globalVariables.scss' as *;
 @use './../mixins' as *;
 
+h4 {
+  margin: 0;
+}
+
 .user-profile {
   @include input-wrapper;
 
