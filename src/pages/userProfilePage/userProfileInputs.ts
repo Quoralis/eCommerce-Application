@@ -10,6 +10,8 @@ export const createUserProfileInputs = async () => {
     'First name': user[0].firstName,
     'Last name': user[0].lastName,
     'Birth date': user[0].dateOfBirth,
+    Email: user[0].email,
+    Password: user[0].password,
   };
 
   createEl({

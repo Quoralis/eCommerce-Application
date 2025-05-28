@@ -75,6 +75,7 @@ export interface Customer {
   addresses?: PartialBaseAddress[];
   shippingAddressIds?: string[];
   billingAddressIds?: string[];
+  password?: string;
 }
 
 export interface CustomerSearchResponse {

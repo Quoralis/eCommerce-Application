@@ -52,7 +52,7 @@ submitBtn.addEventListener('click', (event) => {
 export const loginLink = createEl({
   tag: 'a',
   classes: [
-    'link-registaration',
+    'link-registration',
     'registration__login-link',
     'uk-link',
     'uk-text-center',
