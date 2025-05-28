@@ -5,9 +5,9 @@ import { openPage } from '../openPage.js';
 import { paths } from '../../constants/paths.js';
 import { updateCustomerInf } from '../../clients/updateCustomerInf.js';
 import { updateCustomer } from '../../types/types.js';
-import { validateInput } from '../../services/validators/registrationValidation.js';
+// import { validateInput } from '../../services/validators/registrationValidation.js';
 const newpersonalInfo: updateCustomer = {
-  // version:
+  version: 0,
   actions: [
     {
       action: 'setFirstName',
@@ -19,7 +19,7 @@ const newpersonalInfo: updateCustomer = {
   ],
 };
 
-const activeOrNoInputsPersonalInf = (
+const toggleInputsState = (
   parent: HTMLFormElement,
   disabled: boolean
 ): void => {
@@ -90,7 +90,7 @@ export const createUserProfileInputs = async () => {
   });
 
   editPersonalInf.addEventListener('click', (): void => {
-    activeOrNoInputsPersonalInf(customerInf, false);
+    toggleInputsState(customerInf, false);
     savePersonalInf.disabled = false;
     editPersonalInf.disabled = true;
   });
@@ -106,32 +106,15 @@ export const createUserProfileInputs = async () => {
     },
   });
 
-  savePersonalInf.addEventListener('click', (event): void => {
-    // updateCustomerInf
-    // event.preventDefault();
-    validateInput(event);
+  savePersonalInf.addEventListener('click', (): void => {
     const allInputs = <NodeListOf<HTMLInputElement>>(
       customerInf.querySelectorAll('.user-profile__input')
     );
-    // console.log(el);
-    // const el = document.querySelectorAll('.user-profile__input');
-    //  for (let i = 0; i < userProfileInput.length)
-    // console.log(el.)
-    // for (let i = 0; i < allInputs.length; i++) {
-    //   const obj = newpersonalInfo.actions[0];
-    //   // obj.action = user[0].version
-    //   const key /* : Record<string, string> */ = Object.keys(obj)[i];
-    //   // console.log((Object.values(obj)[i]));
-    //   // console.log(newpersonalInfo.actions[0]);
-    //   /*  obj[key] = allInputs[0].value; */
-    //   // newpersonalInfo.actions[0] = allInputs[i].value
-    //   // console.log(newpersonalInfo);
-    // }
-    console.log(newpersonalInfo);
+    // console.log('userObj', user);
     newpersonalInfo.version = user[0].version;
     newpersonalInfo.actions[0].firstName = allInputs[0].value;
     updateCustomerInf(user[0].id, newpersonalInfo);
-    activeOrNoInputsPersonalInf(customerInf, true);
+    toggleInputsState(customerInf, true);
     savePersonalInf.disabled = true;
     editPersonalInf.disabled = false;
   });
