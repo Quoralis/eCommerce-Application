@@ -142,3 +142,16 @@ interface DataCategory {
   key: string;
   name: { en: string };
 }
+
+export interface updateCustomer {
+  version?: number;
+  actions: [
+    {
+      action: string;
+      firstName: string;
+      /*  lastName: string;
+      email: string;
+      dateOfBirth: string; */
+    },
+  ];
+}
