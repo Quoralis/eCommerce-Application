@@ -34,6 +34,13 @@ const showAddressesWrapper = async () => {
     classes: ['button', 'uk-button', 'uk-button-primary'],
     parent: userAddressesWrapper,
   });
+
+  createEl({
+    tag: 'button',
+    text: 'Add new address',
+    classes: ['button', 'uk-button', 'uk-button-primary'],
+    parent: userAddressesWrapper,
+  });
 };
 
 showAddressesWrapper();
