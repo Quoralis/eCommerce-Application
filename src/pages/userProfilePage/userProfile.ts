@@ -3,7 +3,11 @@ import { createUserProfileInputs } from './userProfileInputs.js';
 
 const userProfileContainer = createEl({
   tag: 'div',
-  classes: ['uk-height-1-1', 'user-profile-container'],
+  classes: [
+    'uk-height-1-1',
+    'user-profile-container',
+    'container-registration',
+  ],
 });
 
 export const userProfileWrapper = createEl({

@@ -12,6 +12,13 @@
   text-decoration: line-through;
 }
 
+// .wrapper-img {
+//   object-fit: contain;
+// }
+.detailed-product-img {
+  object-fit: contain;
+}
+
 @media (max-width: 700px) and (min-width: 350px) {
   .child-product-page {
     flex-direction: column-reverse;
