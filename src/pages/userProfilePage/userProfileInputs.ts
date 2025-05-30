@@ -10,6 +10,7 @@ import {
 } from '../../types/types.js';
 import { showPasswordOrHide } from '../loginPage/showPassword.js';
 import { updateCustomerPassword } from '../../clients/updateCustomerPassword.js';
+
 const anothersActions = [
   'setFirstName',
   'setLastName',
@@ -42,7 +43,7 @@ const toggleInputsState = (
 };
 
 export const createUserProfileInputs = async (email: string) => {
-  const user = await getCustomerByEmail(email); // email is used for example, it will be replaced later
+  const user = await getCustomerByEmail(email);
   const personalInfo = {
     'First name:': user[0].firstName,
     'Last name:': user[0].lastName,

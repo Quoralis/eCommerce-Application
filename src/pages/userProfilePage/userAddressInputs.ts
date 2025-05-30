@@ -4,8 +4,7 @@ import { userAddressesWrapper } from './userAddresses.js';
 import { PartialBaseAddress } from '../../types/types.js';
 
 export const createUserAddressInputs = async () => {
-  const user = await getCustomerByEmail('Lnsdfncv.@gmail.com'); // email is used for example, it will be replaced later
-
+  const user = await getCustomerByEmail('Lnsdfncv.@gmail.com');
   const addressInputs: PartialBaseAddress = {
     Country: 'country',
     City: 'city',

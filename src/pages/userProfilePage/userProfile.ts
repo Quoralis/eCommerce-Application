@@ -1,7 +1,7 @@
 import { createEl } from '../../utils/createElement.js';
 import { createUserProfileInputs } from './userProfileInputs.js';
 import { clearDom } from '../../utils/clearDom.js';
-// let emailUser:string
+
 const userProfileContainer = createEl({
   tag: 'div',
   classes: [

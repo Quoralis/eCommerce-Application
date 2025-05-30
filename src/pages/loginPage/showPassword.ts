@@ -2,7 +2,6 @@ export const showPasswordOrHide = (
   el: HTMLElement,
   iconEl: HTMLElement
 ): void => {
-  console.log('+');
   iconEl.classList.toggle('active');
   if (iconEl.classList.contains('active')) {
     iconEl.setAttribute('uk-icon', 'icon: eye');

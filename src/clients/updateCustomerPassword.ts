@@ -17,7 +17,6 @@ export const updateCustomerPassword = async (
       },
       body: JSON.stringify(body),
     });
-    console.log(response);
     showNotification('update password successfully', 'success');
     return response;
   } catch (err) {
