@@ -8,9 +8,9 @@ import { showCatalogPage } from '../pages/catalogPage/showCatalogPage.js';
 import { showProductPage } from '../pages/detailedProductPage/showProductPage.js';
 import { showUserProfilePage as showUserProfilePage } from '../pages/userProfilePage/userProfile.js';
 import { showUserAddresses } from '../pages/userProfilePage/userAddresses.js';
-import { currentProduct } from '../ui/productCard.js';
-import { handleCategoryClick } from '../ui/handleCategoryClick.js';
 import { openPage } from '../pages/openPage.js';
+import { renderProductList } from '../ui/renderProductList.js';
+import { renderProductsInCategory } from '../ui/renderProductsInCategory.js';
 
 export default class Router {
   private readonly routes: Record<string, () => void>;
@@ -24,14 +24,6 @@ export default class Router {
         classes: ['uk-height-1-1', 'main-page-wrapper'],
       });
       document.body.appendChild(main);
-      main.addEventListener('click', async (e) => {
-        const li = (e.target as Element).closest<HTMLLIElement>(
-          'li[data-category-key]'
-        );
-        if (li) {
-          await handleCategoryClick(e as MouseEvent);
-        }
-      });
     }
 
     this.routes = {
@@ -39,17 +31,11 @@ export default class Router {
       '/login': this.renderLogin.bind(this),
       '/registration': this.renderRegistrationPage.bind(this),
       '/catalog': this.renderCatalogPage.bind(this),
-      '/catalog/macbooks': this.renderCategories.bind(this),
-      '/catalog/iphones': this.renderCategories.bind(this),
-      '/catalog/airpods': this.renderCategories.bind(this),
-      '/catalog/accessories': this.renderCategories.bind(this),
-      '/catalog/applewatch': this.renderCategories.bind(this),
-      '/catalog/detailed-product': this.renderDetailedProductPage.bind(this),
       '/user': this.renderUserPage.bind(this),
       '/user/addresses': this.renderAddressPage.bind(this),
     };
-    window.addEventListener('popstate', () => {
-      this.render(window.location.pathname);
+    window.addEventListener('popstate', async () => {
+      await this.render(window.location.pathname);
     });
     sessionStorage.clear();
   }
@@ -61,16 +47,28 @@ export default class Router {
     return Router.instance;
   }
 
-  public initialRender(): void {
-    this.render(window.location.pathname);
+  public async initialRender(): Promise<void> {
+    await this.render(window.location.pathname);
   }
 
-  public navigate(path: string): void {
+  public async navigate(path: string): Promise<void> {
     history.pushState({}, '', path);
-    this.render(path);
+    await this.render(path);
   }
 
-  private render(path: string): void {
+  private async render(path: string): Promise<void> {
+    const arrPath = path.split('/').filter(Boolean); // удаляем пустые элементы
+    const [root, category, id] = arrPath;
+
+    if (root === 'catalog' && category && id) {
+      await this.renderDetailedProductPage(id);
+      return;
+    }
+    if (root === 'catalog' && category) {
+      await this.renderCategories(category);
+      return;
+    }
+
     const renderPage = this.routes[path];
     if (renderPage) {
       renderPage();
@@ -91,10 +89,11 @@ export default class Router {
     showLoginPage();
   }
 
-  private async renderDetailedProductPage(): Promise<void> {
+  private async renderDetailedProductPage(
+    currentProduct: string
+  ): Promise<void> {
     clearDom('main-page-wrapper');
     await showProductPage(currentProduct);
-    // }
   }
 
   private renderRegistrationPage(): void {
@@ -102,6 +101,7 @@ export default class Router {
 
     showRegistrationPage();
   }
+
   private async renderCatalogPage(): Promise<void> {
     clearDom('main-page-wrapper');
     await showCatalogPage();
@@ -117,7 +117,24 @@ export default class Router {
     showUserAddresses();
   }
 
-  private async renderCategories(): Promise<void> {
-    clearDom('product-container');
+  private async renderCategories(category: string): Promise<void> {
+    const container = document.querySelector('.product-container');
+    if (!(container instanceof HTMLElement)) return;
+
+    container.innerHTML = '';
+
+    const listItems = document.querySelectorAll('.categories-list li');
+    listItems.forEach((li) => {
+      li.classList.remove('active__category');
+      if (li.getAttribute('data-category-key') === category) {
+        li.classList.add('active__category');
+      }
+    });
+
+    if (category) {
+      await renderProductsInCategory(category);
+    } else {
+      await renderProductList(container);
+    }
   }
 }

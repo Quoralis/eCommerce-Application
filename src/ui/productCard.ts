@@ -18,7 +18,7 @@ export function renderProductCard(
     classes: ['card'],
     attributes: {
       'data-product-key': options.productKey,
-      'data-path': '/catalog/detailed-product',
+      'data-path': `/catalog/product/${options.productKey}`,
     },
     parent: parent,
   });

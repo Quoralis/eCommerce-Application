@@ -4,7 +4,6 @@ import { registerCustomer } from '../clients/customerClient.js';
 import { parseError } from '../utils/parseError.js';
 import { updateAuthUI } from '../utils/auth.js';
 
-//cache token
 const tokenCache = {
   accessToken: '',
   refreshToken: '',
@@ -50,7 +49,7 @@ export async function logOut(): Promise<void> {
       await revokeAccessToken(accessToken);
     if (statusRevokeToken === 200) {
       localStorage.removeItem('accessToken');
-      updateAuthUI();
+      await updateAuthUI();
     }
   } catch (err) {
     console.error('Logout error:', err);

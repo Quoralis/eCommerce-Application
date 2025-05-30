@@ -56,6 +56,7 @@ const productAllComponents = (
 export const showProductPage = async (key: string) => {
   if (key) {
     const data = await getCurrentProductClient(key);
+    console.log(key);
     const main = <HTMLElement>document.querySelector('main');
     showModalWindow('pagination', data);
     productAllComponents(data, main);

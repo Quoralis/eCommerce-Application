@@ -14,8 +14,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   // const bearerToken = await requestBearerToken();
   const accessToken = localStorage.getItem('accessToken');
   if (accessToken) {
-    updateAuthUI();
+    await updateAuthUI();
   }
   const router = Router.getInstance();
-  router.initialRender();
+  await router.initialRender();
 });
