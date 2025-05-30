@@ -1,6 +1,8 @@
 import { createEl } from '../utils/createElement.js';
 import { CurrentProduct } from '../types/types.js';
 import { showSlideShow } from './slideShow.js';
+import { slideShowInProductPage } from './slideShow.js';
+export const modalInProductPage = 'paginationInProductPage';
 
 export const deleteModalWindow = (): void => {
   document.getElementById('modal')?.remove();
@@ -31,7 +33,7 @@ export const showModalWindow = <T>(str: string, content: T): void => {
     parent: dialog,
   });
 
-  if (str === 'pagination') {
-    showSlideShow('slide', dialog, <CurrentProduct>content);
+  if (str === modalInProductPage) {
+    showSlideShow(slideShowInProductPage, dialog, <CurrentProduct>content);
   }
 };

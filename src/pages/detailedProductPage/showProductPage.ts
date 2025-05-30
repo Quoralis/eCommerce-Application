@@ -5,6 +5,8 @@ import { showModalWindow } from '../../ui/modalWindow.js';
 import { showSlideShow } from '../../ui/slideShow.js';
 import { productComponentText } from './productComponentText.js';
 import { deleteModalWindow } from '../../ui/modalWindow.js';
+import { slideShowInProductPage } from '../../ui/slideShow.js';
+import { modalInProductPage } from '../../ui/modalWindow.js';
 
 const productAllComponents = (
   data: CurrentProduct,
@@ -49,16 +51,14 @@ const productAllComponents = (
     ],
     parent: detailedProductPage,
   });
-  showSlideShow('slide', childProductPage, data);
+  showSlideShow(slideShowInProductPage, childProductPage, data);
   productComponentText(data, childProductPage);
 };
 
 export const showProductPage = async (key: string) => {
-  if (key) {
-    const data = await getCurrentProductClient(key);
-    console.log(key);
-    const main = <HTMLElement>document.querySelector('main');
-    showModalWindow('pagination', data);
-    productAllComponents(data, main);
-  }
+  const data = await getCurrentProductClient(key);
+  const main = <HTMLElement>document.querySelector('main');
+  showModalWindow(modalInProductPage, data);
+  productAllComponents(data, main);
+
 };

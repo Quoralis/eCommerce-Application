@@ -19,7 +19,7 @@
   .button {
     @include button;
     margin: 16px auto;
-    width: 240px;
+    // width: 240px;
   }
 }
 
@@ -43,6 +43,10 @@
       margin-top: 16px;
     }
   }
+}
+
+.password-wrapper {
+  margin-bottom: 10px;
 }
 
 .main-page-wrapper:has(.user-profile),
