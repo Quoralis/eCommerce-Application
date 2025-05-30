@@ -101,7 +101,9 @@ const iconEyeSlash = createEl({
   parent: passwordWrapper,
 });
 
-iconEyeSlash.addEventListener('click', showPasswordOrHide);
+iconEyeSlash.addEventListener('click', (): void => {
+  showPasswordOrHide(inputPassword, iconEyeSlash);
+});
 
 const inputPassword = <HTMLInputElement>createEl({
   tag: 'input',

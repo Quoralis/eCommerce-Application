@@ -1,7 +1,6 @@
 import { createEl } from '../../utils/createElement.js';
 import img from '../../assets/images/logo.png';
 import { paths } from '../../constants/paths.js';
-// import { openPage } from '../openPage.js';
 import { openPage } from '../openPage.js';
 import Uikit from 'uikit';
 import { logOut } from '../../services/authService.js';

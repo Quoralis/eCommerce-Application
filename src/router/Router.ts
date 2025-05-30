@@ -88,7 +88,8 @@ export default class Router {
   }
 
   private renderUserPage(): void {
-    showUserProfilePage();
+    const email = <string>localStorage.getItem('email');
+    showUserProfilePage(email);
   }
 
   private renderAddressPage(): void {

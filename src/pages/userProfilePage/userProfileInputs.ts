@@ -4,19 +4,28 @@ import { getCustomerByEmail } from '../../clients/customerSearchClient.js';
 import { openPage } from '../openPage.js';
 import { paths } from '../../constants/paths.js';
 import { updateCustomerInf } from '../../clients/updateCustomerInf.js';
-import { updateCustomer } from '../../types/types.js';
-// import { validateInput } from '../../services/validators/registrationValidation.js';
-const newpersonalInfo: updateCustomer = {
+import {
+  updateCustomer,
+  updateCustomerPasswordType,
+} from '../../types/types.js';
+import { showPasswordOrHide } from '../loginPage/showPassword.js';
+import { updateCustomerPassword } from '../../clients/updateCustomerPassword.js';
+
+const anothersActions = [
+  'setFirstName',
+  'setLastName',
+  'changeEmail',
+  'setDateOfBirth',
+];
+
+type actionObj = { action: string; [key: string]: string };
+
+const changeFields = ['firstName', 'lastName', 'email', 'dateOfBirth'];
+const passwordsPlaceholders = ['Current Password', 'New Password'];
+const operationWithInputs = ['Edit', 'Cancel', 'Save'];
+const newPersonalInfo: updateCustomer = {
   version: 0,
-  actions: [
-    {
-      action: 'setFirstName',
-      firstName: '',
-      /* lastName: '',
-      email: '',
-      dateOfBirth: '', */
-    },
-  ],
+  actions: [],
 };
 
 const toggleInputsState = (
@@ -33,10 +42,8 @@ const toggleInputsState = (
   }
 };
 
-export const createUserProfileInputs = async () => {
-  // let userProfileInput:
-  const user = await getCustomerByEmail('Lnsdfncv.@gmail.com'); // email is used for example, it will be replaced later
-  // console.log(user);
+export const createUserProfileInputs = async (email: string) => {
+  const user = await getCustomerByEmail(email);
   const personalInfo = {
     'First name:': user[0].firstName,
     'Last name:': user[0].lastName,
@@ -72,56 +79,188 @@ export const createUserProfileInputs = async () => {
       },
     });
   }
+  changeBlock(email, true, customerInf);
+  changePassword(email);
+  showAddressBlock();
+};
 
+const changePassword = (email: string): void => {
+  createEl({
+    tag: 'p',
+    text: 'Password:',
+    classes: ['user-profile__label'],
+    parent: userProfileWrapper,
+    attributes: {
+      id: 'addresses',
+    },
+  });
+  const containerPassword = createEl({
+    tag: 'form',
+    classes: ['user-profile__form', 'uk-flex', 'uk-flex-column'],
+    parent: userProfileWrapper,
+  });
+  let passwordWrapper: HTMLDivElement;
+  for (let i = 0; i < 2; i++) {
+    passwordWrapper = createEl({
+      tag: 'div',
+      classes: ['uk-inline', 'password-wrapper'],
+      parent: containerPassword,
+    });
+
+    const iconEyeSlash = createEl({
+      tag: 'a',
+      classes: ['uk-form-icon', 'uk-form-icon-flip'],
+      attributes: { 'uk-icon': 'icon: eye-slash' },
+      parent: passwordWrapper,
+    });
+
+    iconEyeSlash.addEventListener('click', (): void => {
+      showPasswordOrHide(inputPassword, iconEyeSlash);
+    });
+
+    const inputPassword = createEl({
+      tag: 'input',
+      classes: ['uk-input', 'user-profile__input'],
+      attributes: {
+        placeholder: passwordsPlaceholders[i],
+        type: 'password',
+        autocomplete: 'current-password',
+      },
+      parent: passwordWrapper,
+    });
+  }
+  toggleInputsState(containerPassword, true);
+  changeBlock(email, false, containerPassword);
+};
+
+const changeBlock = (
+  email: string,
+  save: boolean,
+  parent?: HTMLFormElement
+): void => {
   const btnsWrapper = createEl({
     tag: 'div',
     classes: ['uk-flex', 'uk-flex-center', 'uk-flex-middle'],
     parent: userProfileWrapper,
   });
+  for (let i = 0; i < 3; i++) {
+    createEl({
+      tag: 'button',
+      text: operationWithInputs[i],
+      classes: ['button', 'uk-button', 'uk-button-primary'],
+      parent: btnsWrapper,
+      attributes: {
+        type: 'submit',
+      },
+    });
+  }
+  const editBtn = <HTMLButtonElement>btnsWrapper.firstElementChild;
+  const cancelBtn = <HTMLButtonElement>editBtn.nextElementSibling;
+  const saveBtn = <HTMLButtonElement>btnsWrapper.lastElementChild;
+  cancelBtn.disabled = true;
+  saveBtn.disabled = true;
+  if (parent) {
+    saveBtn?.addEventListener('click', (): void => {
+      if (save) {
+        updateUserInformation(email, parent);
+      } else {
+        updateUserPassword(email, parent);
+        rejectUpdateInf(email, false, parent);
+      }
+      saveBtn.disabled = true;
+      editBtn.disabled = false;
+      cancelBtn.disabled = true;
+    });
+    editBtn.addEventListener('click', (): void => {
+      toggleInputsState(parent, false);
+      cancelBtn.disabled = false;
+      saveBtn.disabled = false;
+      editBtn.disabled = true;
+    });
+    cancelBtn.addEventListener('click', async () => {
+      rejectUpdateInf(email, save, parent);
+      toggleInputsState(parent, true);
+      cancelBtn.disabled = true;
+      saveBtn.disabled = true;
+      editBtn.disabled = false;
+    });
+  }
+};
 
-  const editPersonalInf = createEl({
-    tag: 'button',
-    text: 'Edit',
-    classes: ['button', 'uk-button', 'uk-button-primary'],
-    parent: btnsWrapper,
-    attributes: {
-      type: 'submit',
-    },
-  });
+const updateUserInformation = async (
+  email: string,
+  parent: HTMLFormElement
+): Promise<void> => {
+  const user = await getCustomerByEmail(email);
+  const allInputs = <NodeListOf<HTMLInputElement>>(
+    parent.querySelectorAll('.user-profile__input')
+  );
+  for (let i = 0; i < allInputs.length; i++) {
+    const field = changeFields[i];
+    const newInf: actionObj = {
+      action: anothersActions[i],
+    };
+    if (field === 'email') {
+      localStorage.setItem('email', allInputs[2].value);
+    }
+    newInf[field] = allInputs[i].value;
+    newPersonalInfo.actions.push(newInf);
+  }
 
-  editPersonalInf.addEventListener('click', (): void => {
-    toggleInputsState(customerInf, false);
-    savePersonalInf.disabled = false;
-    editPersonalInf.disabled = true;
-  });
+  newPersonalInfo.version = user[0].version;
+  updateCustomerInf(user[0].id, newPersonalInfo);
+  toggleInputsState(parent, true);
+};
 
-  const savePersonalInf = createEl({
-    tag: 'button',
-    text: 'save',
-    classes: ['button', 'uk-button', 'uk-button-primary'],
-    parent: btnsWrapper,
-    attributes: {
-      type: 'submit',
-      disabled: '',
-    },
-  });
+const rejectUpdateInf = async (
+  email: string,
+  save: boolean,
+  parent: HTMLFormElement
+): Promise<void> => {
+  const user = await getCustomerByEmail(email);
+  const allInputs = <NodeListOf<HTMLInputElement>>(
+    parent.querySelectorAll('.user-profile__input')
+  );
+  const informatonUser = [
+    user[0].firstName,
+    user[0].lastName,
+    user[0].email,
+    user[0].dateOfBirth,
+  ];
+  for (let i = 0; i < allInputs.length; i++) {
+    if (save) {
+      allInputs[i].value = <string>informatonUser[i];
+    } else {
+      allInputs[i].value = '';
+    }
+  }
+};
 
-  savePersonalInf.addEventListener('click', (): void => {
-    const allInputs = <NodeListOf<HTMLInputElement>>(
-      customerInf.querySelectorAll('.user-profile__input')
-    );
-    // console.log('userObj', user);
-    newpersonalInfo.version = user[0].version;
-    newpersonalInfo.actions[0].firstName = allInputs[0].value;
-    updateCustomerInf(user[0].id, newpersonalInfo);
-    toggleInputsState(customerInf, true);
-    savePersonalInf.disabled = true;
-    editPersonalInf.disabled = false;
-  });
+const updateUserPassword = async (
+  email: string,
+  parent: HTMLFormElement
+): Promise<void> => {
+  const user = await getCustomerByEmail(email);
+  const currentPasswordInput = <HTMLInputElement>(
+    parent.firstElementChild?.lastElementChild
+  );
+  const newPasswordInput = <HTMLInputElement>(
+    parent.lastElementChild?.lastElementChild
+  );
+  const updatePassword: updateCustomerPasswordType = {
+    id: user[0].id,
+    version: <number>user[0].version,
+    currentPassword: currentPasswordInput.value,
+    newPassword: newPasswordInput.value,
+  };
+  await updateCustomerPassword(updatePassword);
+  toggleInputsState(parent, true);
+};
 
+const showAddressBlock = (): void => {
   createEl({
     tag: 'p',
-    text: 'Addresses',
+    text: 'Addresses:',
     classes: ['user-profile__label'],
     parent: userProfileWrapper,
     attributes: {
