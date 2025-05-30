@@ -55,6 +55,8 @@ export const submitLoginForm = async (
       const accessToken = await login(userAllData);
       if (accessToken) {
         localStorage.setItem('accessToken', accessToken);
+        console.log('data-login', userAllData.userData.email);
+        localStorage.setItem('email', userAllData.userData.email);
         updateAuthUI();
       } else {
         if (errorPasswordElement)

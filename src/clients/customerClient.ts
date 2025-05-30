@@ -37,7 +37,7 @@ export async function registerCustomer(data: RegistrationLoginData): Promise<{
       id: dataCustomer.customer?.id ?? '',
       version: dataCustomer.customer?.version ?? 0,
     };
-
+    localStorage.setItem('email', data.userData.email);
     console.log(costumerIdVersion);
     return costumerIdVersion;
   } catch (err) {

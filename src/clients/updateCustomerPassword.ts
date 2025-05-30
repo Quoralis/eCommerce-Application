@@ -1,10 +1,12 @@
 import { apiUrl, projectKey } from '../config.js';
 import { wrapperTryCatch } from '../utils/wrapperTryCatch.js';
-import { Customer, updateCustomer } from '../types/types.js';
+import { Customer, updateCustomerPasswordType } from '../types/types.js';
 import { showNotification } from '../services/notification/showNotification.js';
-export const updateCustomerInf = async (id: string, body: updateCustomer) => {
+export const updateCustomerPassword = async (
+  body: updateCustomerPasswordType
+) => {
   const bearerToken = localStorage.getItem('bearerToken');
-  const url = `${apiUrl}/${projectKey}/customers/${id}`;
+  const url = `${apiUrl}/${projectKey}/customers/password`;
 
   try {
     const response = await wrapperTryCatch<Customer>(url, {
@@ -15,7 +17,8 @@ export const updateCustomerInf = async (id: string, body: updateCustomer) => {
       },
       body: JSON.stringify(body),
     });
-    showNotification('update data successfully', 'success');
+    console.log(response);
+    showNotification('update password successfully', 'success');
     return response;
   } catch (err) {
     showNotification('something went wrong so try again', 'danger');

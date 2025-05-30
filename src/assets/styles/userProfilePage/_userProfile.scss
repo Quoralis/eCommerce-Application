@@ -45,6 +45,10 @@
   }
 }
 
+.password-wrapper {
+  margin-bottom: 10px;
+}
+
 .main-page-wrapper:has(.user-profile),
 .main-page-wrapper:has(.user-addresses) {
   height: 100%;
