@@ -22,12 +22,15 @@ const userAllData: RegistrationLoginData = {
 
 export const validateEmailOrPassword = (
   inputValue: string,
-  type: string
+  type: string,
+  el?: HTMLElement
 ): void => {
-  if (type === loginType.email) {
-    isValidDomain(inputValue);
-  } else if (type === loginType.password) {
-    isValidPassword(inputValue);
+  if (el) {
+    if (type === loginType.email) {
+      isValidDomain(inputValue, el);
+    } else if (type === loginType.password) {
+      isValidPassword(inputValue, el);
+    }
   }
 };
 
@@ -35,8 +38,12 @@ export const submitLoginForm = async (
   inputEmail: string,
   inputPassword: string
 ): Promise<void> => {
-  validateEmailOrPassword(inputEmail, loginType.email);
-  validateEmailOrPassword(inputPassword, loginType.password);
+  validateEmailOrPassword(inputEmail, loginType.email, errorMessageEmail);
+  validateEmailOrPassword(
+    inputPassword,
+    loginType.password,
+    errorMessagePassword
+  );
   if (
     errorMessageEmail.textContent === '' &&
     errorMessagePassword.textContent === ''
