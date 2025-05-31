@@ -60,5 +60,4 @@ export const showProductPage = async (key: string) => {
   const main = <HTMLElement>document.querySelector('main');
   showModalWindow(modalInProductPage, data);
   productAllComponents(data, main);
-
 };
