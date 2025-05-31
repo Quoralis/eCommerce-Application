@@ -5,8 +5,10 @@ import { showModalWindow } from '../../ui/modalWindow.js';
 import { showSlideShow } from '../../ui/slideShow.js';
 import { productComponentText } from './productComponentText.js';
 import { deleteModalWindow } from '../../ui/modalWindow.js';
+
 import { slideShowInProductPage } from '../../ui/slideShow.js';
 import { modalInProductPage } from '../../ui/modalWindow.js';
+
 
 const productAllComponents = (
   data: CurrentProduct,

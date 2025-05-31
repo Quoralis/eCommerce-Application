@@ -22,25 +22,28 @@
 }
 
 .catalog-section {
-  display: flex;
+  display: grid;
   width: 100%;
   background-color: white;
 
-  aside {
+  .catalog-wrapper {
     display: flex;
-    flex-direction: column;
-    width: 20%;
-    border: 1px solid $dark-white;
-  }
+    aside {
+      display: flex;
+      flex-direction: column;
+      width: 20%;
+      border: 1px solid $dark-white;
+    }
 
-  .product-container {
-    display: flex;
-    max-width: 80%;
-    flex-wrap: wrap;
-    border: 1px solid $dark-white;
-    justify-content: center;
+    .product-container {
+      display: flex;
+      max-width: 80%;
+      flex-wrap: wrap;
+      border: 1px solid $dark-white;
+      justify-content: center;
 
-    gap: 4em;
+      gap: 4em;
+    }
   }
 
   .card {

@@ -12,6 +12,7 @@ import { rejectUpdateInf } from './rejectUpdateInf.js';
 import { updateUserInf } from './updateUserInf.js';
 import { showBlockPassword } from './showBlockPassword.js';
 
+
 const operationWithInputs = ['Edit', 'Cancel', 'Save'];
 
 export const createUserProfileInputs = async (email: string) => {
@@ -79,18 +80,15 @@ const showAddressBlock = (): void => {
     },
   });
 
-  const addressesButton = createEl({
+  createEl({
     tag: 'button',
     text: 'Show saved addresses',
     classes: ['button', 'uk-button', 'uk-button-primary'],
     parent: userProfileWrapper,
     attributes: {
       type: 'submit',
+      'data-path': '/user/addresses',
     },
-  });
-
-  addressesButton.addEventListener('click', (): void => {
-    openPage(paths.addresses);
   });
 };
 

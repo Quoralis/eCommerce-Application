@@ -7,7 +7,8 @@ export let currentProduct = '';
 
 export function renderProductCard(
   parent: HTMLElement,
-  options: DisplayProduct
+  options: DisplayProduct,
+  category?: string
 ): HTMLElement {
   const priceText = formatPrice(options.price);
   const discountText =
@@ -18,7 +19,8 @@ export function renderProductCard(
     classes: ['card'],
     attributes: {
       'data-product-key': options.productKey,
-      'data-path': `/catalog/product/${options.productKey}`,
+      'data-path': `/catalog/${category}/${options.productKey}`,
+
     },
     parent: parent,
   });
