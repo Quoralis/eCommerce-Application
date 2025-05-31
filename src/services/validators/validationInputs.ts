@@ -46,7 +46,7 @@ const errorInputOrOk = (
   }
 };
 
-export const isValidDomain = (text: string): void => {
+export const isValidDomain = (text: string, el: HTMLElement): void => {
   let errorMessage = '';
   if (!regExp.test(text)) {
     errorMessage = "don't have domain name: example.ars@mail.com";
@@ -57,10 +57,10 @@ export const isValidDomain = (text: string): void => {
   if (text[text.length - lastSymbol] === ' ') {
     errorMessage = 'the end cannot end with spaces';
   }
-  errorInputOrOk(errorMessage, loginType.email, errorMessageEmail);
+  errorInputOrOk(errorMessage, loginType.email, el);
 };
 
-export const isValidPassword = (text: string): void => {
+export const isValidPassword = (text: string, el: HTMLElement): void => {
   let errorMessage = '';
   if (text.length < limitSymbols) {
     errorMessage = 'symbols need more than 8';
@@ -78,5 +78,5 @@ export const isValidPassword = (text: string): void => {
     errorMessage = 'the end cannot end with spaces';
   }
 
-  errorInputOrOk(errorMessage, loginType.password, errorMessagePassword);
+  errorInputOrOk(errorMessage, loginType.password, el);
 };

@@ -73,7 +73,11 @@ const inputEmail = <HTMLInputElement>createEl({
 
 inputEmail.addEventListener('input', (event: Event): void => {
   if (event.target instanceof HTMLInputElement) {
-    validateEmailOrPassword(event.target.value, loginType.email);
+    validateEmailOrPassword(
+      event.target.value,
+      loginType.email,
+      errorMessageEmail
+    );
   }
 });
 
@@ -118,7 +122,11 @@ const inputPassword = <HTMLInputElement>createEl({
 
 inputPassword.addEventListener('input', (event: Event): void => {
   if (event.target instanceof HTMLInputElement) {
-    validateEmailOrPassword(event.target.value, loginType.password);
+    validateEmailOrPassword(
+      event.target.value,
+      loginType.password,
+      errorMessagePassword
+    );
   }
 });
 
