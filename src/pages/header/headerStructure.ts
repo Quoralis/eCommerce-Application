@@ -1,6 +1,5 @@
 import { createEl } from '../../utils/createElement.js';
 import img from '../../assets/images/logo.png';
-
 import Uikit from 'uikit';
 import { logOut } from '../../services/authService.js';
 

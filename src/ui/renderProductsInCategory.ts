@@ -24,7 +24,7 @@ export async function renderProductsInCategory(
         discountedPrice:
           product.masterVariant.prices[0].discounted?.value.centAmount,
       };
-      renderProductCard(productContainer, dataCard);
+      renderProductCard(productContainer, dataCard, keyCategory);
     });
   }
 }
