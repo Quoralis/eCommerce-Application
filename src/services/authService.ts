@@ -4,7 +4,6 @@ import { registerCustomer } from '../clients/customerClient.js';
 import { parseError } from '../utils/parseError.js';
 import { updateAuthUI } from '../utils/auth.js';
 
-//cache token
 const tokenCache = {
   accessToken: '',
   refreshToken: '',
@@ -17,6 +16,7 @@ export async function login(data: RegistrationLoginData) {
       data.userData.email,
       data.userData.password
     );
+    // emailUser = data.userData.email
     tokenCache.accessToken = response.access_token;
     tokenCache.refreshToken = response.refresh_token;
     tokenCache.timeEndTokenMs = Date.now() + response.expires_in * 1000; // в мс переводим
@@ -50,7 +50,7 @@ export async function logOut(): Promise<void> {
       await revokeAccessToken(accessToken);
     if (statusRevokeToken === 200) {
       localStorage.removeItem('accessToken');
-      updateAuthUI();
+      await updateAuthUI();
     }
   } catch (err) {
     console.error('Logout error:', err);

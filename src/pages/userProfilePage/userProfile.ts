@@ -1,5 +1,6 @@
 import { createEl } from '../../utils/createElement.js';
 import { createUserProfileInputs } from './userProfileInputs.js';
+import { clearDom } from '../../utils/clearDom.js';
 
 const userProfileContainer = createEl({
   tag: 'div',
@@ -16,8 +17,12 @@ export const userProfileWrapper = createEl({
   parent: userProfileContainer,
 });
 
-createUserProfileInputs();
-
-export const showUserProfilePage = () => {
+export const showUserProfilePage = (email: string) => {
+  console.log('showUserProfilePage', email);
   document.querySelector('main')?.append(userProfileContainer);
+  const form = <HTMLElement>document.querySelector('.user-profile__form');
+  if (form) {
+    clearDom('.user-profile');
+  }
+  createUserProfileInputs(email);
 };

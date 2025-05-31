@@ -5,8 +5,7 @@ import {
   loginType,
   submitLoginForm,
 } from './authorization.js';
-import { paths } from '../../constants/paths.js';
-import { openPage } from '../openPage.js';
+
 const loginPageWrapper = createEl({
   tag: 'div',
   classes: [
@@ -73,7 +72,11 @@ const inputEmail = <HTMLInputElement>createEl({
 
 inputEmail.addEventListener('input', (event: Event): void => {
   if (event.target instanceof HTMLInputElement) {
-    validateEmailOrPassword(event.target.value, loginType.email);
+    validateEmailOrPassword(
+      event.target.value,
+      loginType.email,
+      errorMessageEmail
+    );
   }
 });
 
@@ -101,7 +104,9 @@ const iconEyeSlash = createEl({
   parent: passwordWrapper,
 });
 
-iconEyeSlash.addEventListener('click', showPasswordOrHide);
+iconEyeSlash.addEventListener('click', (): void => {
+  showPasswordOrHide(inputPassword, iconEyeSlash);
+});
 
 const inputPassword = <HTMLInputElement>createEl({
   tag: 'input',
@@ -116,7 +121,11 @@ const inputPassword = <HTMLInputElement>createEl({
 
 inputPassword.addEventListener('input', (event: Event): void => {
   if (event.target instanceof HTMLInputElement) {
-    validateEmailOrPassword(event.target.value, loginType.password);
+    validateEmailOrPassword(
+      event.target.value,
+      loginType.password,
+      errorMessagePassword
+    );
   }
 });
 
@@ -159,10 +168,6 @@ const reverseToRegistarationPage = createEl({
   classes: ['uk-link', 'login-link', 'sign-up-btn', 'uk-text-center'],
   text: 'Don’t have account? Sign Up',
   parent: buttonsWrapper,
-});
-
-reverseToRegistarationPage.addEventListener('click', (): void => {
-  openPage(paths.registration);
 });
 
 const showLoginPage = (): void => {

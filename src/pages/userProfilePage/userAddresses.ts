@@ -1,7 +1,5 @@
 import { createEl } from '../../utils/createElement.js';
 import { createUserAddressInputs } from './userAddressInputs.js';
-import { openPage } from '../openPage.js';
-import { paths } from '../../constants/paths.js';
 
 const userAddressesContainer = createEl({
   tag: 'div',
@@ -15,15 +13,14 @@ export const userAddressesWrapper = createEl({
 });
 
 const showAddressesWrapper = async () => {
-  const userPageButton = createEl({
+  createEl({
     tag: 'button',
     text: 'Back to user profile',
     classes: ['button', 'uk-button', 'uk-button-primary'],
+    attributes: {
+      'data-path': '/user',
+    },
     parent: userAddressesWrapper,
-  });
-
-  userPageButton.addEventListener('click', (): void => {
-    openPage(paths.user);
   });
 
   await createUserAddressInputs();

@@ -7,9 +7,6 @@ export async function renderCatalogSection(parent: HTMLElement): Promise<void> {
     tag: 'section',
     classes: ['catalog-section'],
     parent: parent,
-    onClick: (e) => {
-      console.log('clicked', e.target);
-    },
   });
   await renderSideBar(section);
   await renderProductLContainer(section);

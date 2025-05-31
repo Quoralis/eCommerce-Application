@@ -148,15 +148,20 @@ interface DataCategory {
 
 export interface updateCustomer {
   version?: number;
-  actions: [
-    {
-      action: string;
-      firstName: string;
-      /*  lastName: string;
-      email: string;
-      dateOfBirth: string; */
-    },
-  ];
+  actions: Array<{
+    action: string;
+    firstName?: string;
+    lastName?: string;
+    email?: string;
+    dateOfBirth?: string;
+  }>;
+}
+
+export interface updateCustomerPasswordType {
+  id: string;
+  version: number;
+  currentPassword: string;
+  newPassword: string;
 }
 
 export interface CustomerAddress {

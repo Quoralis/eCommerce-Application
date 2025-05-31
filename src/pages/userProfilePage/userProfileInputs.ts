@@ -1,41 +1,20 @@
 import { createEl } from '../../utils/createElement.js';
 import { userProfileWrapper } from './userProfile.js';
 import { getCustomerByEmail } from '../../clients/customerSearchClient.js';
-import { openPage } from '../openPage.js';
-import { paths } from '../../constants/paths.js';
-import { updateCustomerInf } from '../../clients/updateCustomerInf.js';
-import { updateCustomer } from '../../types/types.js';
-// import { validateInput } from '../../services/validators/registrationValidation.js';
+import {
+  validateEmailOrPassword,
+  loginType,
+} from '../loginPage/authorization.js';
+import { toggleInputsState } from './toggleInputsState.js';
+import { updateUserPassword } from './updateUserPassword.js';
+import { rejectUpdateInf } from './rejectUpdateInf.js';
+import { updateUserInf } from './updateUserInf.js';
+import { showBlockPassword } from './showBlockPassword.js';
 
-const newpersonalInfo: updateCustomer = {
-  version: 0,
-  actions: [
-    {
-      action: 'setFirstName',
-      firstName: '',
-      /* lastName: '',
-      email: '',
-      dateOfBirth: '', */
-    },
-  ],
-};
+const operationWithInputs = ['Edit', 'Cancel', 'Save'];
 
-const toggleInputsState = (
-  parent: HTMLFormElement,
-  disabled: boolean
-): void => {
-  for (let i = 0; i < parent.length; i++) {
-    const input = <HTMLInputElement>parent[i];
-    if (!disabled) {
-      input.disabled = false;
-    } else {
-      input.disabled = true;
-    }
-  }
-};
-
-export const createUserProfileInputs = async () => {
-  const user = await getCustomerByEmail('Lnsdfncv.@gmail.com'); // email is used for example, it will be replaced later
+export const createUserProfileInputs = async (email: string) => {
+  const user = await getCustomerByEmail(email);
   const personalInfo = {
     'First name': user[0].firstName,
     'Last name': user[0].lastName,
@@ -61,7 +40,7 @@ export const createUserProfileInputs = async () => {
       },
     });
 
-    /* userProfileInput =   */ createEl({
+    createEl({
       tag: 'input',
       classes: ['user-profile__input', 'uk-input'],
       parent: customerInf,
@@ -71,57 +50,28 @@ export const createUserProfileInputs = async () => {
         disabled: '',
       },
     });
+    /* const errorMessagePassword =  */ createEl({
+      // этот спан для ошибок валидации
+      tag: 'span',
+      classes: [
+        'uk-text-small',
+        'uk-margin-xsmall-left',
+        'email-error',
+        'uk-text-danger',
+        'error-message',
+      ],
+      parent: customerInf,
+    });
   }
+  changeBlock(email, true, customerInf);
+  showBlockPassword(email);
+  showAddressBlock();
+};
 
-  const btnsWrapper = createEl({
-    tag: 'div',
-    classes: ['uk-flex', 'uk-flex-center', 'uk-flex-middle'],
-    parent: userProfileWrapper,
-  });
-
-  const editPersonalInf = createEl({
-    tag: 'button',
-    text: 'Edit',
-    classes: ['button', 'uk-button', 'uk-button-primary'],
-    parent: btnsWrapper,
-    attributes: {
-      type: 'submit',
-    },
-  });
-
-  editPersonalInf.addEventListener('click', (): void => {
-    toggleInputsState(customerInf, false);
-    savePersonalInf.disabled = false;
-    editPersonalInf.disabled = true;
-  });
-
-  const savePersonalInf = createEl({
-    tag: 'button',
-    text: 'save',
-    classes: ['button', 'uk-button', 'uk-button-primary'],
-    parent: btnsWrapper,
-    attributes: {
-      type: 'submit',
-      disabled: '',
-    },
-  });
-
-  savePersonalInf.addEventListener('click', (): void => {
-    const allInputs = <NodeListOf<HTMLInputElement>>(
-      customerInf.querySelectorAll('.user-profile__input')
-    );
-
-    newpersonalInfo.version = user[0].version;
-    newpersonalInfo.actions[0].firstName = allInputs[0].value;
-    updateCustomerInf(user[0].id, newpersonalInfo);
-    toggleInputsState(customerInf, true);
-    savePersonalInf.disabled = true;
-    editPersonalInf.disabled = false;
-  });
-
+const showAddressBlock = (): void => {
   createEl({
     tag: 'p',
-    text: 'Addresses',
+    text: 'Addresses:',
     classes: ['user-profile__label'],
     parent: userProfileWrapper,
     attributes: {
@@ -129,17 +79,94 @@ export const createUserProfileInputs = async () => {
     },
   });
 
-  const addressesButton = createEl({
+  createEl({
     tag: 'button',
     text: 'Show saved addresses',
     classes: ['button', 'uk-button', 'uk-button-primary'],
     parent: userProfileWrapper,
     attributes: {
       type: 'submit',
+      'data-path': '/user/addresses',
     },
   });
+};
 
-  addressesButton.addEventListener('click', (): void => {
-    openPage(paths.addresses);
+export const changeBlock = (
+  email: string,
+  save: boolean,
+  parent?: HTMLFormElement
+): void => {
+  const btnsWrapper = createEl({
+    tag: 'div',
+    classes: ['uk-flex', 'uk-flex-center', 'uk-flex-middle'],
+    parent: userProfileWrapper,
   });
+  for (let i = 0; i < 3; i++) {
+    createEl({
+      tag: 'button',
+      text: operationWithInputs[i],
+      classes: ['button', 'uk-button', 'uk-button-primary'],
+      parent: btnsWrapper,
+      attributes: {
+        type: 'submit',
+      },
+    });
+  }
+
+  const editBtn = <HTMLButtonElement>btnsWrapper.firstElementChild;
+  const cancelBtn = <HTMLButtonElement>editBtn.nextElementSibling;
+  const saveBtn = <HTMLButtonElement>btnsWrapper.lastElementChild;
+  cancelBtn.disabled = true;
+  saveBtn.disabled = true;
+  if (parent) {
+    saveBtn.addEventListener('click', (): void => {
+      if (save) {
+        updateUserInf(email, parent);
+        saveBtn.disabled = true;
+        editBtn.disabled = false;
+        cancelBtn.disabled = true;
+      } else {
+        const currentPasswordInput = <HTMLInputElement>(
+          parent.firstElementChild?.lastElementChild
+        );
+        const newPasswordInput = <HTMLInputElement>(
+          parent.lastElementChild?.previousElementSibling?.lastElementChild
+        );
+        const firstError = <HTMLElement>(
+          parent.firstElementChild?.nextElementSibling
+        );
+        const secondError = <HTMLElement>parent.lastElementChild;
+        validateEmailOrPassword(
+          currentPasswordInput.value,
+          loginType.password,
+          firstError
+        );
+        validateEmailOrPassword(
+          newPasswordInput.value,
+          loginType.password,
+          secondError
+        );
+        if (firstError.textContent === '' && secondError.textContent === '') {
+          saveBtn.disabled = true;
+          editBtn.disabled = false;
+          cancelBtn.disabled = true;
+          updateUserPassword(email, parent);
+          rejectUpdateInf(email, false, parent);
+        }
+      }
+    });
+    editBtn.addEventListener('click', (): void => {
+      toggleInputsState(parent, false);
+      cancelBtn.disabled = false;
+      saveBtn.disabled = false;
+      editBtn.disabled = true;
+    });
+    cancelBtn.addEventListener('click', async () => {
+      rejectUpdateInf(email, save, parent);
+      toggleInputsState(parent, true);
+      cancelBtn.disabled = true;
+      saveBtn.disabled = true;
+      editBtn.disabled = false;
+    });
+  }
 };
