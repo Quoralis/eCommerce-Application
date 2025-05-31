@@ -1,12 +1,11 @@
 import { createEl } from '../../utils/createElement.js';
-import { getCustomerByEmail } from '../../clients/customerSearchClient.js';
+import { getCurrentUser } from '../../clients/customerSearchClient.js';
 import { userAddressesWrapper } from './userAddresses.js';
 import { PartialBaseAddress } from '../../types/types.js';
 import { toggleUpdateAddressButton } from './updateAddressButton.js';
 
 export const createUserAddressInputs = async () => {
-  const users = await getCustomerByEmail('user@us.er'); // email is used for example, it will be replaced later
-  const currentUser = users[0];
+  const currentUser = await getCurrentUser();
   const addressInputs: PartialBaseAddress = {
     Country: 'country',
     City: 'city',
