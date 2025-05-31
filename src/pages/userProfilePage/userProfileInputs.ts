@@ -1,7 +1,6 @@
 import { createEl } from '../../utils/createElement.js';
 import { userProfileWrapper } from './userProfile.js';
 import { getCustomerByEmail } from '../../clients/customerSearchClient.js';
-import { paths } from '../../constants/paths.js';
 import {
   validateEmailOrPassword,
   loginType,
@@ -79,18 +78,15 @@ const showAddressBlock = (): void => {
     },
   });
 
-  const addressesButton = createEl({
+  createEl({
     tag: 'button',
     text: 'Show saved addresses',
     classes: ['button', 'uk-button', 'uk-button-primary'],
     parent: userProfileWrapper,
     attributes: {
       type: 'submit',
+      'data-path': '/user/addresses',
     },
-  });
-
-  addressesButton.addEventListener('click', (): void => {
-    openPage(paths.addresses);
   });
 };
 
