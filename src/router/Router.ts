@@ -11,6 +11,7 @@ import { showUserAddresses } from '../pages/userProfilePage/userAddresses.js';
 import { openPage } from '../pages/openPage.js';
 import { renderProductList } from '../ui/renderProductList.js';
 import { renderProductsInCategory } from '../ui/renderProductsInCategory.js';
+import { renderBreadcrumb } from '../ui/renderBreadcrumb.js';
 
 export default class Router {
   private readonly routes: Record<string, () => void>;
@@ -61,7 +62,7 @@ export default class Router {
     const [root, category, id] = arrPath;
 
     if (root === 'catalog' && category && id) {
-      await this.renderDetailedProductPage(id);
+      await this.renderDetailedProductPage(id, path);
       return;
     }
     if (root === 'catalog' && category) {
@@ -90,10 +91,12 @@ export default class Router {
   }
 
   private async renderDetailedProductPage(
-    currentProduct: string
+    currentProduct: string,
+    path: string
   ): Promise<void> {
     clearDom('main-page-wrapper');
     await showProductPage(currentProduct);
+    renderBreadcrumb(path);
   }
 
   private renderRegistrationPage(): void {
@@ -105,6 +108,7 @@ export default class Router {
   private async renderCatalogPage(): Promise<void> {
     clearDom('main-page-wrapper');
     await showCatalogPage();
+    renderBreadcrumb('catalog');
   }
 
   private renderUserPage(): void {
@@ -118,9 +122,12 @@ export default class Router {
   }
 
   private async renderCategories(category: string): Promise<void> {
+    clearDom('main-page-wrapper');
+    await showCatalogPage();
     const container = document.querySelector('.product-container');
     if (!(container instanceof HTMLElement)) return;
 
+    renderBreadcrumb(`/catalog/${category}`);
     container.innerHTML = '';
 
     const listItems = document.querySelectorAll('.categories-list li');

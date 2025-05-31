@@ -8,6 +8,12 @@ export async function renderCatalogSection(parent: HTMLElement): Promise<void> {
     classes: ['catalog-section'],
     parent: parent,
   });
-  await renderSideBar(section);
-  await renderProductLContainer(section);
+
+  const catalogWrapper = createEl({
+    tag: 'div',
+    classes: ['catalog-wrapper'],
+    parent: section,
+  });
+  await renderSideBar(catalogWrapper);
+  await renderProductLContainer(catalogWrapper);
 }
