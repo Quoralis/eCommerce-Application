@@ -3,6 +3,7 @@ import { RegistrationLoginData } from '../types/types.js';
 import { registerCustomer } from '../clients/customerClient.js';
 import { parseError } from '../utils/parseError.js';
 import { updateAuthUI } from '../utils/auth.js';
+
 const tokenCache = {
   accessToken: '',
   refreshToken: '',
@@ -49,8 +50,7 @@ export async function logOut(): Promise<void> {
       await revokeAccessToken(accessToken);
     if (statusRevokeToken === 200) {
       localStorage.removeItem('accessToken');
-      localStorage.removeItem('email');
-      updateAuthUI();
+      await updateAuthUI();
     }
   } catch (err) {
     console.error('Logout error:', err);

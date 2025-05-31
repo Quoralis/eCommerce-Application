@@ -1,7 +1,6 @@
 import { createEl } from '../../utils/createElement.js';
 import { userProfileWrapper } from './userProfile.js';
 import { getCustomerByEmail } from '../../clients/customerSearchClient.js';
-import { openPage } from '../openPage.js';
 import { paths } from '../../constants/paths.js';
 import {
   validateEmailOrPassword,
@@ -174,3 +173,4 @@ export const changeBlock = (
     });
   }
 };
+

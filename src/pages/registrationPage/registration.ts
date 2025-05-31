@@ -1,8 +1,6 @@
 import { createEl } from '../../utils/createElement.js';
 import { validateInput } from '../../services/validators/registrationValidation.js';
 import { submitForm } from '../../services/validators/registrationValidation.js';
-import { openPage } from '../openPage.js';
-import { paths } from '../../constants/paths.js';
 import { createRegInputs } from './registrationInputs.js';
 const containerRegistration = createEl({
   tag: 'div',
@@ -59,10 +57,6 @@ export const loginLink = createEl({
   ],
   text: 'Already have an account? Log In',
   parent: regWrapper,
-});
-
-loginLink.addEventListener('click', (): void => {
-  openPage(paths.login);
 });
 
 export const showRegistrationPage = () => {

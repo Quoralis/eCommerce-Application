@@ -1,6 +1,5 @@
 import { createEl } from '../utils/createElement.js';
 import { fetchAllCategories } from '../clients/categoriesClient.js';
-import { handleCategoryClick } from './handleCategoryClick.js';
 
 export async function renderCategories(parent: HTMLElement): Promise<void> {
   const navCategories = createEl({
@@ -18,7 +17,6 @@ export async function renderCategories(parent: HTMLElement): Promise<void> {
   const ul = createEl({
     tag: 'ul',
     classes: ['categories-list'],
-    onClick: handleCategoryClick,
     parent: navCategories,
   });
   const li = createEl({
@@ -36,6 +34,9 @@ export async function renderCategories(parent: HTMLElement): Promise<void> {
     tag: 'span',
     classes: ['category-name'],
     text: 'All Products',
+    attributes: {
+      'data-path': '/catalog',
+    },
     parent: li,
   });
 
@@ -44,7 +45,10 @@ export async function renderCategories(parent: HTMLElement): Promise<void> {
     const li = createEl({
       tag: 'li',
       classes: ['category-title'],
-      attributes: { 'data-category-key': `${el.key}` },
+      attributes: {
+        'data-category-key': `${el.key}`,
+        'data-path': `/catalog/${el.key.toLowerCase()}`,
+      },
       parent: ul,
     });
     createEl({
