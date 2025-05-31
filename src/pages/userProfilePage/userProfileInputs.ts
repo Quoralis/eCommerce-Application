@@ -1,7 +1,6 @@
 import { createEl } from '../../utils/createElement.js';
 import { userProfileWrapper } from './userProfile.js';
 import { getCustomerByEmail } from '../../clients/customerSearchClient.js';
-import { openPage } from '../openPage.js';
 import { paths } from '../../constants/paths.js';
 import { updateCustomerInf } from '../../clients/updateCustomerInf.js';
 import {
@@ -10,6 +9,7 @@ import {
 } from '../../types/types.js';
 import { showPasswordOrHide } from '../loginPage/showPassword.js';
 import { updateCustomerPassword } from '../../clients/updateCustomerPassword.js';
+
 
 const anothersActions = [
   'setFirstName',
@@ -268,17 +268,14 @@ const showAddressBlock = (): void => {
     },
   });
 
-  const addressesButton = createEl({
+  createEl({
     tag: 'button',
     text: 'Show saved addresses',
     classes: ['button', 'uk-button', 'uk-button-primary'],
     parent: userProfileWrapper,
     attributes: {
       type: 'submit',
+      'data-path': '/user/addresses',
     },
-  });
-
-  addressesButton.addEventListener('click', (): void => {
-    openPage(paths.addresses);
   });
 };

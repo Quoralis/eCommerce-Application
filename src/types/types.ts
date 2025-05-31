@@ -4,7 +4,7 @@ export interface typeCreateElOptions<K extends keyof HTMLElementTagNameMap> {
   text?: string;
   attributes?: Record<string, string>;
   parent?: HTMLElement;
-  onClick?: (e: MouseEvent) => void;
+  onClick?: (e: Event) => void;
 }
 
 declare global {

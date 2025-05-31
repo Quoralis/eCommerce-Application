@@ -1,4 +1,4 @@
-export function clearDom(classTagName: string) {
-  const element = document.querySelector(`${classTagName}`);
+export function clearDom(className: string) {
+  const element = document.querySelector(`.${className}`);
   if (element) element.innerHTML = '';
 }

@@ -1,8 +1,6 @@
 import { createEl } from '../../utils/createElement.js';
-import { paths } from '../../constants/paths.js';
-import { openPage } from '../openPage.js';
-// import { header } from '../header/headerStructure.js';
 import { header } from '../header/headerStructure.js';
+
 const errorPageWrapper = createEl({
   tag: 'div',
   classes: [
@@ -43,11 +41,13 @@ const backToMainBtn = createEl({
   tag: 'button',
   text: 'Back to Main',
   classes: ['uk-button', 'uk-border-rounded', 'uk-button-primary'],
+  attributes: {
+    'data-path': '/',
+  },
   parent: containerInf,
 });
 
 backToMainBtn.addEventListener('click', (): void => {
-  openPage(paths.main);
   header.style.display = 'flex';
 });
 
