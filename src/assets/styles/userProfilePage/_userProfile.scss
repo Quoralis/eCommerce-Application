@@ -19,7 +19,7 @@
   .button {
     @include button;
     margin: 16px auto;
-    width: 240px;
+    // width: 240px;
   }
 }
 
@@ -36,7 +36,8 @@
 
   .button {
     @include button;
-    width: 200px;
+    transition: 0.3s;
+    // width: 200px;
     margin: 0 auto;
 
     &:last-child {
@@ -44,10 +45,42 @@
     }
   }
 }
+.uk-button {
+  transition: 0.3s;
+}
+
+.uk-button-primary:disabled {
+  transition: 0.3s;
+}
+
+.password-wrapper {
+  margin-bottom: 10px;
+}
+
+.password-wrapper {
+  margin-bottom: 10px;
+}
 
 .main-page-wrapper:has(.user-profile),
 .main-page-wrapper:has(.user-addresses) {
   height: 100%;
   min-height: 100vh;
   padding-bottom: 40px;
+}
+
+.uk-form-icon {
+  transition: 0.3s;
+}
+
+.non-active {
+  pointer-events: none;
+  opacity: 0.5;
+  transition: 0.3s;
+}
+
+@media (max-width: 700px) and (min-width: 350px) {
+  .button {
+    font-size: 13px;
+    padding: 0 15px;
+  }
 }

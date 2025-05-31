@@ -8,10 +8,12 @@ import { showCatalogPage } from '../pages/catalogPage/showCatalogPage.js';
 import { showProductPage } from '../pages/detailedProductPage/showProductPage.js';
 import { showUserProfilePage as showUserProfilePage } from '../pages/userProfilePage/userProfile.js';
 import { showUserAddresses } from '../pages/userProfilePage/userAddresses.js';
+
 import { openPage } from '../pages/openPage.js';
 import { renderProductList } from '../ui/renderProductList.js';
 import { renderProductsInCategory } from '../ui/renderProductsInCategory.js';
 import { renderBreadcrumb } from '../ui/renderBreadcrumb.js';
+
 
 export default class Router {
   private readonly routes: Record<string, () => void>;
@@ -71,6 +73,9 @@ export default class Router {
     }
 
     const renderPage = this.routes[path];
+    if (path === paths.catalog) {
+      deleteModalWindow();
+    }
     if (renderPage) {
       renderPage();
     } else {
@@ -90,6 +95,7 @@ export default class Router {
     showLoginPage();
   }
 
+
   private async renderDetailedProductPage(
     currentProduct: string,
     path: string
@@ -98,6 +104,7 @@ export default class Router {
     await showProductPage(currentProduct);
     renderBreadcrumb(path);
   }
+
 
   private renderRegistrationPage(): void {
     clearDom('main-page-wrapper');
@@ -112,8 +119,8 @@ export default class Router {
   }
 
   private renderUserPage(): void {
-    clearDom('main-page-wrapper');
-    showUserProfilePage();
+    const email = <string>localStorage.getItem('email');
+    showUserProfilePage(email);
   }
 
   private renderAddressPage(): void {
@@ -122,11 +129,11 @@ export default class Router {
   }
 
   private async renderCategories(category: string): Promise<void> {
+
     clearDom('main-page-wrapper');
     await showCatalogPage();
     const container = document.querySelector('.product-container');
     if (!(container instanceof HTMLElement)) return;
-
     renderBreadcrumb(`/catalog/${category}`);
     container.innerHTML = '';
 
