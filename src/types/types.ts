@@ -4,7 +4,7 @@ export interface typeCreateElOptions<K extends keyof HTMLElementTagNameMap> {
   text?: string;
   attributes?: Record<string, string>;
   parent?: HTMLElement;
-  onClick?: (e: MouseEvent) => void;
+  onClick?: (e: Event) => void;
 }
 
 declare global {
@@ -155,6 +155,24 @@ export interface updateCustomer {
       /*  lastName: string;
       email: string;
       dateOfBirth: string; */
+    },
+  ];
+}
+
+export interface CustomerAddress {
+  country: string | undefined;
+  city?: string;
+  streetName?: string;
+  postalCode?: string;
+}
+
+export interface AddressUpdate {
+  version: number | undefined;
+  actions: [
+    {
+      action: string;
+      addressId: string | undefined;
+      address: CustomerAddress;
     },
   ];
 }
