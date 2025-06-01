@@ -20,7 +20,6 @@ export function renderProductCard(
     attributes: {
       'data-product-key': options.productKey,
       'data-path': `/catalog/${category}/${options.productKey}`,
-
     },
     parent: parent,
   });

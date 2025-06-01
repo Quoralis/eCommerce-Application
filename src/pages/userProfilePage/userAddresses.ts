@@ -27,7 +27,7 @@ const showAddressesWrapper = async () => {
 
   createEl({
     tag: 'button',
-    text: 'Edit addresses',
+    text: 'Add new address',
     classes: ['button', 'uk-button', 'uk-button-primary'],
     parent: userAddressesWrapper,
   });

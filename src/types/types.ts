@@ -78,6 +78,9 @@ export interface Customer {
   lastName?: string;
   dateOfBirth?: string;
   addresses?: PartialBaseAddress[];
+  shippingAddressIds?: string[];
+  billingAddressIds?: string[];
+  password?: string;
 }
 
 export interface CustomerSearchResponse {
@@ -159,4 +162,22 @@ export interface updateCustomerPasswordType {
   version: number;
   currentPassword: string;
   newPassword: string;
+}
+
+export interface CustomerAddress {
+  country: string | undefined;
+  city?: string;
+  streetName?: string;
+  postalCode?: string;
+}
+
+export interface AddressUpdate {
+  version: number | undefined;
+  actions: [
+    {
+      action: string;
+      addressId: string | undefined;
+      address: CustomerAddress;
+    },
+  ];
 }

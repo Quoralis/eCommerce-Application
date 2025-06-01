@@ -9,7 +9,6 @@ import { deleteModalWindow } from '../../ui/modalWindow.js';
 import { slideShowInProductPage } from '../../ui/slideShow.js';
 import { modalInProductPage } from '../../ui/modalWindow.js';
 
-
 const productAllComponents = (
   data: CurrentProduct,
   parent: HTMLElement
@@ -62,5 +61,4 @@ export const showProductPage = async (key: string) => {
   const main = <HTMLElement>document.querySelector('main');
   showModalWindow(modalInProductPage, data);
   productAllComponents(data, main);
-
 };

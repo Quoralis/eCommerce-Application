@@ -1,7 +1,6 @@
 import { createEl } from '../../utils/createElement.js';
 import { userProfileWrapper } from './userProfile.js';
 import { getCustomerByEmail } from '../../clients/customerSearchClient.js';
-import { paths } from '../../constants/paths.js';
 import {
   validateEmailOrPassword,
   loginType,
@@ -12,16 +11,15 @@ import { rejectUpdateInf } from './rejectUpdateInf.js';
 import { updateUserInf } from './updateUserInf.js';
 import { showBlockPassword } from './showBlockPassword.js';
 
-
 const operationWithInputs = ['Edit', 'Cancel', 'Save'];
 
 export const createUserProfileInputs = async (email: string) => {
   const user = await getCustomerByEmail(email);
   const personalInfo = {
-    'First name:': user[0].firstName,
-    'Last name:': user[0].lastName,
-    'Email:': user[0].email,
-    'Birth date:': user[0].dateOfBirth,
+    'First name': user[0].firstName,
+    'Last name': user[0].lastName,
+    Email: user[0].email,
+    'Birth date': user[0].dateOfBirth,
   };
 
   const customerInf = createEl({
@@ -171,4 +169,3 @@ export const changeBlock = (
     });
   }
 };
-

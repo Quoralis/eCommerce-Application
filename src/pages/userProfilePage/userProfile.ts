@@ -22,7 +22,7 @@ export const showUserProfilePage = (email: string) => {
   document.querySelector('main')?.append(userProfileContainer);
   const form = <HTMLElement>document.querySelector('.user-profile__form');
   if (form) {
-    clearDom('.user-profile');
+    clearDom('user-profile');
   }
   createUserProfileInputs(email);
 };
