@@ -65,7 +65,7 @@ export const showProductPage = async (key: string) => {
       classes: ['nav-breadcrumb'],
       parent: main,
     });
-    showModalWindow('pagination', data);
+    showModalWindow(modalInProductPage, data);
     productAllComponents(data, main);
   }
 };

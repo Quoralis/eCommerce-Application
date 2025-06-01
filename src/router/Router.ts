@@ -74,8 +74,7 @@ export default class Router {
 
     const renderPage = this.routes[path];
     if (path === paths.catalog) {
-      
-      ();
+      deleteModalWindow();
     }
     if (renderPage) {
       renderPage();
@@ -121,7 +120,6 @@ export default class Router {
     clearDom('main-page-wrapper');
     const email = <string>localStorage.getItem('email');
     showUserProfilePage(email);
-
   }
 
   private renderAddressPage(): void {

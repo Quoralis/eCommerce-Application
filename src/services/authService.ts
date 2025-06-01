@@ -3,7 +3,6 @@ import { RegistrationLoginData } from '../types/types.js';
 import { registerCustomer } from '../clients/customerClient.js';
 import { parseError } from '../utils/parseError.js';
 import { updateAuthUI } from '../utils/auth.js';
-
 const tokenCache = {
   accessToken: '',
   refreshToken: '',
