@@ -1,6 +1,7 @@
 import { createEl } from '../../utils/createElement.js';
 import { userProfileWrapper } from './userProfile.js';
 import { getCustomerByEmail } from '../../clients/customerSearchClient.js';
+
 import {
   validateEmailOrPassword,
   loginType,
@@ -87,6 +88,7 @@ const showAddressBlock = (): void => {
       'data-path': '/user/addresses',
     },
   });
+
 };
 
 export const changeBlock = (
