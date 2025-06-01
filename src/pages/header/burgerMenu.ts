@@ -34,15 +34,13 @@ export const showBurgerMenu = (): void => {
     parent: burgerMenuWrapper,
   });
 
-  burgerMenu.addEventListener('click', (event): void => {
+  document.addEventListener('click', (event): void => {
     if (event.target && event.target instanceof HTMLElement) {
-      if (burgerMenu.classList.contains('uk-offcanvas-slide')) {
-        if (
-          !burgerMenu.contains(event.target) &&
-          !headerBurgerMenu.contains(event.target)
-        ) {
-          headerBurgerMenu.classList.remove('open');
-        }
+      if (
+        !burgerMenu.contains(event.target) &&
+        !headerBurgerMenu.contains(event.target)
+      ) {
+        headerBurgerMenu.classList.remove('open');
       }
     }
   });
