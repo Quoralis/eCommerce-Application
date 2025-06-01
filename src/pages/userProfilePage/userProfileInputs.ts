@@ -1,6 +1,7 @@
 import { createEl } from '../../utils/createElement.js';
 import { userProfileWrapper } from './userProfile.js';
 import { getCustomerByEmail } from '../../clients/customerSearchClient.js';
+
 import {
   validateEmailOrPassword,
   loginType,
@@ -10,6 +11,7 @@ import { updateUserPassword } from './updateUserPassword.js';
 import { rejectUpdateInf } from './rejectUpdateInf.js';
 import { updateUserInf } from './updateUserInf.js';
 import { showBlockPassword } from './showBlockPassword.js';
+
 
 const operationWithInputs = ['Edit', 'Cancel', 'Save'];
 
@@ -88,6 +90,7 @@ const showAddressBlock = (): void => {
       'data-path': '/user/addresses',
     },
   });
+
 };
 
 export const changeBlock = (

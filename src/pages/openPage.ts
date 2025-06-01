@@ -5,9 +5,18 @@ export async function openPage(e: MouseEvent): Promise<void> {
 
   const linkEl = target.closest('[data-path]');
   if (linkEl instanceof HTMLElement) {
-    const path = linkEl.getAttribute('data-path');
+    let path = linkEl.getAttribute('data-path');
     if (path) {
       e.preventDefault();
+      if (path === '/catalog/allproducts') {
+        path = '/catalog';
+      }
+      const parts = path.split('/');
+      if (parts[1] === 'catalog' && parts[2] === 'undefined' && parts[3]) {
+        const productKey = parts[3];
+        path = `/catalog/allproducts/${productKey}`;
+      }
+
       await Router.getInstance().navigate(path);
       return;
     }
