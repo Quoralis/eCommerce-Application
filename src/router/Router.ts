@@ -7,7 +7,7 @@ import { header } from '../pages/header/headerStructure.js';
 import { showCatalogPage } from '../pages/catalogPage/showCatalogPage.js';
 import { showProductPage } from '../pages/detailedProductPage/showProductPage.js';
 import { showUserProfilePage as showUserProfilePage } from '../pages/userProfilePage/userProfile.js';
-import { showUserAddresses } from '../pages/userProfilePage/userAddresses.js';
+import { showUserAddresses } from '../pages/userAddressPage/userAddresses.js';
 import { deleteModalWindow } from '../ui/modalWindow.js';
 import { openPage } from '../pages/openPage.js';
 import { renderProductList } from '../ui/renderProductList.js';
