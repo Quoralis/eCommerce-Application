@@ -1,5 +1,3 @@
-import Router from '../router/Router.js';
-
 export async function updateAuthUI() {
   const loginBtns = document.querySelectorAll('.login-btn, .sign-up-btn');
   loginBtns.forEach((btn) => {
@@ -9,5 +7,4 @@ export async function updateAuthUI() {
   profileBtns.forEach((btn) => {
     btn.classList.toggle('hidden');
   });
-  await Router.getInstance().navigate('/');
 }

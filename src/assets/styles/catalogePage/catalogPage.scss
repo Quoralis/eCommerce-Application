@@ -28,6 +28,7 @@
 
   .catalog-wrapper {
     display: flex;
+
     aside {
       display: flex;
       flex-direction: column;
@@ -115,4 +116,39 @@
   font-weight: bold;
   color: #4889f7;
   cursor: default;
+}
+
+.price-filter {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.4em;
+
+  span {
+    font-weight: bold;
+    text-align: start;
+    font-size: 0.8em;
+  }
+
+  input {
+    width: 80%;
+    border-radius: 20px;
+    font-size: 0.7em;
+  }
+
+  label {
+    display: flex;
+    width: 80%;
+    font-size: 0.7em;
+    align-items: flex-start;
+  }
+
+  .button-price-filter {
+    display: flex;
+    width: 80%;
+    height: 30px;
+    justify-content: center;
+    align-items: center;
+  }
 }
