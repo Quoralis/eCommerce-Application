@@ -4,10 +4,6 @@ import { TokenResponse } from '../types/types.js';
 
 // export let bearerToken: Promise<string>;
 
-// document.addEventListener('DOMContentLoaded', (): void => {
-//   bearerToken = requestBearerToken();
-// });
-
 const body = new URLSearchParams({
   grant_type: 'client_credentials',
   scope: scopes,
@@ -33,7 +29,6 @@ export async function requestBearerToken() {
     `${authUrl}/oauth/token`,
     body
   );
-  // console.log('bearToken' + ' ' + bearToken.access_token);
   return bearToken.access_token;
 }
 
@@ -42,7 +37,6 @@ export async function requestAnonymousToken() {
     `${authUrl}/oauth/${projectKey}/anonymous/token`,
     body
   );
-  // console.log('anonymousToken' + ' ' + anonymousToken.access_token);
   return anonymousToken.access_token;
 }
 
@@ -58,7 +52,6 @@ export async function requestLoginToken(email: string, password: string) {
     `${authUrl}/oauth/${projectKey}/customers/token`,
     bodyLogin
   );
-  // console.log('loginToken' + ' ' + loginToken.access_token);
   return loginToken;
 }
 

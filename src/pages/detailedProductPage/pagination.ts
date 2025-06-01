@@ -8,10 +8,12 @@ export const productComponentImgsPagination = (
   data.masterVariant.images?.forEach((el) => {
     const wrapperImg = createEl({
       tag: 'li',
+      classes: ['wrapper-img'],
       parent: parent,
     });
     createEl({
       tag: 'img',
+      classes: ['detailed-product-img'],
       attributes: {
         src: el.url,
         alt: 'electronic equipment',

@@ -6,6 +6,9 @@ import { showSlideShow } from '../../ui/slideShow.js';
 import { productComponentText } from './productComponentText.js';
 import { deleteModalWindow } from '../../ui/modalWindow.js';
 
+import { slideShowInProductPage } from '../../ui/slideShow.js';
+import { modalInProductPage } from '../../ui/modalWindow.js';
+
 const productAllComponents = (
   data: CurrentProduct,
   parent: HTMLElement
@@ -49,7 +52,7 @@ const productAllComponents = (
     ],
     parent: detailedProductPage,
   });
-  showSlideShow('slide', childProductPage, data);
+  showSlideShow(slideShowInProductPage, childProductPage, data);
   productComponentText(data, childProductPage);
 };
 

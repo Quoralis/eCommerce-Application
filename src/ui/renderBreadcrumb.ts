@@ -9,6 +9,7 @@ export function renderBreadcrumb(path: string): void {
   if (index !== -1) {
     partsPath[index] = 'allproducts';
   }
+
   const ul = createEl({
     tag: 'ul',
     parent: container as HTMLElement,
@@ -16,7 +17,6 @@ export function renderBreadcrumb(path: string): void {
 
   partsPath.forEach((part, index) => {
     const fullPath = '/' + partsPath.slice(0, index + 1).join('/');
-    console.log(fullPath);
     createEl({
       tag: 'a',
       text: part,

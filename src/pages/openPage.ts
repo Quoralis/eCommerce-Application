@@ -16,6 +16,7 @@ export async function openPage(e: MouseEvent): Promise<void> {
         const productKey = parts[3];
         path = `/catalog/allproducts/${productKey}`;
       }
+
       await Router.getInstance().navigate(path);
       return;
     }
@@ -34,7 +35,7 @@ export async function openPage(e: MouseEvent): Promise<void> {
   if (productCard instanceof HTMLElement) {
     const productId = productCard.getAttribute('data-product-key');
     if (productId) {
-      const path = `/Catalog/product/${productId}`;
+      const path = `/catalog/product/${productId}`;
       e.preventDefault();
       await Router.getInstance().navigate(path);
     }

@@ -11,6 +11,8 @@ import { showUserAddresses } from '../pages/userProfilePage/userAddresses.js';
 import { openPage } from '../pages/openPage.js';
 import { renderProductList } from '../ui/renderProductList.js';
 import { renderProductsInCategory } from '../ui/renderProductsInCategory.js';
+import { deleteModalWindow } from '../ui/modalWindow.js';
+
 import { renderBreadcrumb } from '../ui/renderBreadcrumb.js';
 
 export default class Router {
@@ -71,6 +73,10 @@ export default class Router {
     }
 
     const renderPage = this.routes[path];
+    if (path === paths.catalog) {
+      
+      ();
+    }
     if (renderPage) {
       renderPage();
     } else {
@@ -113,7 +119,9 @@ export default class Router {
 
   private renderUserPage(): void {
     clearDom('main-page-wrapper');
-    showUserProfilePage();
+    const email = <string>localStorage.getItem('email');
+    showUserProfilePage(email);
+
   }
 
   private renderAddressPage(): void {
@@ -126,7 +134,6 @@ export default class Router {
     await showCatalogPage();
     const container = document.querySelector('.product-container');
     if (!(container instanceof HTMLElement)) return;
-
     renderBreadcrumb(`/catalog/${category}`);
     container.innerHTML = '';
 

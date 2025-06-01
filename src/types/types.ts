@@ -17,6 +17,11 @@ declare global {
     'dotlottie-player': HTMLElement;
   }
 }
+declare global {
+  interface HTMLElementTagNameMap {
+    'dotlottie-player': HTMLElement;
+  }
+}
 
 export interface TokenResponse {
   access_token: string;
@@ -73,6 +78,9 @@ export interface Customer {
   lastName?: string;
   dateOfBirth?: string;
   addresses?: PartialBaseAddress[];
+  shippingAddressIds?: string[];
+  billingAddressIds?: string[];
+  password?: string;
 }
 
 export interface CustomerSearchResponse {
@@ -136,4 +144,40 @@ interface DataCategory {
   id: string;
   key: string;
   name: { en: string };
+}
+
+export interface updateCustomer {
+  version?: number;
+  actions: Array<{
+    action: string;
+    firstName?: string;
+    lastName?: string;
+    email?: string;
+    dateOfBirth?: string;
+  }>;
+}
+
+export interface updateCustomerPasswordType {
+  id: string;
+  version: number;
+  currentPassword: string;
+  newPassword: string;
+}
+
+export interface CustomerAddress {
+  country: string | undefined;
+  city?: string;
+  streetName?: string;
+  postalCode?: string;
+}
+
+export interface AddressUpdate {
+  version: number | undefined;
+  actions: [
+    {
+      action: string;
+      addressId: string | undefined;
+      address: CustomerAddress;
+    },
+  ];
 }

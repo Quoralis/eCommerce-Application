@@ -24,3 +24,8 @@ export async function getCustomerByEmail(email: string): Promise<Customer[]> {
     throw err;
   }
 }
+
+export const getCurrentUser = async () => {
+  const users = await getCustomerByEmail('user@us.er'); // email is used for example, it will be replaced later
+  return users[0];
+};
