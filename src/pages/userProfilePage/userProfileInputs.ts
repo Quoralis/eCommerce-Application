@@ -88,7 +88,6 @@ const showAddressBlock = (): void => {
       'data-path': '/user/addresses',
     },
   });
-
 };
 
 export const changeBlock = (

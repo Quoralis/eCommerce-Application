@@ -24,31 +24,38 @@
 .catalog-section {
   display: grid;
   width: 100%;
-  background-color: $white;
+  background-color: white;
 
   .catalog-wrapper {
     display: flex;
-
     aside {
       display: flex;
       flex-direction: column;
+      width: 20%;
       border: 1px solid $dark-white;
+      .catalog-filters {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        .search-container{
+          display: flex;
+          align-items: center;
+        }
+      }
     }
 
     .product-container {
       display: flex;
-      width: 100%;
       max-width: 80%;
       flex-wrap: wrap;
       border: 1px solid $dark-white;
       justify-content: center;
-      align-items: center;
+
       gap: 4em;
     }
   }
 
   .card {
-    padding: 8px;
     display: grid;
     width: 10em;
     justify-items: center;
@@ -131,5 +138,40 @@
   .catalog-section aside {
     width: 200px;
     border: none;
+  }
+}
+
+.price-filter {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.4em;
+
+  span {
+    font-weight: bold;
+    text-align: start;
+    font-size: 0.8em;
+  }
+
+  input {
+    width: 80%;
+    border-radius: 20px;
+    font-size: 0.7em;
+  }
+
+  label {
+    display: flex;
+    width: 80%;
+    font-size: 0.7em;
+    align-items: flex-start;
+  }
+
+  .button-price-filter {
+    display: flex;
+    width: 80%;
+    height: 30px;
+    justify-content: center;
+    align-items: center;
   }
 }

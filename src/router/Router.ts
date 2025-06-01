@@ -8,8 +8,6 @@ import { showCatalogPage } from '../pages/catalogPage/showCatalogPage.js';
 import { showProductPage } from '../pages/detailedProductPage/showProductPage.js';
 import { showUserProfilePage as showUserProfilePage } from '../pages/userProfilePage/userProfile.js';
 import { showUserAddresses } from '../pages/userProfilePage/userAddresses.js';
-import { deleteModalWindow } from '../ui/modalWindow.js';
-import { paths } from '../constants/paths.js';
 import { openPage } from '../pages/openPage.js';
 import { renderProductList } from '../ui/renderProductList.js';
 import { renderProductsInCategory } from '../ui/renderProductsInCategory.js';
@@ -73,10 +71,6 @@ export default class Router {
     }
 
     const renderPage = this.routes[path];
-    if (path === paths.catalog) {
-      
-      ();
-    }
     if (renderPage) {
       renderPage();
     } else {
@@ -121,7 +115,6 @@ export default class Router {
     clearDom('main-page-wrapper');
     const email = <string>localStorage.getItem('email');
     showUserProfilePage(email);
-
   }
 
   private renderAddressPage(): void {

@@ -15,6 +15,7 @@ export const filterSearch = (parent: HTMLElement): void => {
       'uk-flex-center',
       'uk-flex',
       'uk-flex-column',
+      'search-container',
     ],
     parent: parent,
   });
