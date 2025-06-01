@@ -195,6 +195,9 @@ document.addEventListener('click', (event: Event): void => {
     if (event.target.classList.contains('el-nav')) {
       closeHeaderBurger();
     }
+    // if (!event.target.classList.contains('uk-offcanvas-slide')) {
+    //   closeHeaderBurger();
+    // }
   }
 });
 

@@ -1,6 +1,5 @@
 import { renderCatalogSection } from '../../ui/catalogSection.js';
 import { createEl } from '../../utils/createElement.js';
-
 export async function showCatalogPage() {
   const main = document.querySelector('main');
   if (main) {
