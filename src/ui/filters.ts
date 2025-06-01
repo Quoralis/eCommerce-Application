@@ -1,5 +1,5 @@
 import { createEl } from '../utils/createElement.js';
-import { renderPriceFilter } from './priceFilter.js';
+import { renderPriceFilter } from './renderPriceFilter.js';
 
 export function renderFilters(parent: HTMLElement): void {
   const filters = createEl({

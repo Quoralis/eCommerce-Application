@@ -1,4 +1,6 @@
 import { createEl } from '../utils/createElement.js';
+import { renderProductsInCategory } from './renderProductsInCategory.js';
+import { renderProductList } from './renderProductList.js';
 
 export function renderPriceFilter(element: HTMLElement) {
   const priceFilter = createEl({
@@ -26,7 +28,7 @@ export function renderPriceFilter(element: HTMLElement) {
       id: 'min-price',
       name: 'minPrice',
       placeholder: '0',
-      minPrice: '0',
+      min: '0',
     },
     parent: priceFilter,
   });
@@ -44,11 +46,34 @@ export function renderPriceFilter(element: HTMLElement) {
       type: 'number',
       id: 'max-price',
       name: 'maxPrice',
-      placeholder: '0',
-      minPrice: '0',
+      placeholder: '20000',
+      max: '0',
     },
     parent: priceFilter,
   });
+
+  const minInput = priceFilter.querySelector('#min-price') as HTMLInputElement;
+  const maxInput = priceFilter.querySelector('#max-price') as HTMLInputElement;
+
+  const handleEnter = async (event: KeyboardEvent) => {
+    if (event.key === 'Enter') {
+      const pathParts = window.location.pathname.split('/');
+      const category = pathParts[2];
+      if (category) {
+        await renderProductsInCategory(category);
+      } else {
+        const container = document.querySelector('.product-container');
+        if (container) {
+          container.innerHTML = '';
+          await renderProductList(container as HTMLElement);
+        }
+      }
+    }
+  };
+
+  minInput?.addEventListener('keydown', handleEnter);
+  maxInput?.addEventListener('keydown', handleEnter);
+
   createEl({
     tag: 'button',
     text: 'Apply',
@@ -60,6 +85,17 @@ export function renderPriceFilter(element: HTMLElement) {
       'el-nav',
       'button-price-filter',
     ],
+    onClick: async () => {
+      const pathParts = window.location.pathname.split('/');
+      const category = pathParts[2];
+      if (category) {
+        await renderProductsInCategory(category);
+      } else {
+        const container = document.querySelector('.product-container');
+        if (container) container.innerHTML = '';
+        await renderProductList(container as HTMLElement);
+      }
+    },
     parent: priceFilter,
   });
 }
