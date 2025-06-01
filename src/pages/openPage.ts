@@ -5,9 +5,17 @@ export async function openPage(e: MouseEvent): Promise<void> {
 
   const linkEl = target.closest('[data-path]');
   if (linkEl instanceof HTMLElement) {
-    const path = linkEl.getAttribute('data-path');
+    let path = linkEl.getAttribute('data-path');
     if (path) {
       e.preventDefault();
+      if (path === '/catalog/allproducts') {
+        path = '/catalog';
+      }
+      const parts = path.split('/');
+      if (parts[1] === 'catalog' && parts[2] === 'undefined' && parts[3]) {
+        const productKey = parts[3];
+        path = `/catalog/allproducts/${productKey}`;
+      }
       await Router.getInstance().navigate(path);
       return;
     }
@@ -26,7 +34,7 @@ export async function openPage(e: MouseEvent): Promise<void> {
   if (productCard instanceof HTMLElement) {
     const productId = productCard.getAttribute('data-product-key');
     if (productId) {
-      const path = `/catalog/product/${productId}`;
+      const path = `/Catalog/product/${productId}`;
       e.preventDefault();
       await Router.getInstance().navigate(path);
     }
