@@ -1,7 +1,7 @@
 import { createEl } from '../../utils/createElement.js';
 import { getCurrentProductClient } from '../../clients/getCurrentProductClient.js';
 import { CurrentProduct } from '../../types/types.js';
-import { showModalWindow } from '../../ui/modalWindow.js';
+import { modalInProductPage, showModalWindow } from '../../ui/modalWindow.js';
 import { showSlideShow } from '../../ui/slideShow.js';
 import { productComponentText } from './productComponentText.js';
 import { deleteModalWindow } from '../../ui/modalWindow.js';
@@ -63,7 +63,7 @@ export const showProductPage = async (key: string) => {
       classes: ['nav-breadcrumb'],
       parent: main,
     });
-    showModalWindow('pagination', data);
     productAllComponents(data, main);
+    showModalWindow(modalInProductPage, data);
   }
 };

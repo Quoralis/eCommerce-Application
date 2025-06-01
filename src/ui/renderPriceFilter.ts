@@ -52,8 +52,8 @@ export function renderPriceFilter(element: HTMLElement) {
     parent: priceFilter,
   });
 
-  const minInput = priceFilter.querySelector('#min-price') as HTMLInputElement;
-  const maxInput = priceFilter.querySelector('#max-price') as HTMLInputElement;
+  const minInput = <HTMLInputElement>priceFilter.querySelector('#min-price');
+  const maxInput = <HTMLInputElement>priceFilter.querySelector('#max-price');
 
   const handleEnter = async (event: KeyboardEvent) => {
     if (event.key === 'Enter') {
