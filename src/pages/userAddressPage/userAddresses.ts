@@ -1,5 +1,7 @@
 import { createEl } from '../../utils/createElement.js';
 import { createUserAddressInputs } from './userAddressInputs.js';
+import { getNewAddressForm } from './newAddressForm.js';
+import { clearDom } from '../../utils/clearDom.js';
 
 const userAddressesContainer = createEl({
   tag: 'div',
@@ -12,7 +14,7 @@ export const userAddressesWrapper = createEl({
   parent: userAddressesContainer,
 });
 
-const showAddressesWrapper = async () => {
+export const showAddressesWrapper = async () => {
   createEl({
     tag: 'button',
     text: 'Back to user profile',
@@ -30,6 +32,12 @@ const showAddressesWrapper = async () => {
     text: 'Add new address',
     classes: ['button', 'uk-button', 'uk-button-primary'],
     parent: userAddressesWrapper,
+    onClick: getNewAddressForm,
+    attributes: {
+      'uk-toggle': 'target: #address-modal',
+      'data-path': '/user/addresses',
+      id: 'new-address-btn',
+    },
   });
 };
 
@@ -37,4 +45,10 @@ showAddressesWrapper();
 
 export const showUserAddresses = () => {
   document.querySelector('main')?.append(userAddressesContainer);
+};
+
+export const updateAddressPage = () => {
+  clearDom('user-addresses');
+  showAddressesWrapper();
+  showUserAddresses();
 };
