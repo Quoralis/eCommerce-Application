@@ -9,7 +9,7 @@ export function renderFilters(parent: HTMLElement): void {
     classes: ['catalog-filters'],
     parent: parent,
   });
-  filterSearch(filtres);
-  sortProducts(filtres);
+  filterSearch(filters);
+  sortProducts(filters);
   renderPriceFilter(filters);
 }

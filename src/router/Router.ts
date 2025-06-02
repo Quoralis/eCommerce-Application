@@ -12,6 +12,8 @@ import { openPage } from '../pages/openPage.js';
 import { renderProductList } from '../ui/renderProductList.js';
 import { renderProductsInCategory } from '../ui/renderProductsInCategory.js';
 import { renderBreadcrumb } from '../ui/renderBreadcrumb.js';
+import { paths } from '../constants/paths.js';
+import { deleteModalWindow } from '../ui/modalWindow.js';
 
 export default class Router {
   private readonly routes: Record<string, () => void>;
