@@ -1,5 +1,6 @@
 import { createEl } from '../utils/createElement.js';
 import { filterSearch } from './filterSearch.js';
+import { sortProducts } from './sortProducts.js';
 export function renderFilters(parent: HTMLElement): void {
   const filtres = createEl({
     tag: 'div',
@@ -7,4 +8,5 @@ export function renderFilters(parent: HTMLElement): void {
     parent: parent,
   });
   filterSearch(filtres);
+  sortProducts(filtres);
 }
