@@ -103,6 +103,22 @@ h4 {
   transition: 0.3s;
 }
 
+.modal__inner {
+  display: flex;
+  flex-direction: column;
+  border-radius: 8px;
+
+  .button {
+    @include button;
+    margin-top: 20px;
+  }
+}
+
+.new-address {
+  display: flex;
+  flex-direction: column;
+}
+
 @media (max-width: 700px) and (min-width: 350px) {
   .button {
     font-size: 13px;

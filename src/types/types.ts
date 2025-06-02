@@ -166,9 +166,9 @@ export interface updateCustomerPasswordType {
 
 export interface CustomerAddress {
   country: string | undefined;
-  city?: string;
-  streetName?: string;
-  postalCode?: string;
+  city?: string | undefined;
+  streetName?: string | undefined;
+  postalCode?: string | undefined;
 }
 
 export interface AddressUpdate {
@@ -176,7 +176,7 @@ export interface AddressUpdate {
   actions: [
     {
       action: string;
-      addressId: string | undefined;
+      addressId?: string | undefined;
       address: CustomerAddress;
     },
   ];

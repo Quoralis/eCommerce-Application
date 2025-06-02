@@ -17,8 +17,11 @@ export const updateClientAddress = async (id: string, body: AddressUpdate) => {
       body: JSON.stringify(body),
     });
 
-    console.log('updateClientAddress success:', response);
-    showNotification('Address updated successfully', 'success');
+    if (body.actions[0].action === 'changeAddress') {
+      showNotification('Address updated successfully', 'success');
+    } else if (body.actions[0].action === 'addAddress') {
+      showNotification('New address added successfully', 'success');
+    }
 
     return response;
   } catch (err) {

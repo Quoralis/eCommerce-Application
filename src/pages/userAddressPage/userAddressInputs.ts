@@ -3,15 +3,10 @@ import { getCurrentUser } from '../../clients/customerSearchClient.js';
 import { userAddressesWrapper } from './userAddresses.js';
 import { PartialBaseAddress } from '../../types/types.js';
 import { toggleUpdateAddressButton } from './updateAddressButton.js';
+import { addressInputs } from '../../constants/addressConstants.js';
 
 export const createUserAddressInputs = async () => {
   const currentUser = await getCurrentUser();
-  const addressInputs: PartialBaseAddress = {
-    Country: 'country',
-    City: 'city',
-    Street: 'streetName',
-    'Postal code': 'postalCode',
-  };
 
   // for testing only - while default addresses isn't configured yet
   // test code start
