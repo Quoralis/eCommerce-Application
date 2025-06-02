@@ -15,6 +15,8 @@ export async function registerCustomer(data: RegistrationLoginData): Promise<{
     addresses: data.userData.addresses,
     defaultShippingAddress: data.defShipIdx,
     defaultBillingAddress: data.defBillIdx,
+    billingAddresses: data.userData.billingAddresses,
+    shippingAddresses: data.userData.shippingAddresses,
   };
 
   try {
