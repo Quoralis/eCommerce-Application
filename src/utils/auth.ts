@@ -7,4 +7,5 @@ export async function updateAuthUI() {
   profileBtns.forEach((btn) => {
     btn.classList.toggle('hidden');
   });
+  console.log('dd');
 }
