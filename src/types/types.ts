@@ -181,3 +181,13 @@ export interface AddressUpdate {
     },
   ];
 }
+
+export interface AddressDelete {
+  version: number | undefined;
+  actions: [
+    {
+      action: string;
+      addressId: string;
+    },
+  ];
+}

@@ -4,6 +4,7 @@ import { userAddressesWrapper } from './userAddresses.js';
 import { PartialBaseAddress } from '../../types/types.js';
 import { toggleUpdateAddressButton } from './updateAddressButton.js';
 import { addressInputs } from '../../constants/addressConstants.js';
+import { deleteAddress } from './deleteAddress.js';
 
 export const createUserAddressInputs = async () => {
   const currentUser = await getCurrentUser();
@@ -26,71 +27,86 @@ export const createUserAddressInputs = async () => {
   };
 
   const showAddress = (address: PartialBaseAddress, addressIndex: number) => {
-    const addressWrapper = createEl({
-      tag: 'div',
-      classes: ['address-wrapper'],
-      parent: userAddressesWrapper,
-      attributes: {
-        id: `addressWrapper-${addressIndex + 1}`,
-      },
-    });
-
-    if (
-      currentUser.shippingAddressIds &&
-      currentUser.addresses &&
-      currentUser.addresses[addressIndex].id ===
-        currentUser.shippingAddressIds[0]
-    ) {
-      markDefaultAddress('shipping', addressWrapper);
-    } else if (
-      currentUser.billingAddressIds &&
-      currentUser.addresses &&
-      currentUser.addresses[addressIndex].id ===
-        currentUser.billingAddressIds[0]
-    ) {
-      markDefaultAddress('billing', addressWrapper);
-    }
-
-    createEl({
-      tag: 'h3',
-      text: `Address ${addressIndex + 1}`,
-      parent: addressWrapper,
-    });
-
-    for (let i = 0; i < 4; i++) {
-      createEl({
-        tag: 'label',
-        classes: ['user-profile__label'],
-        parent: addressWrapper,
-        text: Object.keys(addressInputs)[i],
+    if (currentUser.addresses) {
+      const addressWrapper = createEl({
+        tag: 'div',
+        classes: ['address-wrapper'],
+        parent: userAddressesWrapper,
         attributes: {
-          for: `${Object.values(addressInputs)[i]}-${addressIndex + 1}`,
+          id: `addressWrapper-${addressIndex + 1}`,
         },
       });
 
-      const key = Object.values(addressInputs)[i] ?? '';
+      if (
+        currentUser.shippingAddressIds &&
+        currentUser.addresses &&
+        currentUser.addresses[addressIndex].id ===
+          currentUser.shippingAddressIds[0]
+      ) {
+        markDefaultAddress('shipping', addressWrapper);
+      } else if (
+        currentUser.billingAddressIds &&
+        currentUser.addresses &&
+        currentUser.addresses[addressIndex].id ===
+          currentUser.billingAddressIds[0]
+      ) {
+        markDefaultAddress('billing', addressWrapper);
+      }
 
       createEl({
-        tag: 'input',
-        classes: ['user-profile__input', 'uk-input'],
+        tag: 'h3',
+        text: `Address ${addressIndex + 1}`,
+        parent: addressWrapper,
+      });
+
+      for (let i = 0; i < 4; i++) {
+        createEl({
+          tag: 'label',
+          classes: ['user-profile__label'],
+          parent: addressWrapper,
+          text: Object.keys(addressInputs)[i],
+          attributes: {
+            for: `${Object.values(addressInputs)[i]}-${addressIndex + 1}`,
+          },
+        });
+
+        const key = Object.values(addressInputs)[i] ?? '';
+
+        createEl({
+          tag: 'input',
+          classes: ['user-profile__input', 'uk-input'],
+          parent: addressWrapper,
+          attributes: {
+            id: `${Object.values(addressInputs)[i]}-${addressIndex + 1}`,
+            value: address[key] ?? '',
+            disabled: '',
+          },
+        });
+      }
+
+      createEl({
+        tag: 'button',
+        text: 'Edit address',
+        classes: ['button', 'uk-button', 'uk-button-primary'],
+        parent: addressWrapper,
+        onClick: (event) => {
+          toggleUpdateAddressButton(event);
+        },
+      });
+
+      createEl({
+        tag: 'button',
+        text: 'Delete address',
+        classes: ['button', 'uk-button', 'uk-button-primary'],
         parent: addressWrapper,
         attributes: {
-          id: `${Object.values(addressInputs)[i]}-${addressIndex + 1}`,
-          value: address[key] ?? '',
-          disabled: '',
+          id: currentUser.addresses[addressIndex].id ?? '',
+        },
+        onClick: async (event) => {
+          await deleteAddress(event);
         },
       });
     }
-
-    createEl({
-      tag: 'button',
-      text: 'Edit address',
-      classes: ['button', 'uk-button', 'uk-button-primary'],
-      parent: addressWrapper,
-      onClick: (event) => {
-        toggleUpdateAddressButton(event);
-      },
-    });
   };
 
   if (currentUser.addresses) {

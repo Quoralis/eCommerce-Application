@@ -2,9 +2,7 @@ import UIkit from 'uikit';
 import { AddressUpdate, CustomerAddress } from '../../types/types.js';
 import { getCurrentUser } from '../../clients/customerSearchClient.js';
 import { updateClientAddress } from '../../clients/updateClientAddress.js';
-import { showUserAddresses } from './userAddresses.js';
-import { showAddressesWrapper } from './userAddresses.js';
-import { clearDom } from '../../utils/clearDom.js';
+import { updateAddressPage } from './userAddresses.js';
 
 export const addNewAddress = async (e: Event, form: HTMLElement) => {
   e.preventDefault();
@@ -48,7 +46,5 @@ export const addNewAddress = async (e: Event, form: HTMLElement) => {
   await updateClientAddress(user.id, newAddressData);
   const addressModal = document.querySelector('#address-modal');
   UIkit.modal(addressModal).hide();
-  clearDom('user-addresses');
-  showAddressesWrapper();
-  showUserAddresses();
+  updateAddressPage();
 };

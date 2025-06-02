@@ -1,6 +1,7 @@
 import { createEl } from '../../utils/createElement.js';
 import { createUserAddressInputs } from './userAddressInputs.js';
 import { getNewAddressForm } from './newAddressForm.js';
+import { clearDom } from '../../utils/clearDom.js';
 
 const userAddressesContainer = createEl({
   tag: 'div',
@@ -44,4 +45,10 @@ showAddressesWrapper();
 
 export const showUserAddresses = () => {
   document.querySelector('main')?.append(userAddressesContainer);
+};
+
+export const updateAddressPage = () => {
+  clearDom('user-addresses');
+  showAddressesWrapper();
+  showUserAddresses();
 };

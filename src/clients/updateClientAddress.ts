@@ -1,9 +1,12 @@
 import { apiUrl, projectKey } from '../config.js';
 import { wrapperTryCatch } from '../utils/wrapperTryCatch.js';
-import { AddressUpdate, Customer } from '../types/types.js';
+import { AddressDelete, AddressUpdate, Customer } from '../types/types.js';
 import { showNotification } from '../services/notification/showNotification.js';
 
-export const updateClientAddress = async (id: string, body: AddressUpdate) => {
+export const updateClientAddress = async (
+  id: string,
+  body: AddressUpdate | AddressDelete
+) => {
   const bearerToken = localStorage.getItem('bearerToken');
   const url = `${apiUrl}/${projectKey}/customers/${id}`;
 
@@ -21,6 +24,8 @@ export const updateClientAddress = async (id: string, body: AddressUpdate) => {
       showNotification('Address updated successfully', 'success');
     } else if (body.actions[0].action === 'addAddress') {
       showNotification('New address added successfully', 'success');
+    } else if (body.actions[0].action === 'removeAddress') {
+      showNotification('Address deleted from your account', 'success');
     }
 
     return response;
