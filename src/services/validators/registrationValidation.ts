@@ -11,6 +11,7 @@ import { registerAndLogin } from '../../services/authService.js';
 import { updateAuthUI } from '../../utils/auth.js';
 import { validateDate } from '../validators/dateValidation.js';
 import { getCustomerByEmail } from '../../clients/customerSearchClient.js';
+import Router from '../../router/Router.js';
 
 export const validateInput = (e: Event) => {
   const verifyInput = (input: Element) => {
@@ -143,7 +144,8 @@ export const validateInput = (e: Event) => {
             'success'
           );
           localStorage.setItem('accessToken', userData.accessToken);
-          updateAuthUI();
+          await updateAuthUI();
+          await Router.getInstance().navigate('/');
         } else {
           showNotification(
             'Customer with this email already exists. Try to log in or use another email',
