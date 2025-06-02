@@ -80,6 +80,8 @@ export interface Customer {
   addresses?: PartialBaseAddress[];
   shippingAddressIds?: string[];
   billingAddressIds?: string[];
+  defaultShippingAddressId?: string;
+  defaultBillingAddressId?: string;
   password?: string;
 }
 
@@ -182,12 +184,12 @@ export interface AddressUpdate {
   ];
 }
 
-export interface AddressDelete {
+interface Action {
+  action: string;
+  addressId: string | undefined;
+}
+
+export interface AddressModify {
   version: number | undefined;
-  actions: [
-    {
-      action: string;
-      addressId: string;
-    },
-  ];
+  actions: Action[];
 }

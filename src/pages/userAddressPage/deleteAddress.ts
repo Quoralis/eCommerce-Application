@@ -1,6 +1,6 @@
 import { getCurrentUser } from '../../clients/customerSearchClient.js';
 import { updateClientAddress } from '../../clients/updateClientAddress.js';
-import { AddressDelete } from '../../types/types.js';
+import { AddressModify } from '../../types/types.js';
 import { updateAddressPage } from './userAddresses.js';
 
 export const deleteAddress = async (e: Event) => {
@@ -10,7 +10,7 @@ export const deleteAddress = async (e: Event) => {
     const currentUser = await getCurrentUser();
     const idToDelete = e.target.id;
 
-    const addressToDelete: AddressDelete = {
+    const addressToDelete: AddressModify = {
       version: currentUser.version,
       actions: [
         {
