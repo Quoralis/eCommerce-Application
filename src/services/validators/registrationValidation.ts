@@ -106,16 +106,27 @@ export const validateInput = (e: Event) => {
         if (defaultAddressIndex !== undefined) {
           clientData.defaultShippingAddress = defaultAddressIndex;
           clientData.defaultBillingAddress = defaultAddressIndex;
+          clientData.billingAddresses = [defaultAddressIndex];
+          clientData.shippingAddresses = [defaultAddressIndex];
         }
+
         localStorage.setItem('email', clientData.email);
 
-        return clientData;
+        console.log(clientData);
+        return {
+          userData: clientData,
+          defShipIdx: defaultAddressIndex,
+          defBillIdx: defaultAddressIndex,
+        };
       };
 
       const registrationData = getFormData();
+      console.log('ref', registrationData);
       const registrationToken = localStorage.getItem('bearerToken');
       if (registrationData && registrationToken) {
-        const customers = await getCustomerByEmail(registrationData.email);
+        const customers = await getCustomerByEmail(
+          registrationData.userData.email
+        );
         if (customers.length !== 0) {
           showNotification(
             'Customer with this email already exists. Try to log in or use another email',
@@ -124,8 +135,10 @@ export const validateInput = (e: Event) => {
           return;
         }
         const userData = await registerAndLogin({
-          userData: registrationData,
+          userData: registrationData.userData,
           bearerToken: registrationToken,
+          defBillIdx: registrationData.defBillIdx,
+          defShipIdx: registrationData.defShipIdx,
         });
         if (userData.accessToken && userData.customerID) {
           showNotification(
@@ -133,7 +146,7 @@ export const validateInput = (e: Event) => {
             'success'
           );
           localStorage.setItem('accessToken', userData.accessToken);
-          updateAuthUI();
+          await updateAuthUI();
         } else {
           showNotification(
             'Customer with this email already exists. Try to log in or use another email',

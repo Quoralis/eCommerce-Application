@@ -167,6 +167,9 @@ const reverseToRegistarationPage = createEl({
   tag: 'a',
   classes: ['uk-link', 'login-link', 'sign-up-btn', 'uk-text-center'],
   text: 'Don’t have account? Sign Up',
+  attributes: {
+    'data-path': '/registration',
+  },
   parent: buttonsWrapper,
 });
 

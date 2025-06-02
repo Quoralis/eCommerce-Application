@@ -23,6 +23,7 @@ export function renderPriceFilter(element: HTMLElement) {
   });
   createEl({
     tag: 'input',
+    classes: ['uk-input', 'uk-border-rounded'],
     attributes: {
       type: 'number',
       id: 'min-price',
@@ -42,6 +43,7 @@ export function renderPriceFilter(element: HTMLElement) {
   });
   createEl({
     tag: 'input',
+    classes: ['uk-input', 'uk-border-rounded'],
     attributes: {
       type: 'number',
       id: 'max-price',
@@ -86,6 +88,32 @@ export function renderPriceFilter(element: HTMLElement) {
       'button-price-filter',
     ],
     onClick: async () => {
+      const pathParts = window.location.pathname.split('/');
+      const category = pathParts[2];
+      if (category) {
+        await renderProductsInCategory(category);
+      } else {
+        const container = document.querySelector('.product-container');
+        if (container) container.innerHTML = '';
+        await renderProductList(container as HTMLElement);
+      }
+    },
+    parent: priceFilter,
+  });
+  createEl({
+    tag: 'button',
+    text: 'Reset',
+    classes: [
+      'uk-button',
+      'uk-border-rounded',
+      'uk-button-primary',
+      'sign-out-btn',
+      'el-nav',
+      'button-price-filter',
+    ],
+    onClick: async () => {
+      (<HTMLInputElement>document.getElementById('min-price')).value = '';
+      (<HTMLInputElement>document.getElementById('max-price')).value = '';
       const pathParts = window.location.pathname.split('/');
       const category = pathParts[2];
       if (category) {

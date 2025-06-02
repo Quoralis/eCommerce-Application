@@ -37,6 +37,8 @@ export interface UserFormValues {
   lastName?: string;
   dateOfBirth?: string;
   addresses?: BaseAddress[];
+  billingAddresses?: number[];
+  shippingAddresses?: number[];
 }
 
 interface BaseAddress {
