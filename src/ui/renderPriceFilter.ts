@@ -23,6 +23,7 @@ export function renderPriceFilter(element: HTMLElement) {
   });
   createEl({
     tag: 'input',
+    classes: ['uk-input', 'uk-border-rounded'],
     attributes: {
       type: 'number',
       id: 'min-price',
@@ -42,6 +43,7 @@ export function renderPriceFilter(element: HTMLElement) {
   });
   createEl({
     tag: 'input',
+    classes: ['uk-input', 'uk-border-rounded'],
     attributes: {
       type: 'number',
       id: 'max-price',

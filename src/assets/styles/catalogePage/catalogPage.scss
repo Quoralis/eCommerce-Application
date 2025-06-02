@@ -31,13 +31,12 @@
     aside {
       display: flex;
       flex-direction: column;
-      width: 20%;
       border: 1px solid $dark-white;
       .catalog-filters {
         display: flex;
         flex-direction: column;
         justify-content: center;
-        .search-container{
+        .search-container {
           display: flex;
           align-items: center;
         }
@@ -46,6 +45,8 @@
 
     .product-container {
       display: flex;
+      width: 100%;
+      align-items: center;
       max-width: 80%;
       flex-wrap: wrap;
       border: 1px solid $dark-white;
@@ -134,8 +135,34 @@
   padding-right: 19px;
 }
 
+.sorts {
+  cursor: pointer;
+  padding: 0.5em 1em;
+}
+.catalog-link {
+  color: #666;
+}
+
+.sorts.active > .catalog-link {
+  color: $blue;
+}
+
+.sorts.desc > .arrow {
+  transform: rotate(0deg);
+}
+
+.arrow {
+  transition: 0.3s;
+  transform: rotate(180deg);
+  margin-left: 1em;
+}
+
+.wrapper-sort {
+  margin-bottom: 10px;
+}
+
 @media (max-width: 700px) and (min-width: 350px) {
-  .catalog-section aside {
+  .catalog-section .catalog-wrapper aside {
     width: 200px;
     border: none;
   }
@@ -145,7 +172,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  padding: 0.5em 1em;
   gap: 0.4em;
 
   span {
@@ -155,8 +182,6 @@
   }
 
   input {
-    width: 80%;
-    border-radius: 20px;
     font-size: 0.7em;
   }
 
@@ -173,5 +198,6 @@
     height: 30px;
     justify-content: center;
     align-items: center;
+    align-self: center;
   }
 }

@@ -2,21 +2,13 @@ import { createEl } from '../utils/createElement.js';
 import { searchProduct } from '../clients/searchProduct.js';
 import { clearDom } from '../utils/clearDom.js';
 import { CurrentProduct } from '../types/types.js';
-import { DisplayProduct } from '../types/types.js';
-import { renderProductCard } from './productCard.js';
 import { renderProductList } from './renderProductList.js';
+import { showCards } from './sortProducts.js';
 
 export const filterSearch = (parent: HTMLElement): void => {
   const wrapperFilterSearch = createEl({
     tag: 'div',
-    classes: [
-      'uk-margin',
-      'uk-flex',
-      'uk-flex-center',
-      'uk-flex',
-      'uk-flex-column',
-      'search-container',
-    ],
+    classes: ['uk-flex', 'uk-flex-center', 'uk-flex', 'uk-flex-column'],
     parent: parent,
   });
 
@@ -71,45 +63,9 @@ const showCardsByRequest = async (
       renderProductList(parent);
     }
     if (arrProducts.length > 0) {
-      arrProducts.forEach((el) => {
-        const dataProduct: DisplayProduct = {
-          productName: el.name.en,
-          imageUrl: el.masterVariant.images![0].url,
-          description: el.description.en,
-          productKey: el.key,
-          price: el.masterVariant.prices[0].value.centAmount,
-          discountedPrice:
-            el.masterVariant.prices[0].discounted?.value.centAmount,
-        };
-        renderProductCard(parent, dataProduct);
-      });
+      showCards(arrProducts, parent);
     } else if (arrProducts.length === 0 && event.target.value !== '') {
       parent.textContent = 'Product is not found';
     }
   }
 };
-
-// export const showNav = (parent: HTMLElement, content: HTMLElement) => {
-//   const menu = createEl({
-//     tag: 'div',
-//     attributes: { id: 'nav', 'uk-offcanvas': '' },
-//     parent: parent,
-//   });
-
-//   const wrapperNav = createEl({
-//     tag: 'div',
-//     classes: ['uk-offcanvas-bar'],
-//     // attributes: {id: 'nav', 'uk-offcanvas': ''},
-//     parent: menu,
-//   });
-//   //   wrapperNav.style.background = '#FFF';
-
-//   wrapperNav.append(content);
-
-//   const closeMenu = createEl({
-//     tag: 'button',
-//     classes: ['uk-offcanvas-close'],
-//     attributes: { 'uk-close': '', 'uk-dark': 'dark' },
-//     parent: wrapperNav,
-//   });
-// };
