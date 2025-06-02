@@ -33,6 +33,15 @@
       flex-direction: column;
       width: 20%;
       border: 1px solid $dark-white;
+      .catalog-filters {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        .search-container {
+          display: flex;
+          align-items: center;
+        }
+      }
     }
 
     .product-container {
@@ -115,4 +124,54 @@
   font-weight: bold;
   color: #4889f7;
   cursor: default;
+}
+
+.catalog-form {
+  padding: 10px;
+}
+
+.uk-search-default .uk-search-icon {
+  padding-right: 19px;
+}
+
+@media (max-width: 700px) and (min-width: 350px) {
+  .catalog-section aside {
+    width: 200px;
+    border: none;
+  }
+}
+
+.price-filter {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.4em;
+
+  span {
+    font-weight: bold;
+    text-align: start;
+    font-size: 0.8em;
+  }
+
+  input {
+    width: 80%;
+    border-radius: 20px;
+    font-size: 0.7em;
+  }
+
+  label {
+    display: flex;
+    width: 80%;
+    font-size: 0.7em;
+    align-items: flex-start;
+  }
+
+  .button-price-filter {
+    display: flex;
+    width: 80%;
+    height: 30px;
+    justify-content: center;
+    align-items: center;
+  }
 }

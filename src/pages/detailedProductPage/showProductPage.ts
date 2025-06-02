@@ -1,13 +1,11 @@
 import { createEl } from '../../utils/createElement.js';
 import { getCurrentProductClient } from '../../clients/getCurrentProductClient.js';
 import { CurrentProduct } from '../../types/types.js';
-import { showModalWindow } from '../../ui/modalWindow.js';
+import { modalInProductPage, showModalWindow } from '../../ui/modalWindow.js';
 import { showSlideShow } from '../../ui/slideShow.js';
 import { productComponentText } from './productComponentText.js';
 import { deleteModalWindow } from '../../ui/modalWindow.js';
-
 import { slideShowInProductPage } from '../../ui/slideShow.js';
-import { modalInProductPage } from '../../ui/modalWindow.js';
 
 const productAllComponents = (
   data: CurrentProduct,
@@ -57,8 +55,15 @@ const productAllComponents = (
 };
 
 export const showProductPage = async (key: string) => {
-  const data = await getCurrentProductClient(key);
-  const main = <HTMLElement>document.querySelector('main');
-  showModalWindow(modalInProductPage, data);
-  productAllComponents(data, main);
+  if (key) {
+    const data = await getCurrentProductClient(key);
+    const main = <HTMLElement>document.querySelector('main');
+    createEl({
+      tag: 'nav',
+      classes: ['nav-breadcrumb'],
+      parent: main,
+    });
+    productAllComponents(data, main);
+    showModalWindow(modalInProductPage, data);
+  }
 };
