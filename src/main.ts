@@ -13,9 +13,13 @@ document.addEventListener('DOMContentLoaded', async () => {
   localStorage.setItem('bearerToken', await requestBearerToken());
   // const bearerToken = await requestBearerToken();
   const accessToken = localStorage.getItem('accessToken');
-  if (accessToken) {
+  const path = window.location.pathname;
+  if (!accessToken && path.startsWith('/user')) {
+    await Router.getInstance().navigate('/');
+  } else {
     await updateAuthUI();
   }
+
   const router = Router.getInstance();
   await router.initialRender();
 });
