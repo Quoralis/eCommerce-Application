@@ -11,6 +11,7 @@ export const createUserAddressInputs = async () => {
   const currentUser = await getCurrentUser();
 
   const showAddress = (address: PartialBaseAddress, addressIndex: number) => {
+    if (!currentUser) return;
     if (currentUser.addresses) {
       const addressWrapper = createEl({
         tag: 'div',
@@ -60,7 +61,6 @@ export const createUserAddressInputs = async () => {
       }
 
       const checkboxes = document.querySelectorAll('.checkbox');
-      console.log(checkboxes);
 
       if (
         currentUser.defaultShippingAddressId === addressId &&
@@ -106,6 +106,7 @@ export const createUserAddressInputs = async () => {
     }
   };
 
+  if (!currentUser) return;
   if (currentUser.addresses) {
     for (let i = 0; i < currentUser.addresses.length; i++) {
       showAddress(currentUser.addresses[i], i);

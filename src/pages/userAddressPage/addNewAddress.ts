@@ -41,6 +41,7 @@ export const addNewAddress = async (e: Event, form: HTMLElement) => {
     });
 
   const user = await getCurrentUser();
+  if (!user) return;
   newAddressData.version = user.version;
 
   await updateClientAddress(user.id, newAddressData);

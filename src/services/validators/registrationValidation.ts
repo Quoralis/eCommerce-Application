@@ -107,6 +107,7 @@ export const validateInput = (e: Event) => {
           clientData.defaultShippingAddress = defaultAddressIndex;
           clientData.defaultBillingAddress = defaultAddressIndex;
         }
+        localStorage.setItem('email', clientData.email);
 
         return clientData;
       };

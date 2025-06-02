@@ -9,6 +9,7 @@ export const deleteAddress = async (e: Event) => {
   if (e.target instanceof HTMLElement) {
     const currentUser = await getCurrentUser();
     const idToDelete = e.target.id;
+    if (!currentUser) return;
 
     const addressToDelete: AddressModify = {
       version: currentUser.version,

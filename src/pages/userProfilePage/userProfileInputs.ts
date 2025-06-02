@@ -13,7 +13,9 @@ import { updateUserInf } from './updateUserInf.js';
 import { showBlockPassword } from './showBlockPassword.js';
 const operationWithInputs = ['Edit', 'Cancel', 'Save'];
 
-export const createUserProfileInputs = async (email: string) => {
+export const createUserProfileInputs = async () => {
+  const email = localStorage.getItem('email');
+  if (!email) return;
   const user = await getCustomerByEmail(email);
   const personalInfo = {
     'First name': user[0].firstName,

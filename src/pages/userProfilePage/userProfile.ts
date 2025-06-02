@@ -24,5 +24,5 @@ export const showUserProfilePage = (email: string) => {
   if (form) {
     clearDom('user-profile');
   }
-  createUserProfileInputs(email);
+  createUserProfileInputs();
 };

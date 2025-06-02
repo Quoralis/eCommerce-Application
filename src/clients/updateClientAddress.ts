@@ -11,7 +11,7 @@ export const updateClientAddress = async (
   const bearerToken = localStorage.getItem('bearerToken');
   const url = `${apiUrl}/${projectKey}/customers/${id}`;
   const currentUser = await getCurrentUser();
-  body.version = currentUser.version;
+  body.version = currentUser?.version;
 
   try {
     const response = await wrapperTryCatch<Customer>(url, {

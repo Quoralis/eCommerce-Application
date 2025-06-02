@@ -26,6 +26,10 @@ export async function getCustomerByEmail(email: string): Promise<Customer[]> {
 }
 
 export const getCurrentUser = async () => {
-  const users = await getCustomerByEmail('user@us.er'); // email is used for example, it will be replaced later
+  const email = localStorage.getItem('email');
+  if (!email) return;
+
+  console.log(email);
+  const users = await getCustomerByEmail(email);
   return users[0];
 };

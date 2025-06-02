@@ -18,6 +18,7 @@ export const changedData: AddressUpdate = {
 
 export const toggleUpdateAddressButton = async (e: Event) => {
   const user = await getCurrentUser();
+  if (!user) return;
   changedData.version = user.version;
 
   if (e.target instanceof HTMLElement) {
@@ -47,6 +48,7 @@ export const toggleUpdateAddressButton = async (e: Event) => {
         e.target.textContent = 'Edit address';
         inputs.forEach((input) => input.setAttribute('disabled', ''));
         const user = await getCurrentUser();
+        if (!user) return;
         await updateClientAddress(user.id, changedData);
 
         const setDefaultAddress = async () => {
