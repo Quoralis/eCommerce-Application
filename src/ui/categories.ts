@@ -1,5 +1,19 @@
 import { createEl } from '../utils/createElement.js';
 import { fetchAllCategories } from '../clients/categoriesClient.js';
+import iconKeyboard from '../assets/images/icons/icon-Accessories.png';
+import iconAirpods from '../assets/images/icons/icon-Airpods.png';
+import iconAllProducts from '../assets/images/icons/icon-Allproducts.png';
+import iconAppleWatch from '../assets/images/icons/icon-AppleWatch.png';
+import iconIphones from '../assets/images/icons/icon-iPhones.png';
+import iconMacBooks from '../assets/images/icons/icon-MacBooks.png';
+
+const arrIcons: string[] = [
+  iconKeyboard,
+  iconAirpods,
+  iconAppleWatch,
+  iconIphones,
+  iconMacBooks,
+];
 
 export async function renderCategories(parent: HTMLElement): Promise<void> {
   const navCategories = createEl({
@@ -27,7 +41,7 @@ export async function renderCategories(parent: HTMLElement): Promise<void> {
   createEl({
     tag: 'img',
     classes: ['category-icon'],
-    attributes: { src: `../assets/images/icons/icon-Allproducts.png` },
+    attributes: { src: iconAllProducts },
     parent: li,
   });
   createEl({
@@ -41,7 +55,7 @@ export async function renderCategories(parent: HTMLElement): Promise<void> {
   });
 
   const categoryList = await fetchAllCategories();
-  categoryList.results.map((el) => {
+  categoryList.results.map((el, index) => {
     const li = createEl({
       tag: 'li',
       classes: ['category-title'],
@@ -54,7 +68,7 @@ export async function renderCategories(parent: HTMLElement): Promise<void> {
     createEl({
       tag: 'img',
       classes: ['category-icon'],
-      attributes: { src: `../assets/images/icons/icon-${el.key}.png` },
+      attributes: { src: arrIcons[index] },
       parent: li,
     });
     createEl({

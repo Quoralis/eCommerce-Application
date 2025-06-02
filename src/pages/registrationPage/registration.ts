@@ -56,6 +56,9 @@ export const loginLink = createEl({
     'uk-text-center',
   ],
   text: 'Already have an account? Log In',
+  attributes: {
+    'data-path': '/login',
+  },
   parent: regWrapper,
 });
 
