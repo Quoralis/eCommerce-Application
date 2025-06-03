@@ -6,6 +6,7 @@ import { toggleUpdateAddressButton } from './updateAddressButton.js';
 import { addressInputs } from '../../constants/addressConstants.js';
 import { deleteAddress } from './deleteAddress.js';
 import { getDefaultAddressCheckboxes } from './defaultAddressCheckboxes.js';
+import { getErrorTextWrapper } from '../registrationPage/registrationInputs.js';
 
 export const createUserAddressInputs = async () => {
   const currentUser = await getCurrentUser();
@@ -14,7 +15,7 @@ export const createUserAddressInputs = async () => {
     if (!currentUser) return;
     if (currentUser.addresses) {
       const addressWrapper = createEl({
-        tag: 'div',
+        tag: 'form',
         classes: ['address-wrapper'],
         parent: userAddressesWrapper,
         attributes: {
@@ -54,6 +55,8 @@ export const createUserAddressInputs = async () => {
             disabled: '',
           },
         });
+
+        getErrorTextWrapper(addressWrapper);
       }
 
       for (let i = 0; i < 2; i++) {
@@ -81,6 +84,9 @@ export const createUserAddressInputs = async () => {
         text: 'Edit address',
         classes: ['button', 'uk-button', 'uk-button-primary'],
         parent: addressWrapper,
+        attributes: {
+          type: 'button',
+        },
         onClick: (event) => {
           toggleUpdateAddressButton(event);
         },
@@ -97,6 +103,7 @@ export const createUserAddressInputs = async () => {
         ],
         parent: addressWrapper,
         attributes: {
+          type: 'button',
           id: currentUser.addresses[addressIndex].id ?? '',
         },
         onClick: async (event) => {

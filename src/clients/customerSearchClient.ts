@@ -29,7 +29,6 @@ export const getCurrentUser = async () => {
   const email = localStorage.getItem('email');
   if (!email) return;
 
-  console.log(email);
   const users = await getCustomerByEmail(email);
   return users[0];
 };
