@@ -201,6 +201,8 @@ document.addEventListener('click', (event: Event): void => {
   }
 });
 
+cloneSignOut.addEventListener('click', logOut);
+
 export {
   cloneMainBtn,
   cloneCatalogBtn,
