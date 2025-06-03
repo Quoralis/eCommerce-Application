@@ -4,6 +4,7 @@ import { getCurrentUser } from '../../clients/customerSearchClient.js';
 
 export const updateAddresses = async (e: Event) => {
   const user = await getCurrentUser();
+  if (!user) return;
 
   if (e.target instanceof HTMLElement) {
     const addressWrapper = e.target.parentElement;

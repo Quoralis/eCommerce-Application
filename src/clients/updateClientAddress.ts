@@ -1,14 +1,17 @@
 import { apiUrl, projectKey } from '../config.js';
 import { wrapperTryCatch } from '../utils/wrapperTryCatch.js';
-import { AddressDelete, AddressUpdate, Customer } from '../types/types.js';
+import { AddressModify, AddressUpdate, Customer } from '../types/types.js';
 import { showNotification } from '../services/notification/showNotification.js';
+import { getCurrentUser } from './customerSearchClient.js';
 
 export const updateClientAddress = async (
   id: string,
-  body: AddressUpdate | AddressDelete
+  body: AddressUpdate | AddressModify
 ) => {
   const bearerToken = localStorage.getItem('bearerToken');
   const url = `${apiUrl}/${projectKey}/customers/${id}`;
+  const currentUser = await getCurrentUser();
+  body.version = currentUser?.version;
 
   try {
     const response = await wrapperTryCatch<Customer>(url, {

@@ -109,6 +109,9 @@ export const validateInput = (e: Event) => {
           clientData.billingAddresses = [defaultAddressIndex];
           clientData.shippingAddresses = [defaultAddressIndex];
         }
+
+        localStorage.setItem('email', clientData.email);
+
         console.log(clientData);
         return {
           userData: clientData,

@@ -5,28 +5,13 @@ import { PartialBaseAddress } from '../../types/types.js';
 import { toggleUpdateAddressButton } from './updateAddressButton.js';
 import { addressInputs } from '../../constants/addressConstants.js';
 import { deleteAddress } from './deleteAddress.js';
+import { getDefaultAddressCheckboxes } from './defaultAddressCheckboxes.js';
 
 export const createUserAddressInputs = async () => {
   const currentUser = await getCurrentUser();
 
-  // for testing only - while default addresses isn't configured yet
-  // test code start
-  currentUser.shippingAddressIds = [];
-  currentUser.billingAddressIds = [];
-  currentUser.shippingAddressIds[0] = 'fydnMWGX';
-  currentUser.billingAddressIds[0] = 'SQq3yGzi';
-  // test code end
-
-  const markDefaultAddress = (addressType: string, parentEl: HTMLElement) => {
-    createEl({
-      tag: 'h4',
-      text: `Default ${addressType} address`,
-      classes: ['user-addresses__marker'],
-      parent: parentEl,
-    });
-  };
-
   const showAddress = (address: PartialBaseAddress, addressIndex: number) => {
+    if (!currentUser) return;
     if (currentUser.addresses) {
       const addressWrapper = createEl({
         tag: 'div',
@@ -34,24 +19,11 @@ export const createUserAddressInputs = async () => {
         parent: userAddressesWrapper,
         attributes: {
           id: `addressWrapper-${addressIndex + 1}`,
+          'data-id': currentUser.addresses[addressIndex].id ?? '',
         },
       });
 
-      if (
-        currentUser.shippingAddressIds &&
-        currentUser.addresses &&
-        currentUser.addresses[addressIndex].id ===
-          currentUser.shippingAddressIds[0]
-      ) {
-        markDefaultAddress('shipping', addressWrapper);
-      } else if (
-        currentUser.billingAddressIds &&
-        currentUser.addresses &&
-        currentUser.addresses[addressIndex].id ===
-          currentUser.billingAddressIds[0]
-      ) {
-        markDefaultAddress('billing', addressWrapper);
-      }
+      const addressId = currentUser.addresses[addressIndex]?.id;
 
       createEl({
         tag: 'h3',
@@ -84,6 +56,26 @@ export const createUserAddressInputs = async () => {
         });
       }
 
+      for (let i = 0; i < 2; i++) {
+        getDefaultAddressCheckboxes(i, addressIndex, addressWrapper);
+      }
+
+      const checkboxes = document.querySelectorAll('.checkbox');
+
+      if (
+        currentUser.defaultShippingAddressId === addressId &&
+        checkboxes[0] instanceof HTMLInputElement
+      ) {
+        checkboxes[0].checked = true;
+      }
+
+      if (
+        currentUser.defaultBillingAddressId === addressId &&
+        checkboxes[1] instanceof HTMLInputElement
+      ) {
+        checkboxes[1].checked = true;
+      }
+
       createEl({
         tag: 'button',
         text: 'Edit address',
@@ -97,7 +89,12 @@ export const createUserAddressInputs = async () => {
       createEl({
         tag: 'button',
         text: 'Delete address',
-        classes: ['button', 'uk-button', 'uk-button-primary'],
+        classes: [
+          'button',
+          'uk-button',
+          'uk-button-primary',
+          'address-wrapper__delete-btn',
+        ],
         parent: addressWrapper,
         attributes: {
           id: currentUser.addresses[addressIndex].id ?? '',
@@ -109,6 +106,7 @@ export const createUserAddressInputs = async () => {
     }
   };
 
+  if (!currentUser) return;
   if (currentUser.addresses) {
     for (let i = 0; i < currentUser.addresses.length; i++) {
       showAddress(currentUser.addresses[i], i);
