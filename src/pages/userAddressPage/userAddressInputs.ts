@@ -15,7 +15,7 @@ export const createUserAddressInputs = async () => {
     if (!currentUser) return;
     if (currentUser.addresses) {
       const addressWrapper = createEl({
-        tag: 'div',
+        tag: 'form',
         classes: ['address-wrapper'],
         parent: userAddressesWrapper,
         attributes: {
@@ -84,6 +84,9 @@ export const createUserAddressInputs = async () => {
         text: 'Edit address',
         classes: ['button', 'uk-button', 'uk-button-primary'],
         parent: addressWrapper,
+        attributes: {
+          type: 'button',
+        },
         onClick: (event) => {
           toggleUpdateAddressButton(event);
         },
@@ -100,6 +103,7 @@ export const createUserAddressInputs = async () => {
         ],
         parent: addressWrapper,
         attributes: {
+          type: 'button',
           id: currentUser.addresses[addressIndex].id ?? '',
         },
         onClick: async (event) => {
