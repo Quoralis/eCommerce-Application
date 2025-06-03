@@ -45,16 +45,38 @@ export const createUserAddressInputs = async () => {
 
         const key = Object.values(addressInputs)[i] ?? '';
 
-        createEl({
-          tag: 'input',
-          classes: ['user-profile__input', 'uk-input'],
-          parent: addressWrapper,
-          attributes: {
-            id: `${Object.values(addressInputs)[i]}-${addressIndex + 1}`,
-            value: address[key] ?? '',
-            disabled: '',
-          },
-        });
+        const input =
+          i === 0
+            ? createEl({
+                tag: 'select',
+                classes: ['user-profile__input', 'uk-input', 'select'],
+                parent: addressWrapper,
+                attributes: {
+                  id: `${Object.values(addressInputs)[i]}-${addressIndex + 1}`,
+                  disabled: '',
+                },
+              })
+            : createEl({
+                tag: 'input',
+                classes: ['user-profile__input', 'uk-input'],
+                parent: addressWrapper,
+                attributes: {
+                  id: `${Object.values(addressInputs)[i]}-${addressIndex + 1}`,
+                  value: address[key] ?? '',
+                  disabled: '',
+                },
+              });
+
+        if (i === 0) {
+          createEl({
+            tag: 'option',
+            text: 'Germany',
+            parent: input,
+            attributes: {
+              value: 'DE',
+            },
+          });
+        }
 
         getErrorTextWrapper(addressWrapper);
       }

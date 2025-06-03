@@ -7,7 +7,7 @@ export const deleteAddress = async (e: Event) => {
   e.preventDefault();
 
   if (e.target instanceof HTMLElement) {
-    const currentUser = await getCurrentUser();
+    let currentUser = await getCurrentUser();
     const idToDelete = e.target.id;
     if (!currentUser) return;
 
@@ -21,6 +21,8 @@ export const deleteAddress = async (e: Event) => {
       ],
     };
 
+    currentUser = await getCurrentUser();
+    if (!currentUser) return;
     await updateClientAddress(currentUser.id, addressToDelete);
     updateAddressPage();
   }

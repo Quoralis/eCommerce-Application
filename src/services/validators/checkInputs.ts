@@ -4,6 +4,7 @@ import { getCurrentUser } from '../../clients/customerSearchClient.js';
 import { updateClientAddress } from '../../clients/updateClientAddress.js';
 import { changedData } from '../../pages/userAddressPage/updateAddressButton.js';
 import { registerClient } from '../../clients/registerClient.js';
+import { setDefaultAddress } from '../../pages/userAddressPage/setDefaultAddress.js';
 
 export const checkInputs = async (
   e: Event,
@@ -18,10 +19,6 @@ export const checkInputs = async (
   if (path === paths.registration && isValidForm) {
     registerClient(inputs);
   } else if (path === paths.addresses && isValidForm) {
-    const user = await getCurrentUser();
-    if (!user) return;
-    await updateClientAddress(user.id, changedData);
-
     if (e.target instanceof HTMLElement) {
       e.target.textContent = 'Edit address';
     }
@@ -32,5 +29,14 @@ export const checkInputs = async (
     checkboxes?.forEach((checkbox) => {
       checkbox.setAttribute('disabled', '');
     });
+    let user = await getCurrentUser();
+
+    if (!user) return;
+    if (!wrapper) return;
+
+    await setDefaultAddress(wrapper);
+    user = await getCurrentUser();
+    if (!user) return;
+    await updateClientAddress(user.id, changedData);
   }
 };
