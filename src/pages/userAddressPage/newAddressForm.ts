@@ -34,14 +34,35 @@ export const getNewAddressForm = () => {
         },
       });
 
-      createEl({
-        tag: 'input',
-        classes: ['uk-input', 'user-profile__input'],
-        parent: addressForm,
-        attributes: {
-          id: Object.values(addressInputs)[i] ?? '',
-        },
-      });
+      const input =
+        i === 0
+          ? createEl({
+              tag: 'select',
+              classes: ['uk-input', 'user-profile__input', 'select'],
+              parent: addressForm,
+              attributes: {
+                id: Object.values(addressInputs)[i] ?? '',
+              },
+            })
+          : createEl({
+              tag: 'input',
+              classes: ['uk-input', 'user-profile__input'],
+              parent: addressForm,
+              attributes: {
+                id: Object.values(addressInputs)[i] ?? '',
+              },
+            });
+
+      if (i === 0) {
+        createEl({
+          tag: 'option',
+          text: 'Germany',
+          parent: input,
+          attributes: {
+            value: 'DE',
+          },
+        });
+      }
     }
 
     createEl({
