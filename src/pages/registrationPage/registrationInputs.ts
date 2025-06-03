@@ -9,6 +9,13 @@ import { getCountrySelect } from './registrationSelect.js';
 import { copyAddressValues } from './selectedDefaultAddress.js';
 import { validateDate } from '../../services/validators/dateValidation.js';
 
+export const getErrorTextWrapper = (parent: HTMLElement) =>
+  createEl({
+    tag: 'div',
+    classes: ['registration__error-wrapper'],
+    parent: parent,
+  });
+
 export const createRegInputs = () => {
   const getInputOptions = (
     index: number,
@@ -25,16 +32,10 @@ export const createRegInputs = () => {
       },
     };
   };
-  const getErrorTextWrapper = () =>
-    createEl({
-      tag: 'div',
-      classes: ['registration__error-wrapper'],
-      parent: regForm,
-    });
 
   for (let i = 0; i < 5; i++) {
     const input = createEl(getInputOptions(i, 'input'));
-    getErrorTextWrapper();
+    getErrorTextWrapper(regForm);
 
     if (i === 3 && input instanceof HTMLInputElement) {
       input.addEventListener('focus', () => (input.type = 'date'));
@@ -60,7 +61,9 @@ export const createRegInputs = () => {
       });
       legend.textContent = FIELDSET_LEGENDS[i];
 
-      getCountrySelect(i, getErrorTextWrapper);
+      getCountrySelect(i, () => {
+        getErrorTextWrapper(regForm);
+      });
 
       for (
         let j = INPUT_ATTRIBUTES.length - 3;
@@ -81,7 +84,7 @@ export const createRegInputs = () => {
           getInputOptions(j, 'input')
         );
         createEl(inputOptionsWithChangedId);
-        getErrorTextWrapper();
+        getErrorTextWrapper(regForm);
       }
 
       const label = createEl({

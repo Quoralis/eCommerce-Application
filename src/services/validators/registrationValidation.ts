@@ -22,7 +22,15 @@ export const validateInput = (e: Event) => {
       const inputValue = input.value.trim();
       let validationRule;
 
-      if (inputId in regValidationRules) {
+      if (
+        inputId.split('-')[0] === 'postalCode' ||
+        inputId.split('-')[0] === 'streetName'
+      ) {
+        validationRule =
+          inputId.split('-')[0] === 'postalCode'
+            ? regValidationRules['postal-code']
+            : regValidationRules['street'];
+      } else if (inputId in regValidationRules) {
         validationRule = regValidationRules[inputId];
       } else if (inputId in specialRulesForId) {
         const inputRule = specialRulesForId[inputId];

@@ -6,6 +6,7 @@ import { toggleUpdateAddressButton } from './updateAddressButton.js';
 import { addressInputs } from '../../constants/addressConstants.js';
 import { deleteAddress } from './deleteAddress.js';
 import { getDefaultAddressCheckboxes } from './defaultAddressCheckboxes.js';
+import { getErrorTextWrapper } from '../registrationPage/registrationInputs.js';
 
 export const createUserAddressInputs = async () => {
   const currentUser = await getCurrentUser();
@@ -54,6 +55,8 @@ export const createUserAddressInputs = async () => {
             disabled: '',
           },
         });
+
+        getErrorTextWrapper(addressWrapper);
       }
 
       for (let i = 0; i < 2; i++) {

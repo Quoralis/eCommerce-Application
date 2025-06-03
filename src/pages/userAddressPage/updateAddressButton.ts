@@ -2,6 +2,7 @@ import { updateAddresses } from './updateAddresses.js';
 import { getCurrentUser } from '../../clients/customerSearchClient.js';
 import { updateClientAddress } from '../../clients/updateClientAddress.js';
 import { AddressUpdate } from '../../types/types.js';
+import { validateInput } from '../../services/validators/registrationValidation.js';
 
 export const changedData: AddressUpdate = {
   version: undefined,
@@ -44,6 +45,10 @@ export const toggleUpdateAddressButton = async (e: Event) => {
       if (isDisabledInput) {
         e.target.textContent = 'Save updates';
         inputs.forEach((input) => input.removeAttribute('disabled'));
+
+        addressWrapper.addEventListener('change', (event) => {
+          validateInput(event);
+        });
       } else {
         e.target.textContent = 'Edit address';
         inputs.forEach((input) => input.setAttribute('disabled', ''));
