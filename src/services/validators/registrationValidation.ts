@@ -1,150 +1,32 @@
-import { regValidationRules, specialRulesForId } from './validationRules.js';
-import { regForm } from '../../pages/registration/registration.js';
-import {
-  ModifiedUserFormValues,
-  PartialBaseAddress,
-} from '../../types/types.js';
-import { toggleValidationNotification } from '../notification/validationNotification.js';
-import { showNotification } from '../notification/showNotification.js';
-import { getDefaultAddress } from '../../components/registrationPage/selectedDefaultAddress.js';
-import { registerAndLogin } from '../../services/authService.js';
-import { updateAuthUI } from '../../utils/auth.js';
-import { validateDate } from '../validators/dateValidation.js';
-import { getCustomerByEmail } from '../../clients/customerSearchClient.js';
+import { regForm } from '../../pages/registrationPage/registration.js';
+import { paths } from '../../constants/paths.js';
+import { verifyInput } from './verifyInput.js';
+import { checkInputs } from './checkInputs.js';
 
 export const validateInput = (e: Event) => {
-  const verifyInput = (input: Element) => {
-    if (
-      input instanceof HTMLInputElement ||
-      input instanceof HTMLSelectElement
-    ) {
-      const inputId = input.id;
-      const inputValue = input.value.trim();
-      let validationRule;
-
-      if (inputId in regValidationRules) {
-        validationRule = regValidationRules[inputId];
-      } else if (inputId in specialRulesForId) {
-        const inputRule = specialRulesForId[inputId];
-        validationRule = regValidationRules[inputRule];
-      }
-
-      let isValidInput;
-
-      if (inputId !== 'birth-date') {
-        isValidInput = validationRule?.regExp.test(inputValue);
-      } else {
-        const isCorrect = validateDate();
-        isValidInput = inputValue && isCorrect;
-      }
-
-      const errorMessage =
-        inputValue === ''
-          ? 'This field is required'
-          : validationRule?.errMessage;
-
-      if (!isValidInput) {
-        toggleValidationNotification(input, errorMessage);
-        return false;
-      }
-    }
-
-    return true;
-  };
-
   if (e.type === 'click') {
-    const regFormInputs = [...regForm.children].filter((child) =>
-      child.matches('.registration__input')
-    );
-    regFormInputs.forEach((inputEl) => verifyInput(inputEl));
+    const url = window.location.pathname;
 
-    const registerClient = async () => {
-      const getFormData = () => {
-        const formValues = regFormInputs.map((input) => {
-          if (
-            input instanceof HTMLInputElement ||
-            input instanceof HTMLSelectElement
-          ) {
-            return input.value;
+    if (url === paths.registration) {
+      const regFormInputs = [...regForm.children].filter((child) =>
+        child.matches('.registration__input')
+      );
+      checkInputs(e, regFormInputs, url);
+    } else if (url === paths.addresses) {
+      if (e.target instanceof HTMLElement) {
+        const addressForm = e.target.parentElement;
+        if (!addressForm) return;
+
+        const addressFormInputs = [...addressForm.children].filter(
+          (element) => {
+            return (
+              element instanceof HTMLSelectElement ||
+              (element instanceof HTMLInputElement && element.type === 'text')
+            );
           }
-        });
-
-        const clientData: ModifiedUserFormValues = {
-          email: '',
-          password: '',
-          addresses: [],
-        };
-
-        const mainInputs: (keyof ModifiedUserFormValues)[] = [
-          'firstName',
-          'lastName',
-          'email',
-          'dateOfBirth',
-          'password',
-        ];
-        mainInputs.forEach((key, index) => {
-          const value = formValues[index] ?? '';
-          clientData[key] = value;
-        });
-
-        for (let i = 0; i < 2; i++) {
-          const address: PartialBaseAddress = {};
-          const addressInputs = ['country', 'city', 'streetName', 'postalCode'];
-          const addressesIndex = 5;
-          const startIndex = addressesIndex + i * addressInputs.length;
-
-          addressInputs.forEach((value, index) => {
-            address[value] = formValues[startIndex + index];
-          });
-
-          if (Array.isArray(clientData.addresses)) {
-            clientData.addresses?.push(address);
-          }
-        }
-
-        const defaultAddressIndex = getDefaultAddress();
-        if (defaultAddressIndex !== undefined) {
-          clientData.defaultShippingAddress = defaultAddressIndex;
-          clientData.defaultBillingAddress = defaultAddressIndex;
-        }
-
-        return clientData;
-      };
-
-      const registrationData = getFormData();
-      const registrationToken = localStorage.getItem('bearerToken');
-      if (registrationData && registrationToken) {
-        const customers = await getCustomerByEmail(registrationData.email);
-        if (customers.length !== 0) {
-          showNotification(
-            'Customer with this email already exists. Try to log in or use another email',
-            'danger'
-          );
-          return;
-        }
-        const userData = await registerAndLogin({
-          userData: registrationData,
-          bearerToken: registrationToken,
-        });
-        if (userData.accessToken && userData.customerID) {
-          showNotification(
-            'Your account has been successfully registered',
-            'success'
-          );
-          localStorage.setItem('accessToken', userData.accessToken);
-          updateAuthUI();
-        } else {
-          showNotification(
-            'Customer with this email already exists. Try to log in or use another email',
-            'danger'
-          );
-        }
+        );
+        checkInputs(e, addressFormInputs, url);
       }
-    };
-
-    const isValidForm = regFormInputs.every((input) => verifyInput(input));
-    if (isValidForm) {
-      registerClient();
     }
   } else if (e.type === 'change') {
     if (

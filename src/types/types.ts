@@ -1,9 +1,26 @@
-export interface typeCreateElOptions {
-  tag: string;
+export interface typeCreateElOptions<K extends keyof HTMLElementTagNameMap> {
+  tag: K;
   classes?: string[];
   text?: string;
   attributes?: Record<string, string>;
   parent?: HTMLElement;
+  onClick?: (e: Event) => void;
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'dotlottie-player': HTMLElement;
+  }
+}
+declare global {
+  interface HTMLElementTagNameMap {
+    'dotlottie-player': HTMLElement;
+  }
+}
+declare global {
+  interface HTMLElementTagNameMap {
+    'dotlottie-player': HTMLElement;
+  }
 }
 
 export interface TokenResponse {
@@ -20,6 +37,8 @@ export interface UserFormValues {
   lastName?: string;
   dateOfBirth?: string;
   addresses?: BaseAddress[];
+  billingAddresses?: number[];
+  shippingAddresses?: number[];
 }
 
 interface BaseAddress {
@@ -60,8 +79,119 @@ export interface Customer {
   firstName?: string;
   lastName?: string;
   dateOfBirth?: string;
+  addresses?: PartialBaseAddress[];
+  shippingAddressIds?: string[];
+  billingAddressIds?: string[];
+  defaultShippingAddressId?: string;
+  defaultBillingAddressId?: string;
+  password?: string;
 }
 
 export interface CustomerSearchResponse {
   results: Customer[];
+}
+
+export interface ProductsResponse {
+  count: number;
+  limit: number;
+  results: [CurrentProduct];
+  total: number;
+}
+
+export interface CurrentProduct {
+  name: {
+    en: string;
+  };
+  description: {
+    en: string;
+  };
+  key: string;
+  masterVariant: {
+    prices: [
+      {
+        value: {
+          centAmount: number;
+        };
+        discounted?: {
+          value: {
+            centAmount: number;
+          };
+        };
+      },
+    ];
+    images?: [
+      {
+        url: string;
+      },
+    ];
+    key: string;
+  };
+}
+
+export interface DisplayProduct {
+  productName: string;
+  imageUrl: string;
+  description: string;
+  productKey: string;
+  price: number;
+  discountedPrice?: number;
+}
+
+export interface Categories {
+  count: number;
+  limit: number;
+  results: [DataCategory];
+  total: number;
+}
+
+interface DataCategory {
+  id: string;
+  key: string;
+  name: { en: string };
+}
+
+export interface updateCustomer {
+  version?: number;
+  actions: Array<{
+    action: string;
+    firstName?: string;
+    lastName?: string;
+    email?: string;
+    dateOfBirth?: string;
+  }>;
+}
+
+export interface updateCustomerPasswordType {
+  id: string;
+  version: number;
+  currentPassword: string;
+  newPassword: string;
+}
+
+export interface CustomerAddress {
+  country: string | undefined;
+  city?: string | undefined;
+  streetName?: string | undefined;
+  postalCode?: string | undefined;
+}
+
+export interface AddressUpdate {
+  version: number | undefined;
+  actions: [
+    {
+      action: string;
+      addressId?: string | undefined;
+      address: CustomerAddress;
+    },
+  ];
+}
+
+interface Action {
+  action: string;
+  addressId: string | undefined;
+}
+
+export interface AddressModify {
+  version: number | undefined;
+  actions: Action[];
 }

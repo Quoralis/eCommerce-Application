@@ -24,3 +24,11 @@ export async function getCustomerByEmail(email: string): Promise<Customer[]> {
     throw err;
   }
 }
+
+export const getCurrentUser = async () => {
+  const email = localStorage.getItem('email');
+  if (!email) return;
+
+  const users = await getCustomerByEmail(email);
+  return users[0];
+};

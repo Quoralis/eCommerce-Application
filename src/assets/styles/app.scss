@@ -7,9 +7,21 @@
 @import './mainPage/main.scss';
 @import './utils/helpers';
 @import './registrationPage/registrationPage';
+@import './catalogePage/catalogPage';
+@import './catalogePage/categories';
+
+@import './productPage/product.scss';
+@import './userProfilePage/userProfile';
+
 * {
   box-sizing: border-box;
 }
+
 body {
-  min-height: 100vh;
+  max-width: 1440px;
+  width: 100%;
+  margin: 0 auto;
+}
+.strikethrough {
+  text-decoration-line: line-through;
 }

@@ -15,6 +15,8 @@ export async function registerCustomer(data: RegistrationLoginData): Promise<{
     addresses: data.userData.addresses,
     defaultShippingAddress: data.defShipIdx,
     defaultBillingAddress: data.defBillIdx,
+    billingAddresses: data.userData.billingAddresses,
+    shippingAddresses: data.userData.shippingAddresses,
   };
 
   try {
@@ -37,8 +39,7 @@ export async function registerCustomer(data: RegistrationLoginData): Promise<{
       id: dataCustomer.customer?.id ?? '',
       version: dataCustomer.customer?.version ?? 0,
     };
-
-    console.log(costumerIdVersion);
+    localStorage.setItem('email', data.userData.email);
     return costumerIdVersion;
   } catch (err) {
     console.log(err);

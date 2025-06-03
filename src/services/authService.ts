@@ -3,8 +3,7 @@ import { RegistrationLoginData } from '../types/types.js';
 import { registerCustomer } from '../clients/customerClient.js';
 import { parseError } from '../utils/parseError.js';
 import { updateAuthUI } from '../utils/auth.js';
-
-//cache token
+import Router from '../router/Router.js';
 const tokenCache = {
   accessToken: '',
   refreshToken: '',
@@ -17,9 +16,11 @@ export async function login(data: RegistrationLoginData) {
       data.userData.email,
       data.userData.password
     );
+    // emailUser = data.userData.email
     tokenCache.accessToken = response.access_token;
     tokenCache.refreshToken = response.refresh_token;
     tokenCache.timeEndTokenMs = Date.now() + response.expires_in * 1000; // в мс переводим
+    await Router.getInstance().navigate('/');
     return tokenCache.accessToken;
   } catch (err) {
     if (err instanceof Error) {
@@ -50,7 +51,13 @@ export async function logOut(): Promise<void> {
       await revokeAccessToken(accessToken);
     if (statusRevokeToken === 200) {
       localStorage.removeItem('accessToken');
-      updateAuthUI();
+      await updateAuthUI();
+      const path = window.location.pathname;
+      if (path !== '/login' && !path.startsWith('/user')) {
+        await Router.getInstance().navigate(path);
+      } else {
+        await Router.getInstance().navigate('/');
+      }
     }
   } catch (err) {
     console.error('Logout error:', err);

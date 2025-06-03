@@ -1,0 +1,25 @@
+import { createEl } from '../../utils/createElement.js';
+import { CurrentProduct } from '../../types/types.js';
+
+export const productComponentImgsPagination = (
+  data: CurrentProduct,
+  parent: HTMLElement
+) => {
+  data.masterVariant.images?.forEach((el) => {
+    const wrapperImg = createEl({
+      tag: 'li',
+      classes: ['wrapper-img'],
+      parent: parent,
+    });
+    createEl({
+      tag: 'img',
+      classes: ['detailed-product-img'],
+      attributes: {
+        src: el.url,
+        alt: 'electronic equipment',
+        'uk-cover': '',
+      },
+      parent: wrapperImg,
+    });
+  });
+};
