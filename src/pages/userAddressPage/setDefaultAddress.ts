@@ -1,7 +1,7 @@
 import { getCurrentUser } from '../../clients/customerSearchClient.js';
 import { updateClientAddress } from '../../clients/updateClientAddress.js';
 
-export const setDefaultAddress = async (addressWrapper: HTMLElement) => {
+export const setDefaultAddress = async (addressWrapper: Element) => {
   const user = await getCurrentUser();
   if (!user) return;
   const checkboxes = addressWrapper.querySelectorAll('.checkbox');
@@ -11,8 +11,10 @@ export const setDefaultAddress = async (addressWrapper: HTMLElement) => {
       const addressId = checkbox.value;
 
       if (checkbox.checked) {
+        const user = await getCurrentUser();
+        if (!user) return;
         await updateClientAddress(user.id, {
-          version: undefined,
+          version: user.version,
           actions: [
             {
               action: checkbox.id.includes('shipping')
@@ -33,8 +35,10 @@ export const setDefaultAddress = async (addressWrapper: HTMLElement) => {
           checkbox.id.includes('shipping') &&
           user.shippingAddressIds?.includes(addressId)
         ) {
+          const user = await getCurrentUser();
+          if (!user) return;
           await updateClientAddress(user.id, {
-            version: undefined,
+            version: user.version,
             actions: [
               {
                 action: 'removeShippingAddressId',
@@ -48,6 +52,8 @@ export const setDefaultAddress = async (addressWrapper: HTMLElement) => {
           checkbox.id.includes('billing') &&
           user.billingAddressIds?.includes(addressId)
         ) {
+          const user = await getCurrentUser();
+          if (!user) return;
           await updateClientAddress(user.id, {
             version: user.version,
             actions: [

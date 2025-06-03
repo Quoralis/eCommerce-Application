@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   if (accessToken) {
     await updateAuthUI();
   } else if (path.startsWith('/user')) {
-    await Router.getInstance().navigate('/');
+    await Router.getInstance().navigate('/login');
   }
   const router = Router.getInstance();
   await router.initialRender();

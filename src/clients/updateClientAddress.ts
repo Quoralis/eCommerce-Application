@@ -10,10 +10,14 @@ export const updateClientAddress = async (
 ) => {
   const bearerToken = localStorage.getItem('bearerToken');
   const url = `${apiUrl}/${projectKey}/customers/${id}`;
-  const currentUser = await getCurrentUser();
-  body.version = currentUser?.version;
+
+  if (body.version === undefined) {
+    const currentUser = await getCurrentUser();
+    body.version = currentUser.version;
+  }
 
   try {
+    // console.log('updateClientAddress:', body);
     const response = await wrapperTryCatch<Customer>(url, {
       method: 'POST',
       headers: {
@@ -33,6 +37,17 @@ export const updateClientAddress = async (
 
     return response;
   } catch (err) {
-    console.error('updateClientAddress error:', err);
+    // console.error('updateClientAddress error:', err);
+    const errorMessage = err instanceof Error ? err.message : `${err}`;
+
+    if (errorMessage.includes('409')) {
+      console.log('Data version conflict');
+
+      const currentUser = await getCurrentUser();
+      body.version = currentUser.version; // Обновляем версию
+      return await updateClientAddress(id, body); // Повторяем запрос
+    } else if (errorMessage.includes('400')) {
+      console.log('Required data is missing');
+    }
   }
 };
