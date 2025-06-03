@@ -12,7 +12,7 @@ export const updateClientAddress = async (
   const url = `${apiUrl}/${projectKey}/customers/${id}`;
 
   if (body.version === undefined) {
-    const currentUser = await getCurrentUser();
+    const currentUser = <Customer>await getCurrentUser();
     body.version = currentUser.version;
   }
 

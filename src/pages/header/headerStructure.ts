@@ -56,7 +56,7 @@ const aboutBtn = createEl({
   text: 'About',
   classes: ['el-nav'],
   attributes: {
-    'data-path': '/',
+    'data-path': '/about',
   },
   parent: generalLinks,
 });

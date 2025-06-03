@@ -37,7 +37,9 @@ export const filterSearch = (parent: HTMLElement): void => {
 
   inputSearch.addEventListener('input', async (event: Event): Promise<void> => {
     clearDom('product-container');
-    const cardWrapper = <HTMLElement>parent.parentElement?.nextElementSibling;
+    const cardWrapper = <HTMLElement>(
+      parent.parentElement?.parentElement?.nextElementSibling
+    );
     showCardsByRequest(event, cardWrapper);
   });
 

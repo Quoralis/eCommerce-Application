@@ -57,6 +57,8 @@
   }
 
   .card {
+    padding: 1em 0;
+    margin: 1em 0;
     display: grid;
     width: 10em;
     justify-items: center;
@@ -77,7 +79,9 @@
     }
 
     &:hover {
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      box-shadow:
+        rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
+        rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
     }
   }
 
@@ -107,6 +111,7 @@
   }
 
   .button-to-cart {
+    margin-top: 10px;
     width: 90%;
     height: 40px;
     background-color: white;
@@ -114,6 +119,10 @@
     border: 1px solid #4889f7;
     font-weight: 500;
     font-size: 0.8em;
+    &:hover {
+      background-color: $blue;
+      color: $white;
+    }
   }
 }
 
