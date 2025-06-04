@@ -65,6 +65,28 @@ export const getNewAddressForm = () => {
       }
     }
 
+    for (let i = 0; i < 2; i++) {
+      createEl({
+        tag: 'input',
+        parent: addressForm,
+        classes: ['uk-checkbox', 'user-profile__input', 'checkbox'],
+        attributes: {
+          type: 'checkbox',
+          id: i === 0 ? 'defaultShipping' : 'defaultBilling',
+        },
+      });
+
+      createEl({
+        tag: 'label',
+        parent: addressForm,
+        text: i === 0 ? 'Default shipping address' : 'Default billing address',
+        classes: ['user-profile__input', 'label'],
+        attributes: {
+          for: i === 0 ? 'defaultShipping' : 'defaultBilling',
+        },
+      });
+    }
+
     createEl({
       tag: 'button',
       text: 'Add address',
