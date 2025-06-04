@@ -44,10 +44,12 @@ export const updateClientAddress = async (
       console.log('Data version conflict');
 
       const currentUser = await getCurrentUser();
-      body.version = currentUser.version; // Обновляем версию
-      return await updateClientAddress(id, body); // Повторяем запрос
-    } else if (errorMessage.includes('400')) {
-      console.log('Required data is missing');
+      if (currentUser) {
+        body.version = currentUser.version; // Обновляем версию
+        return await updateClientAddress(id, body); // Повторяем запрос
+      } else if (errorMessage.includes('400')) {
+        console.log('Required data is missing');
+      }
     }
   }
 };

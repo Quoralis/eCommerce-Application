@@ -1,4 +1,5 @@
 import { createEl } from '../../utils/createElement.js';
+import logoRSS from '../../assets/images/rss-logo.svg';
 
 const arrDevalopers = [
   'Stanislav Tsibulskii',
@@ -65,15 +66,41 @@ const aboutCards = (parent: HTMLElement): void => {
       parent: card,
     });
 
+    const iconsWraper = createEl({
+      tag: 'div',
+      classes: ['uk-flex', 'uk-flex-center'],
+      parent: card,
+    });
+
     createEl({
       tag: 'a',
       classes: ['uk-icon-button'],
       attributes: {
         'uk-icon': 'github',
+        'uk-tooltip': 'title: gitHub; delay: 300; pos: bottom',
         href: arrGitHubLinks[i],
       },
-      parent: card,
+      parent: iconsWraper,
     });
+    if (i === 1) {
+      const linkRSS = createEl({
+        tag: 'a',
+        classes: ['uk-margin-small-left'],
+        attributes: {
+          href: 'http://rs.school/',
+        },
+        parent: iconsWraper,
+      });
+
+      createEl({
+        tag: 'img',
+        classes: ['logo-rss'],
+        attributes: {
+          src: logoRSS,
+        },
+        parent: linkRSS,
+      });
+    }
   }
 };
 
