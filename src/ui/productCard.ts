@@ -2,6 +2,7 @@ import { createEl } from '../utils/createElement.js';
 import { formatPrice } from '../utils/formatPrice.js';
 import { DisplayProduct } from '../types/types.js';
 import { formatShortDescription } from '../utils/formatShortDescription.js';
+import { createMyCart } from '../clients/createMyCart.js';
 
 export let currentProduct = '';
 
@@ -17,14 +18,19 @@ export function renderProductCard(
   const cardElement = createEl({
     tag: 'article',
     classes: ['card'],
-    attributes: {
-      'data-product-key': options.productKey,
-      'data-path': `/catalog/${category}/${options.productKey}`,
-    },
     parent: parent,
   });
-  cardElement.addEventListener('click', (): void => {
-    currentProduct = <string>cardElement.getAttribute('data-product-key');
+  cardElement.addEventListener('click', (event: Event): void => {
+    if (event.target instanceof HTMLElement) {
+      if (!event.target.classList.contains('card-btn')) {
+        event.target.setAttribute('data-product-key', options.productKey);
+        event.target.setAttribute(
+          'data-path',
+          `/catalog/${category}/${options.productKey}`
+        );
+        currentProduct = <string>cardElement.getAttribute('data-product-key');
+      }
+    }
   });
   createEl({
     tag: 'img',
@@ -68,7 +74,7 @@ export function renderProductCard(
     text: discountText,
     parent: wrapperPrices,
   });
-  createEl({
+  const addToCart = createEl({
     tag: 'button',
     classes: [
       'uk-width-1-1',
@@ -76,12 +82,18 @@ export function renderProductCard(
       'uk-border-rounded',
       'uk-button-primary',
       'button-to-cart',
+      'card-btn',
     ],
     text: 'Add to cart',
-    onClick: () => {
-      console.log('click add to cart');
-    },
     parent: cardElement,
+  });
+  addToCart.addEventListener('click', (): void => {
+    addProductInCart();
   });
   return cardElement;
 }
+
+const addProductInCart = async (): Promise<void> => {
+  const loginToken = <string>localStorage.getItem('accessToken');
+  await createMyCart(loginToken);
+};

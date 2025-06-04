@@ -195,3 +195,11 @@ export interface AddressModify {
   version: number | undefined;
   actions: Action[];
 }
+
+export interface MyCart {
+  currency: string;
+}
+
+export interface responseMyCart {
+  id: string;
+}

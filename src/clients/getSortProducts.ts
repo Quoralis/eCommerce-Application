@@ -14,7 +14,6 @@ export const getSortProducts = async (field: string, order: string) => {
         Authorization: `Bearer ${bearerToken}`,
       },
     });
-    console.log(response.results);
     return response.results;
   } catch (err) {
     console.log('updateCustomerInf', err);

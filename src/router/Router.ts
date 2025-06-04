@@ -14,6 +14,7 @@ import { renderProductsInCategory } from '../ui/renderProductsInCategory.js';
 import { renderBreadcrumb } from '../ui/renderBreadcrumb.js';
 import { paths } from '../constants/paths.js';
 import { deleteModalWindow } from '../ui/modalWindow.js';
+import { showAboutPage } from '../pages/aboutPage/showAboutPage.js';
 
 export default class Router {
   private readonly routes: Record<string, () => void>;
@@ -36,6 +37,7 @@ export default class Router {
       '/catalog': this.renderCatalogPage.bind(this),
       '/user': this.renderUserPage.bind(this),
       '/user/addresses': this.renderAddressPage.bind(this),
+      '/about': this.renderAboutPage.bind(this),
     };
     window.addEventListener('popstate', async () => {
       await this.render(window.location.pathname);
@@ -125,6 +127,11 @@ export default class Router {
   private renderAddressPage(): void {
     clearDom('main-page-wrapper');
     showUserAddresses();
+  }
+
+  private renderAboutPage(): void {
+    clearDom('main-page-wrapper');
+    showAboutPage();
   }
 
   private async renderCategories(category: string): Promise<void> {
