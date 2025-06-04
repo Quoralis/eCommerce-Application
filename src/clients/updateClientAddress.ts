@@ -7,12 +7,13 @@ import { getCurrentUser } from './customerSearchClient.js';
 export const updateClientAddress = async (
   id: string,
   body: AddressUpdate | AddressModify
-) => {
+): Promise<Customer | void> => {
   const bearerToken = localStorage.getItem('bearerToken');
   const url = `${apiUrl}/${projectKey}/customers/${id}`;
 
   if (body.version === undefined) {
     const currentUser = await getCurrentUser();
+    if (!currentUser) return;
     body.version = currentUser.version;
   }
 
@@ -44,8 +45,9 @@ export const updateClientAddress = async (
       console.log('Data version conflict');
 
       const currentUser = await getCurrentUser();
-      body.version = currentUser.version; // Обновляем версию
-      return await updateClientAddress(id, body); // Повторяем запрос
+      if (!currentUser) return;
+      body.version = currentUser.version;
+      return await updateClientAddress(id, body);
     } else if (errorMessage.includes('400')) {
       console.log('Required data is missing');
     }
