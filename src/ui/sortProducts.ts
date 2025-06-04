@@ -96,7 +96,9 @@ const sortByPriceOrName = (
   clearActive();
   el.classList.add('active');
   el.classList.toggle(sort.desc);
-  const cardWrapper = <HTMLElement>parent.parentElement?.nextElementSibling;
+  const cardWrapper = <HTMLElement>(
+    parent.parentElement?.parentElement?.nextElementSibling
+  );
   sortBy(cardWrapper, field, order);
 };
 
