@@ -27,7 +27,7 @@ export const getDefaultAddressCheckboxes = (
   const addressId = addressWrapper.getAttribute('data-id');
   const checkbox = createEl({
     tag: 'input',
-    classes: ['user-profile__input', 'checkbox'],
+    classes: ['uk-checkbox', 'user-profile__input', 'checkbox'],
     parent: addressWrapper,
     attributes: {
       type: 'checkbox',
