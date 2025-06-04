@@ -3,10 +3,6 @@ import { formatPrice } from '../utils/formatPrice.js';
 import { DisplayProduct } from '../types/types.js';
 import { formatShortDescription } from '../utils/formatShortDescription.js';
 import { createMyCart } from '../clients/createMyCart.js';
-// import {
-//   requestAnonymousToken,
-//   requestBearerToken,
-// } from '../clients/authClient.js';
 
 export let currentProduct = '';
 
@@ -98,7 +94,6 @@ export function renderProductCard(
 }
 
 const addProductInCart = async (): Promise<void> => {
-  // const token = await requestAnonymousToken();
   const loginToken = <string>localStorage.getItem('accessToken');
   await createMyCart(loginToken);
 };
