@@ -25,7 +25,6 @@ export const createUserAddressInputs = async () => {
   clearAddressesWrapper();
 
   const currentUser = await getCurrentUser();
-  console.log('currentUser:', currentUser);
 
   const showAddress = (address: PartialBaseAddress, addressIndex: number) => {
     if (!currentUser) return;
