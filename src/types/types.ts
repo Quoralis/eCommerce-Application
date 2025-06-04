@@ -106,6 +106,7 @@ export interface CurrentProduct {
     en: string;
   };
   key: string;
+  id: string;
   masterVariant: {
     prices: [
       {
@@ -202,4 +203,20 @@ export interface MyCart {
 
 export interface responseMyCart {
   id: string;
+  version: number;
+}
+
+export interface updateMyCart {
+  version: number;
+  actions: Array<{
+    action: string;
+    productId: string;
+    variantId?: number;
+    currency?: string;
+    productPriceMode?: string;
+    country?: string;
+    actionIndex?: number;
+
+    quantity?: number;
+  }>;
 }

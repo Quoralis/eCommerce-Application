@@ -1,9 +1,14 @@
 import { createEl } from '../utils/createElement.js';
 import { formatPrice } from '../utils/formatPrice.js';
-import { DisplayProduct } from '../types/types.js';
+import {
+  DisplayProduct,
+  updateMyCart,
+  responseMyCart,
+} from '../types/types.js';
 import { formatShortDescription } from '../utils/formatShortDescription.js';
 import { createMyCart } from '../clients/createMyCart.js';
-
+import { updateCart } from '../clients/updateMyCart.js';
+import { getCurrentProductClient } from '../clients/getCurrentProductClient.js';
 export let currentProduct = '';
 
 export function renderProductCard(
@@ -88,12 +93,30 @@ export function renderProductCard(
     parent: cardElement,
   });
   addToCart.addEventListener('click', (): void => {
-    addProductInCart();
+    addProductInCart(options);
   });
   return cardElement;
 }
 
-const addProductInCart = async (): Promise<void> => {
+const addProductInCart = async (options: DisplayProduct): Promise<void> => {
+  const product = await getCurrentProductClient(options.productKey);
   const loginToken = <string>localStorage.getItem('accessToken');
-  await createMyCart(loginToken);
+  const cart = <responseMyCart>await createMyCart(loginToken);
+  // console.log('+', product.masterVariant.prices[0].value.centAmount);
+  const addProductInCart: updateMyCart = {
+    version: cart.version,
+    actions: [
+      {
+        action: 'addLineItem',
+        productId: product.id,
+        variantId: 1,
+        quantity: 1,
+        country: 'DE',
+        // currency: 'EUR',
+        // productPriceMode: 'Embedded',
+        // actionIndex: 1,
+      },
+    ],
+  };
+  await updateCart(cart.id, addProductInCart, loginToken);
 };

@@ -5,6 +5,7 @@ import { showNotification } from '../services/notification/showNotification.js';
 
 const bodyCreateMyCart = {
   currency: 'EUR',
+  country: 'DE',
 };
 
 export const createMyCart = async (
@@ -20,11 +21,13 @@ export const createMyCart = async (
       headers: {
         Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json',
+        // 'manage_orders':{projectKey}
+        // scope: 'manage_orders',
       },
       body: JSON.stringify(body),
     });
     showNotification('product add to cart', 'success');
-    console.log(response);
+    console.log('1');
     return response;
   } catch (err) {
     showNotification('something went wrong so try again', 'danger');
