@@ -120,8 +120,7 @@ export default class Router {
 
   private renderUserPage(): void {
     clearDom('main-page-wrapper');
-    const email = <string>localStorage.getItem('email');
-    showUserProfilePage(email);
+    showUserProfilePage();
   }
 
   private renderAddressPage(): void {

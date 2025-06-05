@@ -112,6 +112,10 @@ const addProductInCart = async (options: DisplayProduct): Promise<void> => {
         variantId: 1,
         quantity: 1,
         country: 'DE',
+        distributionChannel: {
+          typeId: 'channel',
+          id: '0995709c-be0e-4389-955f-9293634fd512', // ← подставь ID канала "Main warehouse"
+        },
         // currency: 'EUR',
         // productPriceMode: 'Embedded',
         // actionIndex: 1,

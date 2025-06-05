@@ -216,6 +216,10 @@ export interface updateMyCart {
     productPriceMode?: string;
     country?: string;
     actionIndex?: number;
+    distributionChannel: {
+      typeId: string;
+      id: string; // ← подставь ID канала "Main warehouse"
+    };
 
     quantity?: number;
   }>;
