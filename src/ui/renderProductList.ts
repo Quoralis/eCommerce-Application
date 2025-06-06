@@ -36,6 +36,7 @@ export async function renderProductList(container: HTMLElement) {
       description: product.descriptionCard.en,
       price: product.priceProduct,
       discountedPrice: product.priceDiscount,
+      productId: product.productId,
     };
     renderProductCard(container, dataCard);
   });

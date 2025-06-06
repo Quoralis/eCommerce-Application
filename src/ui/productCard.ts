@@ -9,6 +9,8 @@ import { formatShortDescription } from '../utils/formatShortDescription.js';
 import { createMyCart } from '../clients/createMyCart.js';
 import { updateCart } from '../clients/updateMyCart.js';
 import { getCurrentProductClient } from '../clients/getCurrentProductClient.js';
+import { checkMyCart } from '../clients/checkMyCart.js';
+import { getMyCart } from '../clients/getMyCart.js';
 export let currentProduct = '';
 
 export function renderProductCard(
@@ -23,6 +25,9 @@ export function renderProductCard(
   const cardElement = createEl({
     tag: 'article',
     classes: ['card'],
+    attributes: {
+      id: <string>options.productId,
+    },
     parent: parent,
   });
   cardElement.addEventListener('click', (event: Event): void => {
@@ -98,13 +103,23 @@ export function renderProductCard(
   return cardElement;
 }
 
+let cart: responseMyCart;
+const positiveStatus = 200;
 const addProductInCart = async (options: DisplayProduct): Promise<void> => {
   const product = await getCurrentProductClient(options.productKey);
   const loginToken = <string>localStorage.getItem('accessToken');
-  const cart = <responseMyCart>await createMyCart(loginToken);
-  // console.log('+', product.masterVariant.prices[0].value.centAmount);
+  const cartID = <string>localStorage.getItem('cart');
+  const checkCart = await checkMyCart(cartID, loginToken);
+
+  if (checkCart !== positiveStatus) {
+    cart = <responseMyCart>await createMyCart(loginToken);
+    localStorage.setItem('cart', cart.id);
+  }
+
+  const updateVersion = <responseMyCart>await getMyCart(cartID, loginToken);
+
   const addProductInCart: updateMyCart = {
-    version: cart.version,
+    version: updateVersion.version,
     actions: [
       {
         action: 'addLineItem',
@@ -114,13 +129,11 @@ const addProductInCart = async (options: DisplayProduct): Promise<void> => {
         country: 'DE',
         distributionChannel: {
           typeId: 'channel',
-          id: '0995709c-be0e-4389-955f-9293634fd512', // ← подставь ID канала "Main warehouse"
+          id: '0995709c-be0e-4389-955f-9293634fd512',
         },
-        // currency: 'EUR',
-        // productPriceMode: 'Embedded',
-        // actionIndex: 1,
       },
     ],
   };
-  await updateCart(cart.id, addProductInCart, loginToken);
+  await updateCart(cartID, addProductInCart, loginToken);
+  // console.log('+', statusCart);
 };

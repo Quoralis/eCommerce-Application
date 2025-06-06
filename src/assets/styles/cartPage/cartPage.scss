@@ -1,0 +1,33 @@
+@use '../globalVariables.scss' as *;
+
+.card-product {
+  padding: 20px;
+  margin: 5px;
+  //   flex-wrap: nowrap;
+}
+
+.product-img {
+  height: 70px;
+}
+
+.wrapper-products {
+  flex-grow: 2;
+  margin-right: 7px;
+}
+
+.wrapper-totals {
+  flex-grow: 1;
+}
+
+.coupon-input {
+  margin: 5px 0 0 5px;
+}
+@media (max-width: 700px) and (min-width: 350px) {
+  .cart-page {
+    flex-direction: column;
+  }
+}
+
+// .name-and-prices {
+//   margin-top: 0;
+// }

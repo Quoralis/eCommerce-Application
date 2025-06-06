@@ -1,7 +1,7 @@
 import { apiUrl, projectKey } from '../config.js';
 import { wrapperTryCatch } from '../utils/wrapperTryCatch.js';
 import { updateMyCart } from '../types/types.js';
-// import { showNotification } from '../services/notification/showNotification.js';
+import { showNotification } from '../services/notification/showNotification.js';
 export const updateCart = async (
   id: string,
   body: updateMyCart,
@@ -21,10 +21,10 @@ export const updateCart = async (
     });
     // console.log('2');
     console.log(response);
-    // showNotification('update data successfully', 'success');
+    showNotification('product add to cart', 'success');
     return response;
   } catch (err) {
-    // showNotification('something went wrong so try again', 'danger');
+    showNotification('something went wrong so try again', 'danger');
     console.log('updateCustomerInf', err);
   }
 };

@@ -129,13 +129,41 @@ export interface CurrentProduct {
   };
 }
 
+export interface productCart {
+  name: {
+    en: string;
+  };
+  variant: {
+    images: [
+      {
+        url: string;
+      },
+    ];
+  };
+  price: {
+    discounted?: {
+      value: {
+        centAmount: number;
+      };
+    };
+    value: {
+      centAmount: number;
+    };
+  };
+  totalPrice: {
+    centAmount: number;
+  };
+}
+
 export interface DisplayProduct {
   productName: string;
   imageUrl: string;
   description: string;
   productKey: string;
+  productId?: string;
   price: number;
   discountedPrice?: number;
+  totalPrice?: number;
 }
 
 export interface Categories {
@@ -204,6 +232,7 @@ export interface MyCart {
 export interface responseMyCart {
   id: string;
   version: number;
+  lineItems: [productCart];
 }
 
 export interface updateMyCart {
