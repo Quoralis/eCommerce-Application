@@ -130,6 +130,7 @@ export interface CurrentProduct {
 }
 
 export interface productCart {
+  id: string;
   name: {
     en: string;
   };
@@ -239,17 +240,17 @@ export interface updateMyCart {
   version: number;
   actions: Array<{
     action: string;
-    productId: string;
+    distributionChannel: {
+      typeId: string;
+      id: string;
+    };
+    productId?: string;
+    lineItemId?: string;
     variantId?: number;
     currency?: string;
     productPriceMode?: string;
     country?: string;
     actionIndex?: number;
-    distributionChannel: {
-      typeId: string;
-      id: string; // ← подставь ID канала "Main warehouse"
-    };
-
     quantity?: number;
   }>;
 }

@@ -79,6 +79,9 @@ export default class Router {
     if (path === paths.catalog) {
       deleteModalWindow();
     }
+    if (path === paths.cart) {
+      deleteModalWindow();
+    }
     if (renderPage) {
       renderPage();
     } else {

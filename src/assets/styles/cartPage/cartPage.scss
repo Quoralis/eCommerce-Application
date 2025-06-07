@@ -22,6 +22,12 @@
 .coupon-input {
   margin: 5px 0 0 5px;
 }
+
+.conteiner-empty {
+  height: 80vh;
+  justify-content: center;
+}
+
 @media (max-width: 700px) and (min-width: 350px) {
   .cart-page {
     flex-direction: column;

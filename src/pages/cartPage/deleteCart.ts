@@ -1,10 +1,13 @@
 import { createEl } from '../../utils/createElement.js';
 import { deleteMyCart } from '../../clients/deleteMyCart.js';
 import { getMyCart } from '../../clients/getMyCart.js';
+import { closeModal } from '../../ui/modalWindow.js';
+import { getListItem } from './showCartPage.js';
 
 export const confirmationOfDeletion = (parent: HTMLElement): void => {
   const titleAndBtnsWrapper = createEl({
     tag: 'div',
+    classes: ['uk-flex', 'uk-flex-middle', 'uk-flex-column'],
     parent: parent,
   });
   createEl({
@@ -15,10 +18,11 @@ export const confirmationOfDeletion = (parent: HTMLElement): void => {
 
   const wrapperBtns = createEl({
     tag: 'div',
+    classes: ['uk-margin-small-top'],
     parent: titleAndBtnsWrapper,
   });
 
-  /* const cancelBtn = */ createEl({
+  createEl({
     tag: 'button',
     text: 'Cancel',
     classes: [
@@ -28,6 +32,7 @@ export const confirmationOfDeletion = (parent: HTMLElement): void => {
       'login-btn',
       'el-nav',
     ],
+    onClick: closeModal,
     parent: wrapperBtns,
   });
 
@@ -35,6 +40,7 @@ export const confirmationOfDeletion = (parent: HTMLElement): void => {
     tag: 'button',
     text: 'Confirm',
     classes: [
+      'uk-margin-small-left',
       'uk-button',
       'uk-border-rounded',
       'uk-button-primary',
@@ -45,10 +51,15 @@ export const confirmationOfDeletion = (parent: HTMLElement): void => {
   });
   confirmBtn.addEventListener('click', async (): Promise<void> => {
     await deleteCart();
+    const cardWrapper = <HTMLElement>(
+      document.querySelector('.card-product-wrapper')
+    );
+    await getListItem(cardWrapper);
+    closeModal();
   });
 };
 
-const deleteCart = async (/* parent: HTMLElement */): Promise<void> => {
+const deleteCart = async (): Promise<void> => {
   const cart = <string>localStorage.getItem('cart');
   const loginToken = <string>localStorage.getItem('accessToken');
   const version = await getMyCart(cart, loginToken);

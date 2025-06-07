@@ -109,6 +109,7 @@ const addProductInCart = async (options: DisplayProduct): Promise<void> => {
   const product = await getCurrentProductClient(options.productKey);
   const loginToken = <string>localStorage.getItem('accessToken');
   const cartID = <string>localStorage.getItem('cart');
+
   const checkCart = await checkMyCart(cartID, loginToken);
 
   if (checkCart !== positiveStatus) {
@@ -116,7 +117,9 @@ const addProductInCart = async (options: DisplayProduct): Promise<void> => {
     localStorage.setItem('cart', cart.id);
   }
 
-  const updateVersion = <responseMyCart>await getMyCart(cartID, loginToken);
+  const updateVersion = <responseMyCart>(
+    await getMyCart(<string>localStorage.getItem('cart'), loginToken)
+  );
 
   const addProductInCart: updateMyCart = {
     version: updateVersion.version,
@@ -134,6 +137,11 @@ const addProductInCart = async (options: DisplayProduct): Promise<void> => {
       },
     ],
   };
-  await updateCart(cartID, addProductInCart, loginToken);
+  await updateCart(
+    <string>localStorage.getItem('cart'),
+    addProductInCart,
+    loginToken,
+    true
+  );
   // console.log('+', statusCart);
 };

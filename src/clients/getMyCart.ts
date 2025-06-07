@@ -21,3 +21,10 @@ export const getMyCart = async (id: string, token: string) => {
     console.log('createMyCart', err);
   }
 };
+
+export const getMyProduct = async (): Promise<responseMyCart> => {
+  const loginToken = <string>localStorage.getItem('accessToken');
+  return <responseMyCart>(
+    await getMyCart(<string>localStorage.getItem('cart'), loginToken)
+  );
+};

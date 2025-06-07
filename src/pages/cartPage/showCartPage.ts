@@ -10,6 +10,7 @@ import {
 import { showModalWindow } from '../../ui/modalWindow.js';
 import { modalInCartPage } from '../../ui/modalWindow.js';
 import { emptyCart } from './emptyCart.js';
+import { checkMyCart } from '../../clients/checkMyCart.js';
 import UIkit from 'uikit';
 
 const showHeanding = (parent: HTMLElement): void => {
@@ -27,7 +28,7 @@ const showHeanding = (parent: HTMLElement): void => {
 
   const clearAll = createEl({
     tag: 'a',
-    text: 'Clear all',
+    text: 'Clear cart',
     classes: ['el-nav'],
     parent: showHeandingWrapper,
   });
@@ -37,17 +38,23 @@ const showHeanding = (parent: HTMLElement): void => {
 };
 
 export const getListItem = async (parent: HTMLElement): Promise<void> => {
-  const cart = <responseMyCart>(
-    await getMyCart(
-      <string>localStorage.getItem('cart'),
-      <string>localStorage.getItem('accessToken')
-    )
+  const cartId = <string>localStorage.getItem('cart');
+  const checkCart = await checkMyCart(
+    cartId,
+    <string>localStorage.getItem('accessToken')
   );
-  if (cart.lineItems) {
-    const arrProducts = cart.lineItems;
-    showProducts(arrProducts, parent);
+  if (checkCart !== 200) {
+    emptyCart();
   } else {
-    emptyCart(parent);
+    const cart = <responseMyCart>(
+      await getMyCart(cartId, <string>localStorage.getItem('accessToken'))
+    );
+    const arrProducts = cart.lineItems;
+    if (arrProducts.length) {
+      showProducts(arrProducts, parent);
+    } else {
+      emptyCart();
+    }
   }
 };
 
@@ -55,6 +62,7 @@ export const showProducts = (
   arrProducts: productCart[],
   parent: HTMLElement
 ): void => {
+  console.log(arrProducts);
   arrProducts.forEach((el) => {
     const dataProduct: DisplayProduct = {
       productName: el.name.en,
@@ -64,6 +72,7 @@ export const showProducts = (
       productKey: el.name.en,
       discountedPrice: el.price.discounted?.value.centAmount,
       totalPrice: el.totalPrice.centAmount,
+      productId: el.id,
     };
     showProduct(parent, dataProduct);
   });
@@ -98,11 +107,11 @@ export const showCartPage = async () => {
   // main?.append(cartPage);
   const cardProductWrapper = createEl({
     tag: 'div',
-    classes: ['uk-height-viewport'],
+    classes: ['uk-height-viewport', 'card-product-wrapper'],
     parent: wrapperProducts,
   });
 
-  await getListItem(cardProductWrapper);
   showTotalPrice(wrapperTotals);
   showModalWindow(modalInCartPage);
+  await getListItem(cardProductWrapper);
 };

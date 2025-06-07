@@ -2,10 +2,12 @@ import { createEl } from '../../utils/createElement.js';
 import { DisplayProduct } from '../../types/types.js';
 import { formatPrice } from '../../utils/formatPrice.js';
 import { priceProduct } from './priceProduct.js';
+import { deleteProductInCart } from './deleteProduct.js';
 export const showProduct = (
   parent: HTMLElement,
   data: DisplayProduct
 ): void => {
+  //   console.log(data.productKey);
   const price = priceProduct(data);
   const cardProduct = createEl({
     tag: 'div',
@@ -14,38 +16,25 @@ export const showProduct = (
       'uk-width-1-1',
       'uk-card-default',
       'uk-border-rounded',
-      //   'uk-text-center',
-      //   'uk-grid-small',
       'card-product',
       'uk-child-width-expand',
-      //   'uk-child-width-expand@s',
       'uk-flex',
-      // 'uk-flex-row',
       'uk-flex-middle',
-      //   'uk-flex-center',
       'uk-flex-between',
     ],
     attributes: {
       'uk-grid': '',
+      id: <string>data.productId,
     },
     parent: parent,
   });
 
   const infProduct = createEl({
     tag: 'div',
-    classes: [
-      'uk-flex',
-      'uk-flex-row',
-      'uk-width-1-3@m',
-      //   'uk-flex-between',
-      //   'name-and-prices',
-    ],
+    classes: ['uk-flex', 'uk-flex-row', 'uk-width-1-3@m'],
     parent: cardProduct,
   });
-  //   const imgWrapper = createEl({
-  //     tag: 'div',
-  //     parent: nameAndPrice,
-  //   });
+
   createEl({
     tag: 'img',
     attributes: { src: data.imageUrl },
@@ -113,9 +102,12 @@ const deleteProduct = (parent: HTMLElement): void => {
     tag: 'div',
     parent: parent,
   });
-  /*  const deleteProduct =  */ createEl({
+  const deleteProduct = createEl({
     tag: 'a',
     attributes: { 'uk-icon': 'trash' },
     parent: deleteProductWraper,
+  });
+  deleteProduct.addEventListener('click', (event: Event): void => {
+    deleteProductInCart(event);
   });
 };

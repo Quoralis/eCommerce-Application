@@ -5,9 +5,9 @@ import { showNotification } from '../services/notification/showNotification.js';
 export const updateCart = async (
   id: string,
   body: updateMyCart,
-  token: string
+  token: string,
+  notification?: boolean
 ) => {
-  // const bearerToken = localStorage.getItem('bearerToken');
   const url = `${apiUrl}/${projectKey}/me/carts/${id}`;
 
   try {
@@ -19,12 +19,14 @@ export const updateCart = async (
       },
       body: JSON.stringify(body),
     });
-    // console.log('2');
-    console.log(response);
-    showNotification('product add to cart', 'success');
+    if (notification) {
+      showNotification('product add to cart', 'success');
+    }
     return response;
   } catch (err) {
-    showNotification('something went wrong so try again', 'danger');
+    if (notification) {
+      showNotification('something went wrong so try again', 'danger');
+    }
     console.log('updateCustomerInf', err);
   }
 };
