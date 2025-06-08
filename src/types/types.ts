@@ -131,6 +131,7 @@ export interface CurrentProduct {
 
 export interface productCart {
   id: string;
+  productId: string;
   name: {
     en: string;
   };

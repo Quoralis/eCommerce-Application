@@ -3,9 +3,11 @@ import { getMyProduct } from '../../clients/getMyCart.js';
 import { updateMyCart } from '../../types/types.js';
 import { getListItem } from './showCartPage.js';
 import { clearDom } from '../../utils/clearDom.js';
-
 export const deleteProductInCart = async (event: Event): Promise<void> => {
-  if (event.target instanceof SVGElement) {
+  if (
+    event.target instanceof SVGElement ||
+    event.target instanceof HTMLButtonElement
+  ) {
     const link = event.target.closest('.uk-icon');
     const product = <HTMLElement>link?.parentElement?.parentElement;
     const loginToken = <string>localStorage.getItem('accessToken');

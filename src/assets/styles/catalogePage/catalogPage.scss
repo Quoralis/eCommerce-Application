@@ -123,6 +123,11 @@
       background-color: $blue;
       color: $white;
     }
+    &:disabled {
+      background-color: white;
+      color: #4889f7;
+      opacity: 0.3;
+    }
   }
 }
 

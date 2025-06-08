@@ -11,6 +11,7 @@ import { updateCart } from '../clients/updateMyCart.js';
 import { getCurrentProductClient } from '../clients/getCurrentProductClient.js';
 import { checkMyCart } from '../clients/checkMyCart.js';
 import { getMyCart } from '../clients/getMyCart.js';
+import { showNotification } from '../services/notification/showNotification.js';
 export let currentProduct = '';
 
 export function renderProductCard(
@@ -24,7 +25,7 @@ export function renderProductCard(
   const shortDescription = formatShortDescription(options.description);
   const cardElement = createEl({
     tag: 'article',
-    classes: ['card'],
+    classes: ['card', 'our-id'],
     attributes: {
       id: <string>options.productId,
     },
@@ -92,21 +93,27 @@ export function renderProductCard(
       'uk-border-rounded',
       'uk-button-primary',
       'button-to-cart',
+      // 'btn-catalog',
       'card-btn',
+      'btn-add',
     ],
     text: 'Add to cart',
     parent: cardElement,
   });
-  addToCart.addEventListener('click', (): void => {
-    addProductInCart(options);
+  addToCart.addEventListener('click', async (): Promise<void> => {
+    addToCart.disabled = true;
+    await addProductInCart(options.productKey);
+    // await toggleStateButtons();
+    // await toggleStateButtons();
   });
   return cardElement;
 }
 
-let cart: responseMyCart;
-const positiveStatus = 200;
-const addProductInCart = async (options: DisplayProduct): Promise<void> => {
-  const product = await getCurrentProductClient(options.productKey);
+export const addProductInCart = async (option: string): Promise<void> => {
+  let cart: responseMyCart;
+  const positiveStatus = 200;
+  const product = await getCurrentProductClient(option);
+  // console.log(product);
   const loginToken = <string>localStorage.getItem('accessToken');
   const cartID = <string>localStorage.getItem('cart');
 
@@ -127,9 +134,6 @@ const addProductInCart = async (options: DisplayProduct): Promise<void> => {
       {
         action: 'addLineItem',
         productId: product.id,
-        variantId: 1,
-        quantity: 1,
-        country: 'DE',
         distributionChannel: {
           typeId: 'channel',
           id: '0995709c-be0e-4389-955f-9293634fd512',
@@ -140,8 +144,7 @@ const addProductInCart = async (options: DisplayProduct): Promise<void> => {
   await updateCart(
     <string>localStorage.getItem('cart'),
     addProductInCart,
-    loginToken,
-    true
+    loginToken
   );
-  // console.log('+', statusCart);
+  showNotification('Product added to cart', 'success');
 };

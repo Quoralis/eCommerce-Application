@@ -1,7 +1,7 @@
 import { createEl } from '../../utils/createElement.js';
 import { CurrentProduct } from '../../types/types.js';
-
 import { formatPrice } from '../../utils/formatPrice.js';
+import { addProductInCart } from '../../ui/productCard.js';
 const showSalePrice = (
   data: CurrentProduct,
   parent: HTMLElement
@@ -34,8 +34,12 @@ export const productComponentText = (
       'uk-flex-between',
       'uk-margin-xsmall-left',
       'wrapper-all-text',
+      'our-id',
     ],
     parent: parent,
+    attributes: {
+      id: data.id,
+    },
   });
 
   window.addEventListener('resize', (): void => {
@@ -78,10 +82,54 @@ export const productComponentText = (
     defaultPrice.classList.add('line-through');
   }
 
+  toggleProductInCart(wrapperAllText, data);
+
   createEl({
     tag: 'span',
     classes: ['uk-margin-medium-bottom'],
     text: data.description.en,
     parent: wrapperAllText,
+  });
+};
+
+const toggleProductInCart = (
+  parent: HTMLElement,
+  data: CurrentProduct
+): void => {
+  const btnsWrapper = createEl({
+    tag: 'div',
+    classes: ['uk-margin-small-bottom', 'uk-flex', 'uk-flex-row'],
+    parent: parent,
+  });
+  const productAdd = createEl({
+    tag: 'button',
+    text: 'Add to cart',
+    classes: [
+      'uk-button',
+      'uk-border-rounded',
+      'uk-button-primary',
+      'login-btn',
+      'btn-add',
+      'button',
+    ],
+    parent: btnsWrapper,
+  });
+  productAdd.addEventListener('click', (): void => {
+    productAdd.disabled = true;
+    addProductInCart(data.key);
+  });
+  /*  const productRemove =  */ createEl({
+    tag: 'button',
+    text: 'Remove from cart',
+    classes: [
+      'uk-margin-small-left',
+      'uk-button',
+      'uk-border-rounded',
+      'uk-button-primary',
+      'login-btn',
+      'uk-icon',
+      'button',
+    ],
+    parent: btnsWrapper,
   });
 };

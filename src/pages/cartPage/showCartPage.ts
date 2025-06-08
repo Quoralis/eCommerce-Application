@@ -62,14 +62,13 @@ export const showProducts = (
   arrProducts: productCart[],
   parent: HTMLElement
 ): void => {
-  console.log(arrProducts);
   arrProducts.forEach((el) => {
     const dataProduct: DisplayProduct = {
       productName: el.name.en,
       imageUrl: el.variant.images[0].url,
       price: el.price.value.centAmount,
       description: el.name.en,
-      productKey: el.name.en,
+      productKey: el.id,
       discountedPrice: el.price.discounted?.value.centAmount,
       totalPrice: el.totalPrice.centAmount,
       productId: el.id,
