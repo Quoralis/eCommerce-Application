@@ -17,3 +17,56 @@
     }
   }
 }
+
+.advantages {
+  padding: 20px;
+
+  &__card {
+    min-width: 517px;
+    height: 380px;
+    border-radius: 8px;
+
+    @media (max-width: 600px) {
+      min-width: 100%;
+      height: fit-content;
+    }
+
+    &-grid {
+      justify-content: center;
+    }
+
+    &-media {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 50%;
+
+      @media (max-width: 600px) {
+        padding: 20px;
+      }
+    }
+
+    &-icon {
+      display: block;
+      width: 120px;
+      height: 120px;
+      filter: invert(1);
+    }
+
+    &-body {
+      height: 50%;
+    }
+
+    &-text {
+      color: #222222;
+    }
+  }
+
+  .uk-card-title.advantages__card-title {
+    color: #222222;
+  }
+
+  .uk-card-body.uk-card-default.advantages__card-body {
+    margin-top: 0;
+  }
+}
