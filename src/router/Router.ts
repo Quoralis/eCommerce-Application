@@ -15,6 +15,7 @@ import { renderBreadcrumb } from '../ui/renderBreadcrumb.js';
 import { paths } from '../constants/paths.js';
 import { deleteModalWindow } from '../ui/modalWindow.js';
 import { showAboutPage } from '../pages/aboutPage/showAboutPage.js';
+import { showMainPageContent } from '../pages/mainPage/mainPageContent.js';
 
 export default class Router {
   private readonly routes: Record<string, () => void>;
@@ -89,6 +90,8 @@ export default class Router {
 
   private renderMainPage(): void {
     clearDom('main-page-wrapper');
+
+    showMainPageContent();
   }
 
   private renderLogin(): void {
