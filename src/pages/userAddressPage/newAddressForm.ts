@@ -1,8 +1,9 @@
 import { createEl } from '../../utils/createElement.js';
 import { getAddressModal } from './addressModal.js';
 import { addressInputs } from '../../constants/addressConstants.js';
-import { addNewAddress } from './addNewAddress.js';
 import { clearDom } from '../../utils/clearDom.js';
+import { validateInput } from '../../services/validators/registrationValidation.js';
+import { getErrorTextWrapper } from '../registrationPage/registrationInputs.js';
 
 export const getNewAddressForm = () => {
   const modalInner = getAddressModal();
@@ -63,6 +64,30 @@ export const getNewAddressForm = () => {
           },
         });
       }
+
+      getErrorTextWrapper(addressForm);
+    }
+
+    for (let i = 0; i < 2; i++) {
+      createEl({
+        tag: 'input',
+        parent: addressForm,
+        classes: ['uk-checkbox', 'user-profile__input', 'checkbox'],
+        attributes: {
+          type: 'checkbox',
+          id: i === 0 ? 'defaultShipping' : 'defaultBilling',
+        },
+      });
+
+      createEl({
+        tag: 'label',
+        parent: addressForm,
+        text: i === 0 ? 'Default shipping address' : 'Default billing address',
+        classes: ['user-profile__input', 'label'],
+        attributes: {
+          for: i === 0 ? 'defaultShipping' : 'defaultBilling',
+        },
+      });
     }
 
     createEl({
@@ -71,8 +96,13 @@ export const getNewAddressForm = () => {
       classes: ['uk-button', 'uk-button-primary', 'button'],
       parent: addressForm,
       onClick: (event) => {
-        addNewAddress(event, addressForm);
+        event.preventDefault();
+        validateInput(event);
       },
+    });
+
+    addressForm.addEventListener('change', (event) => {
+      validateInput(event);
     });
   }
 };
