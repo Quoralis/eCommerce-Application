@@ -1,5 +1,6 @@
 import { createEl } from '../../utils/createElement.js';
 import { getAdvantageCard } from '../../ui/advantageCard.js';
+import { getMainSlider } from '../../ui/mainSlider.js';
 
 const mainWrapper = createEl({
   tag: 'main',
@@ -12,6 +13,8 @@ const getMainPageContent = (parentEl: HTMLElement) => {
     classes: ['uk-height-1-1', 'main-page__content-container'],
     parent: parentEl,
   });
+
+  getMainSlider(contentWrapper);
 
   const advantagesWrapper = createEl({
     tag: 'div',
