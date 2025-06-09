@@ -1,6 +1,7 @@
 import { createEl } from '../../utils/createElement.js';
 import { getAdvantageCard } from '../../ui/advantageCard.js';
 import { getMainSlider } from '../../ui/mainSlider.js';
+import { showPromoCode } from '../../ui/promoCodeCard.js';
 
 const mainWrapper = createEl({
   tag: 'main',
@@ -34,6 +35,8 @@ const getMainPageContent = (parentEl: HTMLElement) => {
   for (let i = 0; i < 4; i++) {
     getAdvantageCard(i, cardGrid);
   }
+
+  showPromoCode(contentWrapper);
 };
 
 export const showMainPageContent = () => {

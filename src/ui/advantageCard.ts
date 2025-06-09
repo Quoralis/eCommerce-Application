@@ -66,10 +66,10 @@ export const getAdvantageCard = (cardIndex: number, parentEl: HTMLElement) => {
 
   createEl({
     tag: 'img',
-    classes: ['bi', 'bi-truck', 'advantages__card-icon'],
+    classes: ['advantages__card-icon'],
     attributes: {
       src: cardData[cardIndex].icon,
-      alt: 'img',
+      alt: cardData[cardIndex].title,
     },
     parent: cardMedia,
   });
