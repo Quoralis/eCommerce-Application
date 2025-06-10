@@ -38,17 +38,11 @@ const showHeanding = (parent: HTMLElement): void => {
 };
 
 export const getListItem = async (parent: HTMLElement): Promise<void> => {
-  const cartId = <string>localStorage.getItem('cart');
-  const checkCart = await checkMyCart(
-    cartId,
-    <string>localStorage.getItem('accessToken')
-  );
+  const checkCart = await checkMyCart();
   if (checkCart !== 200) {
     emptyCart();
   } else {
-    const cart = <responseMyCart>(
-      await getMyCart(cartId, <string>localStorage.getItem('accessToken'))
-    );
+    const cart = <responseMyCart>await getMyCart();
     const arrProducts = cart.lineItems;
     if (arrProducts.length) {
       showProducts(arrProducts, parent);

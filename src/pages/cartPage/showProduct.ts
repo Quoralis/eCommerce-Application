@@ -7,7 +7,6 @@ export const showProduct = (
   parent: HTMLElement,
   data: DisplayProduct
 ): void => {
-  //   console.log(data.productKey);
   const price = priceProduct(data);
   const cardProduct = createEl({
     tag: 'div',
@@ -108,6 +107,10 @@ const deleteProduct = (parent: HTMLElement): void => {
     parent: deleteProductWraper,
   });
   deleteProduct.addEventListener('click', (event: Event): void => {
-    deleteProductInCart(event);
+    if (event.target instanceof SVGElement) {
+      const link = event.target.closest('.uk-icon');
+      const product = <HTMLElement>link?.parentElement?.parentElement;
+      deleteProductInCart(product.id);
+    }
   });
 };

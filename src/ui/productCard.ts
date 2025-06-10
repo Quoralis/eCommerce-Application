@@ -93,7 +93,6 @@ export function renderProductCard(
       'uk-border-rounded',
       'uk-button-primary',
       'button-to-cart',
-      // 'btn-catalog',
       'card-btn',
       'btn-add',
     ],
@@ -103,8 +102,6 @@ export function renderProductCard(
   addToCart.addEventListener('click', async (): Promise<void> => {
     addToCart.disabled = true;
     await addProductInCart(options.productKey);
-    // await toggleStateButtons();
-    // await toggleStateButtons();
   });
   return cardElement;
 }
@@ -113,20 +110,13 @@ export const addProductInCart = async (option: string): Promise<void> => {
   let cart: responseMyCart;
   const positiveStatus = 200;
   const product = await getCurrentProductClient(option);
-  // console.log(product);
-  const loginToken = <string>localStorage.getItem('accessToken');
-  const cartID = <string>localStorage.getItem('cart');
-
-  const checkCart = await checkMyCart(cartID, loginToken);
-
+  const checkCart = await checkMyCart();
   if (checkCart !== positiveStatus) {
-    cart = <responseMyCart>await createMyCart(loginToken);
-    localStorage.setItem('cart', cart.id);
+    cart = <responseMyCart>await createMyCart();
+    localStorage.setItem('cartId', cart.id);
   }
 
-  const updateVersion = <responseMyCart>(
-    await getMyCart(<string>localStorage.getItem('cart'), loginToken)
-  );
+  const updateVersion = <responseMyCart>await getMyCart();
 
   const addProductInCart: updateMyCart = {
     version: updateVersion.version,
@@ -141,10 +131,6 @@ export const addProductInCart = async (option: string): Promise<void> => {
       },
     ],
   };
-  await updateCart(
-    <string>localStorage.getItem('cart'),
-    addProductInCart,
-    loginToken
-  );
+  await updateCart(addProductInCart);
   showNotification('Product added to cart', 'success');
 };

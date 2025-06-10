@@ -1,7 +1,10 @@
 import { createEl } from '../../utils/createElement.js';
-import { CurrentProduct } from '../../types/types.js';
+import { CurrentProduct, productCart } from '../../types/types.js';
 import { formatPrice } from '../../utils/formatPrice.js';
 import { addProductInCart } from '../../ui/productCard.js';
+import { deleteProductInCart } from '../cartPage/deleteProduct.js';
+import { getCurentProductInCart } from './getCurentProductInCart.js';
+
 const showSalePrice = (
   data: CurrentProduct,
   parent: HTMLElement
@@ -114,11 +117,12 @@ const toggleProductInCart = (
     ],
     parent: btnsWrapper,
   });
-  productAdd.addEventListener('click', (): void => {
+  productAdd.addEventListener('click', async () => {
     productAdd.disabled = true;
-    addProductInCart(data.key);
+    await addProductInCart(data.key);
+    productRemove.disabled = false;
   });
-  /*  const productRemove =  */ createEl({
+  const productRemove = createEl({
     tag: 'button',
     text: 'Remove from cart',
     classes: [
@@ -128,8 +132,18 @@ const toggleProductInCart = (
       'uk-button-primary',
       'login-btn',
       'uk-icon',
+      'btn-remove',
       'button',
     ],
+    attributes: {
+      disabled: '',
+    },
     parent: btnsWrapper,
+  });
+  productRemove.addEventListener('click', async () => {
+    productRemove.disabled = true;
+    const product = <productCart>await getCurentProductInCart(data.id);
+    await deleteProductInCart(product.id);
+    productAdd.disabled = false;
   });
 };

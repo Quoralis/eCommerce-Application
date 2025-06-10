@@ -17,11 +17,7 @@ export async function showCatalogPage() {
 }
 
 export const toggleStateButtons = async (): Promise<void> => {
-  const cartId = <string>localStorage.getItem('cart');
-  const checkCart = await checkMyCart(
-    cartId,
-    <string>localStorage.getItem('accessToken')
-  );
+  const checkCart = await checkMyCart();
   if (checkCart === 200) {
     const listProducts = (await getMyProduct()).lineItems;
     const lineItemsId = listProducts.map((el) => el.productId);
@@ -30,8 +26,10 @@ export const toggleStateButtons = async (): Promise<void> => {
       const checkProduct = lineItemsId.includes(el.id);
       if (checkProduct) {
         const button = <HTMLButtonElement>el.querySelector('.btn-add');
-        if (button) {
-          button.disabled = true;
+        button.disabled = true;
+        const removebutton = <HTMLButtonElement>el.querySelector('.btn-remove');
+        if (removebutton) {
+          removebutton.disabled = false;
         }
       }
     });

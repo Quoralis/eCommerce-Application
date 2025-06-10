@@ -60,8 +60,6 @@ export const confirmationOfDeletion = (parent: HTMLElement): void => {
 };
 
 const deleteCart = async (): Promise<void> => {
-  const cart = <string>localStorage.getItem('cart');
-  const loginToken = <string>localStorage.getItem('accessToken');
-  const version = await getMyCart(cart, loginToken);
-  await deleteMyCart(cart, loginToken, <number>version?.version);
+  const version = await getMyCart();
+  await deleteMyCart(<number>version?.version);
 };
