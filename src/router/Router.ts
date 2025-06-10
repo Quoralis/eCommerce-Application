@@ -140,7 +140,7 @@ export default class Router {
   private async renderCategories(category: string): Promise<void> {
     clearDom('main-page-wrapper');
     await showCatalogPage();
-    const container = document.querySelector('.product-container');
+    const container = document.querySelector('.product-wrapper');
     if (!(container instanceof HTMLElement)) return;
     renderBreadcrumb(`/catalog/${category}`);
     container.innerHTML = '';
@@ -156,7 +156,7 @@ export default class Router {
     if (category) {
       await renderProductsInCategory(category);
     } else {
-      await renderProductList(container);
+      await renderProductList(container, 8);
     }
   }
 }

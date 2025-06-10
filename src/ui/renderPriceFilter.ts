@@ -64,10 +64,10 @@ export function renderPriceFilter(element: HTMLElement) {
       if (category) {
         await renderProductsInCategory(category);
       } else {
-        const container = document.querySelector('.product-container');
+        const container = document.querySelector('.product-wrapper');
         if (container) {
           container.innerHTML = '';
-          await renderProductList(container as HTMLElement);
+          await renderProductList(container as HTMLElement, 8);
         }
       }
     }
@@ -93,9 +93,9 @@ export function renderPriceFilter(element: HTMLElement) {
       if (category) {
         await renderProductsInCategory(category);
       } else {
-        const container = document.querySelector('.product-container');
+        const container = document.querySelector('.product-wrapper');
         if (container) container.innerHTML = '';
-        await renderProductList(container as HTMLElement);
+        await renderProductList(container as HTMLElement, 8);
       }
     },
     parent: priceFilter,
@@ -119,9 +119,9 @@ export function renderPriceFilter(element: HTMLElement) {
       if (category) {
         await renderProductsInCategory(category);
       } else {
-        const container = document.querySelector('.product-container');
+        const container = document.querySelector('.product-wrapper');
         if (container) container.innerHTML = '';
-        await renderProductList(container as HTMLElement);
+        await renderProductList(container as HTMLElement, 8);
       }
     },
     parent: priceFilter,

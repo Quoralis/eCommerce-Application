@@ -40,7 +40,7 @@ export const filterSearch = (parent: HTMLElement): void => {
     const cardWrapper = <HTMLElement>(
       parent.parentElement?.parentElement?.nextElementSibling
     );
-    showCardsByRequest(event, cardWrapper);
+    await showCardsByRequest(event, cardWrapper);
   });
 
   createEl({
@@ -62,7 +62,7 @@ const showCardsByRequest = async (
       await searchProduct(event.target.value)
     );
     if (event.target.value === '') {
-      renderProductList(parent);
+      await renderProductList(parent, 8);
     }
     if (arrProducts.length > 0) {
       showCards(arrProducts, parent);

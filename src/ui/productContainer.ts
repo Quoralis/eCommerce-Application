@@ -9,5 +9,10 @@ export async function renderProductLContainer(
     classes: ['product-container'],
     parent: parent,
   });
-  await renderProductList(section);
+  const productsWrapper = createEl({
+    tag: 'div',
+    classes: ['product-wrapper'],
+    parent: section,
+  });
+  await renderProductList(productsWrapper, 8);
 }

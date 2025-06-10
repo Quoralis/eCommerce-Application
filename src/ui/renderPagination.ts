@@ -2,10 +2,12 @@ import { createEl } from '../utils/createElement.js';
 
 export function renderPagination(
   parent: HTMLElement,
-  pages: number,
+  products: number,
   currentPage: number,
   onPageClick: (page: number) => void
 ) {
+  const countPages = Math.ceil(products / 8);
+  parent.querySelector('.pagination-container')?.remove();
   const nav = createEl({
     tag: 'nav',
     classes: ['pagination-container'],
@@ -13,8 +15,16 @@ export function renderPagination(
   });
 
   const backBtn = createEl({
-    tag: 'div',
-    classes: ['btn-back'],
+    tag: 'button',
+    classes: [
+      'uk-width-1-1',
+      'uk-button',
+      'uk-border-rounded',
+      'uk-button-primary',
+      'btn-back',
+    ],
+    attributes: { disabled: 'true' },
+    text: '<',
     parent: nav,
   });
 
@@ -22,10 +32,16 @@ export function renderPagination(
     if (currentPage > 1) onPageClick(currentPage - 1);
   });
 
-  for (let i = 1; i <= pages; i++) {
+  for (let i = 1; i <= countPages; i++) {
     const pageBtn = createEl({
       tag: 'button',
-      classes: ['pages'],
+      classes: [
+        'uk-width-1-1',
+        'uk-button',
+        'uk-border-rounded',
+        'uk-button-primary',
+        'pages',
+      ],
     });
     pageBtn.textContent = i.toString();
 
@@ -39,12 +55,23 @@ export function renderPagination(
   }
 
   const nextBtn = createEl({
-    tag: 'div',
-    classes: ['btn-next'],
+    tag: 'button',
+    classes: [
+      'uk-width-1-1',
+      'uk-button',
+      'uk-border-rounded',
+      'uk-button-primary',
+      'btn-next',
+    ],
     parent: nav,
+    text: '>',
   });
-
+  if (currentPage <= 1) {
+    backBtn.setAttribute('disabled', 'true');
+  } else {
+    backBtn.removeAttribute('disabled');
+  }
   nextBtn.addEventListener('click', () => {
-    if (currentPage < pages) onPageClick(currentPage + 1);
+    if (currentPage < countPages) onPageClick(currentPage + 1);
   });
 }

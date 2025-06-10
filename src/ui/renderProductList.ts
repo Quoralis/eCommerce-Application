@@ -2,20 +2,27 @@ import { prepareProductsForDisplay } from '../services/prepareProductsForDisplay
 import { DisplayProduct } from '../types/types.js';
 import { renderProductCard } from './productCard.js';
 import { keepOnlyDigits } from '../utils/keepOnlyDigits.js';
+import { renderPagination } from './renderPagination.js';
+import { paginations } from './paginations.js';
 
-export async function renderProductList(container: HTMLElement) {
+export async function renderProductList(
+  container: HTMLElement,
+  countProducts: number
+) {
   const allProducts = await prepareProductsForDisplay();
   if (allProducts === null || allProducts === undefined) {
     console.error('No products found');
     return;
   }
+  const productContainer = document.querySelector(
+    '.product-container'
+  ) as HTMLElement;
   const minPriceInput = document.getElementById(
     'min-price'
   ) as HTMLInputElement;
   const maxPriceInput = document.getElementById(
     'max-price'
   ) as HTMLInputElement;
-
   const minPriceStr = keepOnlyDigits(minPriceInput.value);
   const maxPriceStr = keepOnlyDigits(maxPriceInput.value);
   const minPrice = Number(minPriceStr || '0') * 100;
@@ -27,16 +34,17 @@ export async function renderProductList(container: HTMLElement) {
     price = priceDiscount ? priceDiscount : price;
     return price >= minPrice && price <= maxPrice;
   });
+  renderPagination(productContainer, filteredProducts.length, 1, paginations);
 
-  filteredProducts.forEach((product) => {
+  for (let i = 0; i < countProducts; i++) {
     const dataCard: DisplayProduct = {
-      productName: product.nameCard.en,
-      imageUrl: product.urlImageCard,
-      productKey: product.productKey,
-      description: product.descriptionCard.en,
-      price: product.priceProduct,
-      discountedPrice: product.priceDiscount,
+      productName: filteredProducts[i].nameCard.en,
+      imageUrl: filteredProducts[i].urlImageCard,
+      productKey: filteredProducts[i].productKey,
+      description: filteredProducts[i].descriptionCard.en,
+      price: filteredProducts[i].priceProduct,
+      discountedPrice: filteredProducts[i].priceDiscount,
     };
     renderProductCard(container, dataCard);
-  });
+  }
 }
