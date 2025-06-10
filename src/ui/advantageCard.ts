@@ -1,25 +1,29 @@
+import iconGenuineProducts from '../assets/images/icons/advantages/genuine-products.svg';
+import iconDelivery from '../assets/images/icons/advantages/delivery.svg';
+import iconTradeIn from '../assets/images/icons/advantages/trade-in.svg';
+import iconProtection from '../assets/images/icons/advantages/protection.svg';
 import { createEl } from '../utils/createElement.js';
 
 const cardData = [
   {
     title: 'Genuine Apple Products',
     text: '100% authentic Apple devices with full manufacturer warranty',
-    icon: '../../assets/images/icons/advantages/genuine-products.svg',
+    icon: iconGenuineProducts,
   },
   {
     title: 'Fast & Free Shipping',
     text: 'Free delivery on all orders over $50 within 2-3 business days',
-    icon: '../../assets/images/icons/advantages/delivery.svg',
+    icon: iconDelivery,
   },
   {
     title: 'Trade-In Program',
     text: 'Get discount when you trade in your old Apple devices',
-    icon: '../../assets/images/icons/advantages/trade-in.svg',
+    icon: iconTradeIn,
   },
   {
     title: 'One Year Accident Protection',
     text: 'One free screen replacement on iPhone purchases',
-    icon: '../../assets/images/icons/advantages/protection.svg',
+    icon: iconProtection,
   },
 ];
 

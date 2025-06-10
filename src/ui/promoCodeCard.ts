@@ -1,3 +1,4 @@
+import promoCodeImage from '../assets/images/banners/promoCode.jpg';
 import { createEl } from '../utils/createElement.js';
 
 export const showPromoCode = (parentEl: HTMLElement) => {
@@ -25,7 +26,7 @@ export const showPromoCode = (parentEl: HTMLElement) => {
       createEl({
         tag: 'img',
         attributes: {
-          src: '../assets/images/banners/promoCode.jpg',
+          src: promoCodeImage,
           alt: 'promo code discount banner',
         },
         parent: promoInner,
