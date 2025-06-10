@@ -1,3 +1,5 @@
+import bannerBringOnUniversity from '../assets/images/banners/bringOnUniversity.jpg';
+import bannerCustomEngraving from '../assets/images/banners/customEngraving.png';
 import { createEl } from '../utils/createElement.js';
 
 export const getMainSlider = (parentEl: HTMLElement) => {
@@ -22,10 +24,7 @@ export const getMainSlider = (parentEl: HTMLElement) => {
     parent: sliderContainer,
   });
 
-  const slides = [
-    '../assets/images/banners/bringOnUniversity.jpg',
-    '../assets/images/banners/customEngraving.png',
-  ];
+  const slides = [bannerBringOnUniversity, bannerCustomEngraving];
 
   slides.forEach((slideSrc) => {
     const slideItem = createEl({

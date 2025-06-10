@@ -3,11 +3,6 @@ import { getAdvantageCard } from '../../ui/advantageCard.js';
 import { getMainSlider } from '../../ui/mainSlider.js';
 import { showPromoCode } from '../../ui/promoCodeCard.js';
 
-const mainWrapper = createEl({
-  tag: 'main',
-  classes: ['uk-height-1-1', 'main-page-wrapper'],
-});
-
 const getMainPageContent = (parentEl: HTMLElement) => {
   const contentWrapper = createEl({
     tag: 'div',
@@ -40,16 +35,9 @@ const getMainPageContent = (parentEl: HTMLElement) => {
 };
 
 export const showMainPageContent = () => {
-  const isMain = () => document.querySelector('main');
+  const currentMain = document.querySelector('main');
 
-  if (isMain()) {
-    const currentMain = document.querySelector('main');
-    if (currentMain) {
-      currentMain.innerHTML = '';
-      getMainPageContent(currentMain);
-    }
-  } else {
-    document.querySelector('header')?.after(mainWrapper);
-    getMainPageContent(mainWrapper);
+  if (currentMain) {
+    getMainPageContent(currentMain);
   }
 };
