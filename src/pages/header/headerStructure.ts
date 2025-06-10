@@ -70,7 +70,7 @@ const autorisationWrapper = createEl({
 const basketBtn = createEl({
   tag: 'a',
   classes: ['el-nav', 'uk-border-rounded', 'basket-btn', 'icon'],
-  attributes: { 'uk-icon': 'cart' },
+  attributes: { 'uk-icon': 'cart', 'data-path': '/cart' },
   parent: autorisationWrapper,
 });
 
@@ -195,9 +195,6 @@ document.addEventListener('click', (event: Event): void => {
     if (event.target.classList.contains('el-nav')) {
       closeHeaderBurger();
     }
-    // if (!event.target.classList.contains('uk-offcanvas-slide')) {
-    //   closeHeaderBurger();
-    // }
   }
 });
 

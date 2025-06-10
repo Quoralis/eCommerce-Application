@@ -12,5 +12,6 @@ export async function prepareProductsForDisplay() {
       priceProduct: currentValue.masterVariant.prices[0].value.centAmount,
       priceDiscount:
         currentValue.masterVariant.prices[0].discounted?.value.centAmount,
+      productId: currentValue.id,
     }));
 }

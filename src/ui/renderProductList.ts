@@ -15,7 +15,6 @@ export async function renderProductList(container: HTMLElement) {
   const maxPriceInput = document.getElementById(
     'max-price'
   ) as HTMLInputElement;
-
   const minPriceStr = keepOnlyDigits(minPriceInput.value);
   const maxPriceStr = keepOnlyDigits(maxPriceInput.value);
   const minPrice = Number(minPriceStr || '0') * 100;
@@ -36,6 +35,7 @@ export async function renderProductList(container: HTMLElement) {
       description: product.descriptionCard.en,
       price: product.priceProduct,
       discountedPrice: product.priceDiscount,
+      productId: product.productId,
     };
     renderProductCard(container, dataCard);
   });

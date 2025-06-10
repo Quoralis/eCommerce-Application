@@ -1,27 +1,23 @@
 import { apiUrl, projectKey } from '../config.js';
-import { responseMyCart } from '../types/types.js';
 import { wrapperTryCatch } from '../utils/wrapperTryCatch.js';
+import { updateMyCart } from '../types/types.js';
 import { requestToken } from './authClient.js';
 
-const bodyCreateMyCart = {
-  currency: 'EUR',
-  country: 'DE',
-};
+export const updateCart = async (body: updateMyCart) => {
+  const url = `${apiUrl}/${projectKey}/me/carts/${localStorage.getItem('cartId')}`;
 
-export const createMyCart = async (body = bodyCreateMyCart) => {
-  const url = `${apiUrl}/${projectKey}/me/carts`;
   try {
-    const response = await wrapperTryCatch<responseMyCart>(url, {
+    const response = await wrapperTryCatch(url, {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${await requestToken()}`,
         'Content-Type': 'application/json',
       },
-
       body: JSON.stringify(body),
     });
+    console.log(response);
     return response;
   } catch (err) {
-    console.log('createMyCart', err);
+    console.log('updateCustomerInf', err);
   }
 };

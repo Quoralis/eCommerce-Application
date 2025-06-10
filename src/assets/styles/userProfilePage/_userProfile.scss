@@ -27,7 +27,6 @@ h4 {
   .button {
     @include button;
     margin: 16px auto;
-    // width: 240px;
   }
 }
 
@@ -142,7 +141,7 @@ h4 {
   text-align: center;
 }
 
-@media (max-width: 700px) and (min-width: 350px) {
+@media (max-width: 715px) and (min-width: 350px) {
   .button {
     font-size: 13px;
     padding: 0 15px;
