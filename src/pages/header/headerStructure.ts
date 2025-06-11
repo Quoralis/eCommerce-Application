@@ -2,7 +2,9 @@ import { createEl } from '../../utils/createElement.js';
 import img from '../../assets/images/logo.png';
 import Uikit from 'uikit';
 import { logOut } from '../../services/authService.js';
-
+import { updateBadgeNumber } from './updateBadgeNumber.js';
+import { getMyCart } from '../../clients/getMyCart.js';
+import { responseMyCart } from '../../types/types.js';
 const startNum = 0;
 const limit = 3;
 
@@ -67,11 +69,23 @@ const autorisationWrapper = createEl({
   parent: header,
 });
 
+const linkToCartWrapper = createEl({
+  tag: 'div',
+  classes: ['uk-flex'],
+  parent: autorisationWrapper,
+});
+
 const basketBtn = createEl({
-  tag: 'a',
+  tag: 'button',
   classes: ['el-nav', 'uk-border-rounded', 'basket-btn', 'icon'],
   attributes: { 'uk-icon': 'cart', 'data-path': '/cart' },
-  parent: autorisationWrapper,
+  parent: linkToCartWrapper,
+});
+
+createEl({
+  tag: 'span',
+  classes: ['uk-badge', 'uk-position-relative', 'cart-badge'],
+  parent: linkToCartWrapper,
 });
 
 const profileBtn = createEl({
@@ -180,8 +194,10 @@ const cloneSignBtn = signBtn.cloneNode(true);
 const cloneSignOut = signOut.cloneNode(true);
 const cloneProfileBtn = profileBtn.cloneNode(true);
 
-const showHeaderComponent = (): void => {
+const showHeaderComponent = async () => {
   document.body.append(header);
+  const myCart = <responseMyCart>await getMyCart();
+  updateBadgeNumber(myCart);
 };
 
 setTimeout(() => {

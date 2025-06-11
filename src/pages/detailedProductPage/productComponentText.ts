@@ -118,9 +118,14 @@ const toggleProductInCart = (
     parent: btnsWrapper,
   });
   productAdd.addEventListener('click', async () => {
+    const profileBtn = <HTMLButtonElement>(
+      document.querySelector('.profile-btn')
+    );
     productAdd.disabled = true;
+    profileBtn.disabled = true;
     await addProductInCart(data.key);
     productRemove.disabled = false;
+    profileBtn.disabled = false;
   });
   const productRemove = createEl({
     tag: 'button',
@@ -141,9 +146,14 @@ const toggleProductInCart = (
     parent: btnsWrapper,
   });
   productRemove.addEventListener('click', async () => {
+    const profileBtn = <HTMLButtonElement>(
+      document.querySelector('.profile-btn')
+    );
     productRemove.disabled = true;
+    profileBtn.disabled = true;
     const product = <productCart>await getCurentProductInCart(data.id);
     await deleteProductInCart(product.id);
     productAdd.disabled = false;
+    profileBtn.disabled = false;
   });
 };

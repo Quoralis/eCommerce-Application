@@ -3,7 +3,8 @@ import { deleteMyCart } from '../../clients/deleteMyCart.js';
 import { getMyCart } from '../../clients/getMyCart.js';
 import { closeModal } from '../../ui/modalWindow.js';
 import { getListItem } from './showCartPage.js';
-
+import { updateBadgeNumber } from '../header/updateBadgeNumber.js';
+import { responseMyCart } from '../../types/types.js';
 export const confirmationOfDeletion = (parent: HTMLElement): void => {
   const titleAndBtnsWrapper = createEl({
     tag: 'div',
@@ -60,6 +61,8 @@ export const confirmationOfDeletion = (parent: HTMLElement): void => {
 };
 
 const deleteCart = async (): Promise<void> => {
-  const version = await getMyCart();
-  await deleteMyCart(<number>version?.version);
+  const version = <responseMyCart>await getMyCart();
+  await deleteMyCart(version.version);
+  const updateData = <responseMyCart>await getMyCart();
+  updateBadgeNumber(updateData);
 };

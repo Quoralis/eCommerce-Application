@@ -55,4 +55,6 @@ export const showBurgerMenu = (): void => {
     cloneBasketBtn,
     cloneProfileBtn
   );
+  // cloneBasketWrapper.appendChild(cloneBasketBtn);
+  // cloneBasketWrapper.appendChild(cloneBadge);
 };

@@ -24,6 +24,10 @@
   margin-right: 1rem;
 }
 
+.autorisation-wrapper .uk-flex .basket-btn {
+  margin-right: 0;
+}
+
 .login-btn {
   background-color: $blue;
   color: $white;
@@ -40,7 +44,7 @@
   font-size: 1.5rem;
   color: $blue;
   svg {
-    color: $blue;
+    // color: $blue;
     width: 40px;
     height: 40px;
   }
@@ -62,9 +66,11 @@
 .burger-menu :last-child {
   background-color: $blue;
   color: $white;
+  // fill: $white;
   &:hover {
     background-color: $blue;
     color: $white;
+    // fill: $white;
   }
 }
 
