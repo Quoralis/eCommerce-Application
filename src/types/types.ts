@@ -156,6 +156,8 @@ export interface productCart {
   totalPrice: {
     centAmount: number;
   };
+  quantity?: number;
+  lineItems?: productCart[];
 }
 
 export interface DisplayProduct {
@@ -255,4 +257,25 @@ export interface updateMyCart {
     actionIndex?: number;
     quantity?: number;
   }>;
+}
+
+export interface IChangeQuantity {
+  version: number;
+  actions: Array<{
+    action: string;
+    lineItemId: string | undefined;
+    quantity: number;
+  }>;
+}
+
+export interface ICart {
+  [key: string]:
+    | string
+    | number
+    | boolean
+    | ICart
+    | productCart[]
+    | []
+    | undefined;
+  lineItems: productCart[];
 }

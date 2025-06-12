@@ -3,6 +3,9 @@ import { DisplayProduct } from '../../types/types.js';
 import { formatPrice } from '../../utils/formatPrice.js';
 import { priceProduct } from './priceProduct.js';
 import { deleteProductInCart } from './deleteProduct.js';
+import { changeProductQuantity } from './changeProductQuantity.js';
+import { getMyCart } from '../../clients/getMyCart.js';
+
 export const showProduct = (
   parent: HTMLElement,
   data: DisplayProduct
@@ -62,10 +65,15 @@ export const showProduct = (
   deleteProduct(cardProduct);
 };
 
-const changeQualityProduct = (
+const changeQualityProduct = async (
   parent: HTMLElement,
   data: DisplayProduct
-): void => {
+): Promise<void> => {
+  const currentCart = await getMyCart();
+  const currentProduct = currentCart?.lineItems.find(
+    (product) => product.id === data.productId
+  );
+
   const totalPrice = formatPrice(<number>data.totalPrice);
   const btnsWrapper = createEl({
     tag: 'div',
@@ -80,19 +88,23 @@ const changeQualityProduct = (
   /* const quantity = */ createEl({
     tag: 'span',
     classes: ['uk-margin-small-right', 'uk-margin-small-left'],
-    text: '1',
+    text: currentProduct?.quantity?.toString(),
     parent: btnsWrapper,
   });
   /*  const promotionProduct = */ createEl({
     tag: 'a',
     attributes: { 'uk-icon': 'plus-circle' },
     parent: btnsWrapper,
+    onClick: async (event) => {
+      await changeProductQuantity(event);
+    },
   });
 
   createEl({
     tag: 'div',
     text: `${totalPrice}`,
     parent: parent,
+    classes: ['total-price'],
   });
 };
 
