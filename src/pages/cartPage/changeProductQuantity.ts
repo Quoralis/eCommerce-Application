@@ -2,6 +2,7 @@ import { getMyCart } from '../../clients/getMyCart.js';
 import { updateCart } from '../../clients/updateMyCart.js';
 import { IChangeQuantity, responseMyCart } from '../../types/types.js';
 import { formatPrice } from '../../utils/formatPrice.js';
+import { updateBadgeNumber } from '../header/updateBadgeNumber.js';
 import { deleteProductInCart } from './deleteProduct.js';
 import { updateTotalPrice } from './updateTotalPrice.js';
 
@@ -53,6 +54,9 @@ export const changeProductQuantity = async (e: Event, addition: number) => {
         }
 
         await updateTotalPrice();
+        if (updateResponse) {
+          updateBadgeNumber(updateResponse);
+        }
       }
     }
   }

@@ -8,7 +8,11 @@ export const updateBadgeNumber = (data: responseMyCart | productCart) => {
       const lineItems = data.lineItems?.length;
       if (lineItems) {
         badge.classList.remove('non-active');
-        badge.textContent = `${data.lineItems?.length}`;
+        const productItemQuantity = data.lineItems?.reduce(
+          (sum, item) => (item.quantity ? sum + item.quantity : sum + 0),
+          0
+        );
+        badge.textContent = `${productItemQuantity}`;
       } else {
         badge.classList.add('non-active');
       }
