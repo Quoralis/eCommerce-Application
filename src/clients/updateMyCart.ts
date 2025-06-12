@@ -1,13 +1,13 @@
 import { apiUrl, projectKey } from '../config.js';
 import { wrapperTryCatch } from '../utils/wrapperTryCatch.js';
-import { updateMyCart } from '../types/types.js';
+import { updateMyCart, responseMyCart } from '../types/types.js';
 import { requestToken } from './authClient.js';
-
+import { updateBadgeNumber } from '../pages/header/updateBadgeNumber.js';
 export const updateCart = async (body: updateMyCart) => {
   const url = `${apiUrl}/${projectKey}/me/carts/${localStorage.getItem('cartId')}`;
 
   try {
-    const response = await wrapperTryCatch(url, {
+    const response = await wrapperTryCatch<responseMyCart>(url, {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${await requestToken()}`,
@@ -15,7 +15,7 @@ export const updateCart = async (body: updateMyCart) => {
       },
       body: JSON.stringify(body),
     });
-    console.log(response);
+    updateBadgeNumber(response);
     return response;
   } catch (err) {
     console.log('updateCustomerInf', err);

@@ -236,6 +236,9 @@ export interface responseMyCart {
   id: string;
   version: number;
   lineItems: [productCart];
+  totalPrice: {
+    centAmount: number;
+  };
 }
 
 export interface updateMyCart {
