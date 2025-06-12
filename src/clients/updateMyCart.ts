@@ -3,6 +3,7 @@ import { wrapperTryCatch } from '../utils/wrapperTryCatch.js';
 import { updateMyCart, responseMyCart } from '../types/types.js';
 import { requestToken } from './authClient.js';
 import { updateBadgeNumber } from '../pages/header/updateBadgeNumber.js';
+
 export const updateCart = async (body: updateMyCart) => {
   const url = `${apiUrl}/${projectKey}/me/carts/${localStorage.getItem('cartId')}`;
 

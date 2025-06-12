@@ -156,6 +156,8 @@ export interface productCart {
   totalPrice: {
     centAmount: number;
   };
+  quantity?: number;
+  lineItems?: productCart[];
 }
 
 export interface DisplayProduct {
@@ -245,7 +247,7 @@ export interface updateMyCart {
   version: number;
   actions: Array<{
     action: string;
-    distributionChannel: {
+    distributionChannel?: {
       typeId: string;
       id: string;
     };
