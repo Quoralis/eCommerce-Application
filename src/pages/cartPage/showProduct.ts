@@ -6,10 +6,10 @@ import { deleteProductInCart } from './deleteProduct.js';
 import { changeProductQuantity } from './changeProductQuantity.js';
 import { getMyCart } from '../../clients/getMyCart.js';
 
-export const showProduct = (
+export const showProduct = async (
   parent: HTMLElement,
   data: DisplayProduct
-): void => {
+): Promise<void> => {
   const price = priceProduct(data);
   const cardProduct = createEl({
     tag: 'div',
@@ -61,7 +61,7 @@ export const showProduct = (
     text: `${price}`,
     parent: nameAndPrice,
   });
-  changeQualityProduct(cardProduct, data);
+  await changeQualityProduct(cardProduct, data);
   deleteProduct(cardProduct);
 };
 
