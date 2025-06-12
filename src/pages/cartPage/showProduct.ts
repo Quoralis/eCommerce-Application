@@ -84,6 +84,9 @@ const changeQualityProduct = async (
     tag: 'a',
     attributes: { 'uk-icon': 'minus-circle' },
     parent: btnsWrapper,
+    onClick: async (event) => {
+      await changeProductQuantity(event, -1);
+    },
   });
   /* const quantity = */ createEl({
     tag: 'span',
@@ -96,7 +99,7 @@ const changeQualityProduct = async (
     attributes: { 'uk-icon': 'plus-circle' },
     parent: btnsWrapper,
     onClick: async (event) => {
-      await changeProductQuantity(event);
+      await changeProductQuantity(event, 1);
     },
   });
 
