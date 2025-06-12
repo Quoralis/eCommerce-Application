@@ -17,8 +17,10 @@ export async function renderProductsInCategory(
     '.product-container'
   ) as HTMLElement;
   const categoryId = await getCategoriesId(keyCategory);
+  console.log(categoryId);
+
   const bearToken = localStorage.getItem('bearerToken');
-  if (bearToken) {
+  if (bearToken && categoryId) {
     const products = await getProductsInCategory(bearToken, categoryId);
     renderPagination(productContainer, products.count, 1, paginations);
 
@@ -54,5 +56,6 @@ export async function renderProductsInCategory(
       };
       renderProductCard(productWrapper, dataCard, keyCategory);
     });
+  } else {
   }
 }

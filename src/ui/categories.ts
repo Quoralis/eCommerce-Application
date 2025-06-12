@@ -13,6 +13,7 @@ const arrIcons: string[] = [
   iconAppleWatch,
   iconIphones,
   iconMacBooks,
+  iconAllProducts,
 ];
 
 export async function renderCategories(parent: HTMLElement): Promise<void> {
@@ -33,28 +34,9 @@ export async function renderCategories(parent: HTMLElement): Promise<void> {
     classes: ['categories-list'],
     parent: navCategories,
   });
-  const li = createEl({
-    tag: 'li',
-    classes: ['category-title'],
-    parent: ul,
-  });
-  createEl({
-    tag: 'img',
-    classes: ['category-icon'],
-    attributes: { src: iconAllProducts },
-    parent: li,
-  });
-  createEl({
-    tag: 'span',
-    classes: ['category-name'],
-    text: 'All Products',
-    attributes: {
-      'data-path': '/catalog',
-    },
-    parent: li,
-  });
 
   const categoryList = await fetchAllCategories();
+  console.log(categoryList);
   categoryList.results.map((el, index) => {
     const li = createEl({
       tag: 'li',

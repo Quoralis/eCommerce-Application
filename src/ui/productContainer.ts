@@ -1,5 +1,4 @@
 import { createEl } from '../utils/createElement.js';
-import { renderProductList } from './renderProductList.js';
 
 export async function renderProductLContainer(
   parent: HTMLElement
@@ -9,10 +8,9 @@ export async function renderProductLContainer(
     classes: ['product-container'],
     parent: parent,
   });
-  const productsWrapper = createEl({
+  createEl({
     tag: 'div',
     classes: ['product-wrapper'],
     parent: section,
   });
-  await renderProductList(productsWrapper, 8);
 }

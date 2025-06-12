@@ -2,7 +2,7 @@ import { createEl } from '../utils/createElement.js';
 import { searchProduct } from '../clients/searchProduct.js';
 import { clearDom } from '../utils/clearDom.js';
 import { CurrentProduct } from '../types/types.js';
-import { renderProductList } from './renderProductList.js';
+// import { renderProductList } from './renderProductList.js';
 import { showCards } from './sortProducts.js';
 
 export const filterSearch = (parent: HTMLElement): void => {
@@ -61,9 +61,9 @@ const showCardsByRequest = async (
     const arrProducts = <CurrentProduct[]>(
       await searchProduct(event.target.value)
     );
-    if (event.target.value === '') {
-      await renderProductList(parent, 8);
-    }
+    // if (event.target.value === '') {
+    //   await renderProductList(parent, 8);
+    // }
     if (arrProducts.length > 0) {
       showCards(arrProducts, parent);
     } else if (arrProducts.length === 0 && event.target.value !== '') {

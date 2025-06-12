@@ -3,6 +3,7 @@ import { CurrentProduct } from '../types/types.js';
 
 export async function prepareProductsForDisplay() {
   const responseProducts = await getAllProductsClients();
+  console.log(responseProducts);
   if ('results' in responseProducts)
     return responseProducts.results.map((currentValue: CurrentProduct) => ({
       nameCard: currentValue.name,

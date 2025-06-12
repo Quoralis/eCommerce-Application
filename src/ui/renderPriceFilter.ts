@@ -1,6 +1,5 @@
 import { createEl } from '../utils/createElement.js';
 import { renderProductsInCategory } from './renderProductsInCategory.js';
-import { renderProductList } from './renderProductList.js';
 
 export function renderPriceFilter(element: HTMLElement) {
   const priceFilter = createEl({
@@ -67,7 +66,7 @@ export function renderPriceFilter(element: HTMLElement) {
         const container = document.querySelector('.product-wrapper');
         if (container) {
           container.innerHTML = '';
-          await renderProductList(container as HTMLElement, 8);
+          await renderProductsInCategory('allproducts');
         }
       }
     }
@@ -95,7 +94,7 @@ export function renderPriceFilter(element: HTMLElement) {
       } else {
         const container = document.querySelector('.product-wrapper');
         if (container) container.innerHTML = '';
-        await renderProductList(container as HTMLElement, 8);
+        await renderProductsInCategory('allproducts');
       }
     },
     parent: priceFilter,
@@ -121,7 +120,7 @@ export function renderPriceFilter(element: HTMLElement) {
       } else {
         const container = document.querySelector('.product-wrapper');
         if (container) container.innerHTML = '';
-        await renderProductList(container as HTMLElement, 8);
+        await renderProductsInCategory('allproducts');
       }
     },
     parent: priceFilter,
