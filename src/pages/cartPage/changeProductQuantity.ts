@@ -1,6 +1,6 @@
 import { getMyCart } from '../../clients/getMyCart.js';
 import { updateCart } from '../../clients/updateMyCart.js';
-import { IChangeQuantity, responseMyCart } from '../../types/types.js';
+import { updateMyCart, responseMyCart } from '../../types/types.js';
 import { formatPrice } from '../../utils/formatPrice.js';
 import { updateBadgeNumber } from '../header/updateBadgeNumber.js';
 import { deleteProductInCart } from './deleteProduct.js';
@@ -16,7 +16,7 @@ export const changeProductQuantity = async (e: Event, addition: number) => {
     );
     const updateVersion = <responseMyCart>await getMyCart();
 
-    const addProductItem: IChangeQuantity = {
+    const addProductItem: updateMyCart = {
       version: updateVersion.version,
       actions: [
         {

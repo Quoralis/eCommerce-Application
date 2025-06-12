@@ -247,7 +247,7 @@ export interface updateMyCart {
   version: number;
   actions: Array<{
     action: string;
-    distributionChannel: {
+    distributionChannel?: {
       typeId: string;
       id: string;
     };
@@ -259,14 +259,5 @@ export interface updateMyCart {
     country?: string;
     actionIndex?: number;
     quantity?: number;
-  }>;
-}
-
-export interface IChangeQuantity {
-  version: number;
-  actions: Array<{
-    action: string;
-    lineItemId: string | undefined;
-    quantity: number;
   }>;
 }
