@@ -270,15 +270,3 @@ export interface IChangeQuantity {
     quantity: number;
   }>;
 }
-
-export interface ICart {
-  [key: string]:
-    | string
-    | number
-    | boolean
-    | ICart
-    | productCart[]
-    | []
-    | undefined;
-  lineItems: productCart[];
-}
