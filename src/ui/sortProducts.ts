@@ -3,7 +3,7 @@ import { getSortProducts } from '../clients/getSortProducts.js';
 import { CurrentProduct, DisplayProduct } from '../types/types.js';
 import { renderProductCard } from './productCard.js';
 import { clearDom } from '../utils/clearDom.js';
-import { getCategoriesId } from '../clients/categoriesClient.js';
+import { getActiveCategoryId } from '../services/categoryService.js';
 
 const arrSort = ['Price', 'Name'];
 
@@ -85,30 +85,16 @@ const sortBy = async (
   order: string
 ): Promise<void> => {
   clearDom('product-wrapper');
-
-  const activeCategory = document.querySelector(
-    '.active__category'
-  ) as HTMLElement | null;
-  if (!activeCategory) {
-    console.warn('Active category not found.');
-    return;
+  const activeCategory = await getActiveCategoryId();
+  if (activeCategory) {
+    const { categoryId } = activeCategory;
+    const arrProducts = (await getSortProducts(
+      field,
+      order,
+      categoryId
+    )) as CurrentProduct[];
+    showCards(arrProducts, parentCards);
   }
-  const keyActiveCategory = activeCategory.dataset.categoryKey;
-  if (!keyActiveCategory) {
-    console.warn('No data-category-key on active category');
-    return;
-  }
-  const categoryId = await getCategoriesId(keyActiveCategory);
-  if (!categoryId) {
-    console.warn('Category ID not found for key:', keyActiveCategory);
-    return;
-  }
-  const arrProducts = (await getSortProducts(
-    field,
-    order,
-    categoryId
-  )) as CurrentProduct[];
-  showCards(arrProducts, parentCards);
 };
 
 const sortByPriceOrName = async (
@@ -121,7 +107,6 @@ const sortByPriceOrName = async (
   el.classList.add('active');
   el.classList.toggle(sort.desc);
   const cardWrapper = <HTMLElement>document.querySelector('.product-wrapper');
-  console.log(cardWrapper);
   await sortBy(cardWrapper, field, order);
 };
 
