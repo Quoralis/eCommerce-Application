@@ -1,7 +1,7 @@
 import { createEl } from '../../utils/createElement.js';
 import { getMyCart } from '../../clients/getMyCart.js';
 import { showProduct } from './showProduct.js';
-import { showTotalPrice } from './showTotalPrice.js';
+import { showTotalHeanding } from './showTotalPrice.js';
 import {
   responseMyCart,
   DisplayProduct,
@@ -104,7 +104,7 @@ export const showCartPage = async () => {
     parent: wrapperProducts,
   });
 
-  showTotalPrice(wrapperTotals);
+  showTotalHeanding(wrapperTotals);
   showModalWindow(modalInCartPage);
   await getListItem(cardProductWrapper);
 };

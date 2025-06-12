@@ -3,6 +3,7 @@ import { getMyProduct } from '../../clients/getMyCart.js';
 import { updateMyCart } from '../../types/types.js';
 import { getListItem } from './showCartPage.js';
 import { clearDom } from '../../utils/clearDom.js';
+import { updateTotalPrice } from './updateTotalPrice.js';
 export const deleteProductInCart = async (id: string): Promise<void> => {
   const versionCart = (await getMyProduct()).version;
   const removeProductInCart: updateMyCart = {
@@ -25,4 +26,5 @@ export const deleteProductInCart = async (id: string): Promise<void> => {
   );
   clearDom('card-product-wrapper');
   await getListItem(cardWrapper);
+  await updateTotalPrice();
 };

@@ -4,7 +4,7 @@ import { formatPrice } from '../../utils/formatPrice.js';
 import { addProductInCart } from '../../ui/productCard.js';
 import { deleteProductInCart } from '../cartPage/deleteProduct.js';
 import { getCurentProductInCart } from './getCurentProductInCart.js';
-
+import { basketBtn } from '../header/headerStructure.js';
 const showSalePrice = (
   data: CurrentProduct,
   parent: HTMLElement
@@ -119,8 +119,10 @@ const toggleProductInCart = (
   });
   productAdd.addEventListener('click', async () => {
     productAdd.disabled = true;
-    await addProductInCart(data.key);
+    basketBtn.disabled = true;
+    await addProductInCart(data.id);
     productRemove.disabled = false;
+    basketBtn.disabled = false;
   });
   const productRemove = createEl({
     tag: 'button',
@@ -141,9 +143,11 @@ const toggleProductInCart = (
     parent: btnsWrapper,
   });
   productRemove.addEventListener('click', async () => {
+    basketBtn.disabled = true;
     productRemove.disabled = true;
     const product = <productCart>await getCurentProductInCart(data.id);
     await deleteProductInCart(product.id);
     productAdd.disabled = false;
+    basketBtn.disabled = false;
   });
 };
