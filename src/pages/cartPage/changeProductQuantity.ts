@@ -3,6 +3,7 @@ import { updateCart } from '../../clients/updateMyCart.js';
 import { IChangeQuantity, responseMyCart } from '../../types/types.js';
 import { formatPrice } from '../../utils/formatPrice.js';
 import { deleteProductInCart } from './deleteProduct.js';
+import { updateTotalPrice } from './updateTotalPrice.js';
 
 export const changeProductQuantity = async (e: Event, addition: number) => {
   if (e.target instanceof Element) {
@@ -35,7 +36,7 @@ export const changeProductQuantity = async (e: Event, addition: number) => {
       const quantity = productWrapper?.querySelector(
         '.uk-flex.uk-flex-bottom .uk-margin-small-right.uk-margin-small-left'
       );
-      const totalPrice = productWrapper?.querySelector('.total-price');
+      const totalPrice = productWrapper?.querySelector('.product__total-price');
 
       if (quantity && totalPrice) {
         const updatedProduct = updateResponse?.lineItems?.find(
@@ -50,6 +51,8 @@ export const changeProductQuantity = async (e: Event, addition: number) => {
         } else {
           deleteProductInCart(productId);
         }
+
+        await updateTotalPrice();
       }
     }
   }

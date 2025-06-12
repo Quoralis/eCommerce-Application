@@ -107,7 +107,7 @@ const changeQualityProduct = async (
     tag: 'div',
     text: `${totalPrice}`,
     parent: parent,
-    classes: ['total-price'],
+    classes: ['product__total-price'],
   });
 };
 
