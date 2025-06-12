@@ -8,7 +8,6 @@ import {
 import { formatShortDescription } from '../utils/formatShortDescription.js';
 import { createMyCart } from '../clients/createMyCart.js';
 import { updateCart } from '../clients/updateMyCart.js';
-import { getCurrentProductClient } from '../clients/getCurrentProductClient.js';
 import { checkMyCart } from '../clients/checkMyCart.js';
 import { getMyCart } from '../clients/getMyCart.js';
 import { showNotification } from '../services/notification/showNotification.js';
@@ -101,7 +100,7 @@ export function renderProductCard(
   });
   addToCart.addEventListener('click', async (): Promise<void> => {
     addToCart.disabled = true;
-    await addProductInCart(options.productKey);
+    await addProductInCart(<string>options.productId);
   });
   return cardElement;
 }
@@ -109,7 +108,6 @@ export function renderProductCard(
 export const addProductInCart = async (option: string): Promise<void> => {
   let cart: responseMyCart;
   const positiveStatus = 200;
-  const product = await getCurrentProductClient(option);
   const checkCart = await checkMyCart();
   if (checkCart !== positiveStatus) {
     cart = <responseMyCart>await createMyCart();
@@ -123,7 +121,7 @@ export const addProductInCart = async (option: string): Promise<void> => {
     actions: [
       {
         action: 'addLineItem',
-        productId: product.id,
+        productId: option,
         distributionChannel: {
           typeId: 'channel',
           id: '0995709c-be0e-4389-955f-9293634fd512',

@@ -4,7 +4,7 @@ import { formatPrice } from '../../utils/formatPrice.js';
 import { addProductInCart } from '../../ui/productCard.js';
 import { deleteProductInCart } from '../cartPage/deleteProduct.js';
 import { getCurentProductInCart } from './getCurentProductInCart.js';
-
+import { basketBtn } from '../header/headerStructure.js';
 const showSalePrice = (
   data: CurrentProduct,
   parent: HTMLElement
@@ -118,14 +118,11 @@ const toggleProductInCart = (
     parent: btnsWrapper,
   });
   productAdd.addEventListener('click', async () => {
-    const profileBtn = <HTMLButtonElement>(
-      document.querySelector('.profile-btn')
-    );
     productAdd.disabled = true;
-    profileBtn.disabled = true;
-    await addProductInCart(data.key);
+    basketBtn.disabled = true;
+    await addProductInCart(data.id);
     productRemove.disabled = false;
-    profileBtn.disabled = false;
+    basketBtn.disabled = false;
   });
   const productRemove = createEl({
     tag: 'button',
@@ -146,14 +143,11 @@ const toggleProductInCart = (
     parent: btnsWrapper,
   });
   productRemove.addEventListener('click', async () => {
-    const profileBtn = <HTMLButtonElement>(
-      document.querySelector('.profile-btn')
-    );
+    basketBtn.disabled = true;
     productRemove.disabled = true;
-    profileBtn.disabled = true;
     const product = <productCart>await getCurentProductInCart(data.id);
     await deleteProductInCart(product.id);
     productAdd.disabled = false;
-    profileBtn.disabled = false;
+    basketBtn.disabled = false;
   });
 };

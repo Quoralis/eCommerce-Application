@@ -71,7 +71,7 @@ const autorisationWrapper = createEl({
 
 const linkToCartWrapper = createEl({
   tag: 'div',
-  classes: ['uk-flex'],
+  classes: ['uk-flex', 'link-wrapper'],
   parent: autorisationWrapper,
 });
 
@@ -82,7 +82,7 @@ const basketBtn = createEl({
   parent: linkToCartWrapper,
 });
 
-createEl({
+const badge = createEl({
   tag: 'span',
   classes: ['uk-badge', 'uk-position-relative', 'cart-badge'],
   parent: linkToCartWrapper,
@@ -189,6 +189,7 @@ const cloneMainBtn = mainBtn.cloneNode(true);
 const cloneCatalogBtn = catalogBtn.cloneNode(true);
 const cloneAboutBtn = aboutBtn.cloneNode(true);
 const cloneBasketBtn = basketBtn.cloneNode(true);
+const cloneCartPageModal = linkToCartWrapper.cloneNode(true);
 const cloneLoginBtn = loginBtn.cloneNode(true);
 const cloneSignBtn = signBtn.cloneNode(true);
 const cloneSignOut = signOut.cloneNode(true);
@@ -232,4 +233,7 @@ export {
   loginBtn,
   closeHeaderBurger,
   header,
+  basketBtn,
+  cloneCartPageModal,
+  badge,
 };

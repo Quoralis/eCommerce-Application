@@ -13,6 +13,7 @@ export const confirmationOfDeletion = (parent: HTMLElement): void => {
   });
   createEl({
     tag: 'h4',
+    classes: ['uk-text-center'],
     text: 'Are you sure you want to delete all products?',
     parent: titleAndBtnsWrapper,
   });

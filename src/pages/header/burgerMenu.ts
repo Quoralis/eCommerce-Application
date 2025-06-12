@@ -2,13 +2,13 @@ import { createEl } from '../../utils/createElement.js';
 import {
   cloneMainBtn,
   cloneAboutBtn,
-  cloneBasketBtn,
   cloneCatalogBtn,
   cloneLoginBtn,
   cloneSignBtn,
   headerBurgerMenu,
   cloneSignOut,
   cloneProfileBtn,
+  cloneCartPageModal,
 } from './headerStructure.js';
 
 export const showBurgerMenu = (): void => {
@@ -52,9 +52,7 @@ export const showBurgerMenu = (): void => {
     cloneLoginBtn,
     cloneSignBtn,
     cloneSignOut,
-    cloneBasketBtn,
+    cloneCartPageModal,
     cloneProfileBtn
   );
-  // cloneBasketWrapper.appendChild(cloneBasketBtn);
-  // cloneBasketWrapper.appendChild(cloneBadge);
 };
