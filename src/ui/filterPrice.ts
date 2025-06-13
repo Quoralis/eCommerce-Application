@@ -1,7 +1,7 @@
 import { createEl } from '../utils/createElement.js';
 import { renderProductsInCategory } from './renderProductsInCategory.js';
 
-export function renderPriceFilter(element: HTMLElement) {
+export function filterPrice(element: HTMLElement) {
   const priceFilter = createEl({
     tag: 'div',
     classes: ['price-filter'],

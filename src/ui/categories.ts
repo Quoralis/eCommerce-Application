@@ -36,7 +36,6 @@ export async function renderCategories(parent: HTMLElement): Promise<void> {
   });
 
   const categoryList = await fetchAllCategories();
-  console.log(categoryList);
   categoryList.results.map((el, index) => {
     const li = createEl({
       tag: 'li',

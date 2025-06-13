@@ -64,8 +64,6 @@ export default class Router {
   private async render(path: string): Promise<void> {
     const arrPath = path.split('/').filter(Boolean); // удаляем пустые элементы
     const [root, category, id] = arrPath;
-    console.log(path);
-
     if (root === 'catalog' && category && id) {
       await this.renderDetailedProductPage(id, path);
       return;
