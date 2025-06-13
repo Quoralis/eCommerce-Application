@@ -22,7 +22,9 @@ export const searchProduct = async (text: string, categoryId: string) => {
 };
 
 export const searchProductsPrice = async (
-  categoryId: string
+  categoryId: string,
+  limit: number = 8,
+  offset: number = 0
 ): Promise<ProductsResponse> => {
   const minPriceInput = document.getElementById(
     'min-price'
@@ -36,6 +38,6 @@ export const searchProductsPrice = async (
   const minPrice = Number(minPriceStr || '0') * 100;
   const maxPrice = Number(maxPriceStr || '20000000') * 100;
   return await fetchFromApi(
-    `product-projections/search?filter=variants.price.centAmount:range(${minPrice} to ${maxPrice})&filter=categories.id:"${categoryId}"`
+    `product-projections/search?filter=variants.price.centAmount:range(${minPrice} to ${maxPrice})&filter=categories.id:"${categoryId}"&limit=${limit}&offset=${offset}&sort=price asc`
   );
 };

@@ -3,11 +3,12 @@ import { getProductsInCategory } from '../clients/getCurrentProductClient.js';
 import { DisplayProduct, ProductsResponse } from '../types/types.js';
 import { renderProductCard } from './productCard.js';
 import { renderPagination } from './renderPagination.js';
-import { paginations } from './paginations.js';
 import { searchProductsPrice } from '../clients/searchProduct.js';
 
 export async function renderProductsInCategory(
-  keyCategory: string
+  keyCategory: string,
+  limit: number = 8,
+  offset: number = 0
 ): Promise<void> {
   const productWrapper = document.querySelector(
     '.product-wrapper'
@@ -27,11 +28,21 @@ export async function renderProductsInCategory(
       minInput.value.trim() !== '' || maxInput.value.trim() !== '';
 
     const products: ProductsResponse = hasPriceFilter
-      ? await searchProductsPrice(categoryId)
-      : await getProductsInCategory(bearToken, categoryId);
+      ? await searchProductsPrice(categoryId, limit, offset)
+      : await getProductsInCategory(bearToken, categoryId, limit, offset);
 
-    renderPagination(productContainer, products.count, 1, paginations);
-    await searchProductsPrice(categoryId);
+    console.log(products);
+
+    const currentPage = Math.floor(offset / limit) + 1;
+    renderPagination(
+      productContainer,
+      products.total || products.count,
+      currentPage,
+      (page) => {
+        const newOffset = (page - 1) * limit;
+        renderProductsInCategory(keyCategory, limit, newOffset);
+      }
+    );
 
     products.results.forEach((product) => {
       const dataCard: DisplayProduct = {

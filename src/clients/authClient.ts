@@ -2,14 +2,11 @@ import { authUrl, scopes, dataAuth, projectKey } from '../config.js';
 import { wrapperTryCatch } from '../utils/wrapperTryCatch.js';
 import { TokenResponse } from '../types/types.js';
 
-// export let bearerToken: Promise<string>;
-
 const body = new URLSearchParams({
   grant_type: 'client_credentials',
   scope: scopes,
 }).toString();
 
-//общая ф-я для возращения токенов,wrapper
 export async function fetchToken(
   url: string,
   body: string
