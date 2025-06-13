@@ -14,6 +14,7 @@ import { renderBreadcrumb } from '../ui/renderBreadcrumb.js';
 import { paths } from '../constants/paths.js';
 import { deleteModalWindow } from '../ui/modalWindow.js';
 import { showAboutPage } from '../pages/aboutPage/showAboutPage.js';
+import { showCartPage } from '../pages/cartPage/showCartPage.js';
 import { showMainPageContent } from '../pages/mainPage/mainPageContent.js';
 
 export default class Router {
@@ -38,6 +39,7 @@ export default class Router {
       '/user': this.renderUserPage.bind(this),
       '/user/addresses': this.renderAddressPage.bind(this),
       '/about': this.renderAboutPage.bind(this),
+      '/cart': this.renderCartPage.bind(this),
     };
     window.addEventListener('popstate', async () => {
       await this.render(window.location.pathname);
@@ -75,6 +77,9 @@ export default class Router {
 
     const renderPage = this.routes[path];
     if (path === paths.catalog) {
+      deleteModalWindow();
+    }
+    if (path === paths.cart) {
       deleteModalWindow();
     }
     if (renderPage) {
@@ -135,8 +140,7 @@ export default class Router {
 
   private renderUserPage(): void {
     clearDom('main-page-wrapper');
-    const email = <string>localStorage.getItem('email');
-    showUserProfilePage(email);
+    showUserProfilePage();
   }
 
   private renderAddressPage(): void {
@@ -147,6 +151,11 @@ export default class Router {
   private renderAboutPage(): void {
     clearDom('main-page-wrapper');
     showAboutPage();
+  }
+
+  private renderCartPage(): void {
+    clearDom('main-page-wrapper');
+    showCartPage();
   }
 
   private async renderCategories(category: string): Promise<void> {

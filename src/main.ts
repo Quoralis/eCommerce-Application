@@ -6,7 +6,6 @@ import { showHeaderComponent } from './pages/header/headerStructure.js';
 import { updateAuthUI } from './utils/auth.js';
 import { requestBearerToken } from './clients/authClient.js';
 import Router from './router/Router.js';
-import { showMainPageContent } from './pages/mainPage/mainPageContent.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
   showBurgerMenu();
@@ -22,6 +21,4 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
   const router = Router.getInstance();
   await router.initialRender();
-
-  showMainPageContent();
 });

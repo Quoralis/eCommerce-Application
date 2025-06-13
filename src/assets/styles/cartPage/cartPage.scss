@@ -1,0 +1,51 @@
+@use '../globalVariables.scss' as *;
+
+.card-product {
+  padding: 20px;
+  margin: 5px;
+}
+
+.product-img {
+  height: 70px;
+}
+
+.wrapper-products {
+  flex-grow: 2;
+  margin-right: 7px;
+}
+
+.wrapper-totals {
+  flex-grow: 1;
+}
+
+.coupon-input {
+  margin: 5px 0 0 5px;
+}
+
+.conteiner-empty {
+  height: 80vh;
+  justify-content: center;
+}
+
+.uk-grid + .uk-grid {
+  margin-top: 10px;
+}
+
+.uk-badge {
+  right: 14px;
+  bottom: 6px;
+  border: 1px solid $white;
+}
+
+.cart-badge.non-active {
+  opacity: 0;
+}
+
+@media (max-width: 700px) and (min-width: 350px) {
+  .cart-page {
+    flex-direction: column-reverse;
+  }
+  .wrapper-totals {
+    margin-bottom: 15px;
+  }
+}

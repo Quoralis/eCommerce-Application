@@ -37,6 +37,17 @@ export async function requestAnonymousToken() {
   return anonymousToken.access_token;
 }
 
+export async function requestToken() {
+  let token: string;
+  const loginToken = <string>localStorage.getItem('accessToken');
+  if (loginToken) {
+    token = loginToken;
+  } else {
+    token = await requestAnonymousToken();
+  }
+  return token;
+}
+
 export async function requestLoginToken(email: string, password: string) {
   const bodyLogin = new URLSearchParams({
     grant_type: 'password',

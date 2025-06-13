@@ -6,4 +6,5 @@ export enum paths {
   detailedProduct = '/detailed-product',
   user = '/user',
   addresses = '/user/addresses',
+  cart = '/cart',
 }
