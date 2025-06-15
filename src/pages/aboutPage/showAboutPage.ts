@@ -7,6 +7,8 @@ const arrDevalopers = [
   'Yana Malakhova',
 ];
 
+const Rollsdevelopers = ['Developer', 'Team lead', 'Developer'];
+
 const arrGitHubLinks = [
   'https://github.com/Quoralis',
   'https://github.com/1Arseniy',
@@ -55,7 +57,14 @@ const aboutCards = (parent: HTMLElement): void => {
     createEl({
       tag: 'h2',
       text: arrDevalopers[i],
-      classes: ['uk-heading-divider'],
+      classes: ['uk-heading-divider', 'uk-margin-remove-bottom'],
+      parent: card,
+    });
+
+    createEl({
+      tag: 'span',
+      classes: ['uk-margin-small-top', 'uk-margin-small-bottom'],
+      text: Rollsdevelopers[i],
       parent: card,
     });
 

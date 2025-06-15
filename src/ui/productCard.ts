@@ -100,7 +100,9 @@ export function renderProductCard(
   });
   addToCart.addEventListener('click', async (): Promise<void> => {
     addToCart.disabled = true;
-    await addProductInCart(<string>options.productId);
+    if (options.productId) {
+      await addProductInCart(options.productId);
+    }
   });
   return cardElement;
 }
@@ -115,6 +117,7 @@ export const addProductInCart = async (option: string): Promise<void> => {
   }
 
   const updateVersion = <responseMyCart>await getMyCart();
+  // console.log('version', updateVersion.version);
 
   const addProductInCart: updateMyCart = {
     version: updateVersion.version,
@@ -130,5 +133,6 @@ export const addProductInCart = async (option: string): Promise<void> => {
     ],
   };
   await updateCart(addProductInCart);
+
   showNotification('Product added to cart', 'success');
 };

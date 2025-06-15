@@ -5,6 +5,7 @@ import { addProductInCart } from '../../ui/productCard.js';
 import { deleteProductInCart } from '../cartPage/deleteProduct.js';
 import { getCurentProductInCart } from './getCurentProductInCart.js';
 import { basketBtn } from '../header/headerStructure.js';
+import { showNotification } from '../../services/notification/showNotification.js';
 const showSalePrice = (
   data: CurrentProduct,
   parent: HTMLElement
@@ -149,5 +150,6 @@ const toggleProductInCart = (
     await deleteProductInCart(product.id);
     productAdd.disabled = false;
     basketBtn.disabled = false;
+    showNotification('Product removed from cart', 'success');
   });
 };

@@ -1,8 +1,10 @@
 import { requestLoginToken, revokeAccessToken } from '../clients/authClient.js';
-import { RegistrationLoginData } from '../types/types.js';
+import { RegistrationLoginData, responseMyCart } from '../types/types.js';
 import { registerCustomer } from '../clients/customerClient.js';
 import { parseError } from '../utils/parseError.js';
 import { updateAuthUI } from '../utils/auth.js';
+import { getMyCart } from '../clients/getMyCart.js';
+import { updateBadgeNumber } from '../pages/header/updateBadgeNumber.js';
 import Router from '../router/Router.js';
 const tokenCache = {
   accessToken: '',
@@ -51,8 +53,14 @@ export async function logOut(): Promise<void> {
       await revokeAccessToken(accessToken);
     if (statusRevokeToken === 200) {
       localStorage.removeItem('accessToken');
+      localStorage.removeItem('anonymousToken');
+      localStorage.removeItem('cartId');
       await updateAuthUI();
       const path = window.location.pathname;
+      const updateBadge = <responseMyCart>await getMyCart();
+      // console.log('Badge', updateBadge);ч
+      updateBadgeNumber(updateBadge);
+
       if (path !== '/login' && !path.startsWith('/user')) {
         await Router.getInstance().navigate(path);
       } else {
