@@ -1,52 +1,65 @@
 import { getCategoriesId } from '../clients/categoriesClient.js';
 import { getProductsInCategory } from '../clients/getCurrentProductClient.js';
-import { DisplayProduct } from '../types/types.js';
+import { DisplayProduct, ProductsResponse } from '../types/types.js';
 import { renderProductCard } from './productCard.js';
-import { keepOnlyDigits } from '../utils/keepOnlyDigits.js';
+import { renderPagination } from './renderPagination.js';
+import { searchProductsPrice } from '../clients/searchProduct.js';
 
 export async function renderProductsInCategory(
-  keyCategory: string
+  keyCategory: string,
+  limit: number = 8,
+  offset: number = 0
 ): Promise<void> {
-  const productContainer = document.querySelector(
-    '.product-container'
-  ) as HTMLElement;
-  productContainer.innerHTML = '';
-  const categoryId = await getCategoriesId(keyCategory);
-  const bearToken = localStorage.getItem('bearerToken');
-  if (bearToken) {
-    const products = await getProductsInCategory(bearToken, categoryId);
+  const productWrapper = document.querySelector('.product-wrapper');
+  const productContainer = document.querySelector('.product-container');
+  if (
+    productWrapper instanceof HTMLElement &&
+    productContainer instanceof HTMLElement
+  ) {
+    productWrapper.innerHTML = '';
+    const categoryId = await getCategoriesId(keyCategory);
+    console.log(categoryId);
 
-    const minPriceInput = document.getElementById(
-      'min-price'
-    ) as HTMLInputElement;
-    const maxPriceInput = document.getElementById(
-      'max-price'
-    ) as HTMLInputElement;
+    const bearToken = localStorage.getItem('bearerToken');
+    if (bearToken && categoryId) {
+      const minInput = document.getElementById('min-price');
+      const maxInput = document.getElementById('max-price');
+      if (
+        minInput instanceof HTMLInputElement &&
+        maxInput instanceof HTMLInputElement
+      ) {
+        const hasPriceFilter =
+          minInput.value.trim() !== '' || maxInput.value.trim() !== '';
 
-    const minPriceStr = keepOnlyDigits(minPriceInput.value);
-    const maxPriceStr = keepOnlyDigits(maxPriceInput.value);
-    const minPrice = Number(minPriceStr || '0') * 100;
-    const maxPrice = Number(maxPriceStr || '20000000') * 100;
+        const products: ProductsResponse = hasPriceFilter
+          ? await searchProductsPrice(categoryId, limit, offset)
+          : await getProductsInCategory(bearToken, categoryId, limit, offset);
 
-    const filteredProducts = products.results.filter((product) => {
-      let price = product.masterVariant.prices?.[0]?.value?.centAmount ?? 0;
-      const priceDiscount =
-        product.masterVariant.prices[0].discounted?.value.centAmount;
-      price = priceDiscount ? priceDiscount : price;
-      return price >= minPrice && price <= maxPrice;
-    });
+        console.log(products);
 
-    filteredProducts.forEach((product) => {
-      const dataCard: DisplayProduct = {
-        productName: product.name.en,
-        imageUrl: product.masterVariant.images![0].url,
-        productKey: product.key,
-        description: product.description.en,
-        price: product.masterVariant.prices[0].value.centAmount,
-        discountedPrice:
-          product.masterVariant.prices[0].discounted?.value.centAmount,
-      };
-      renderProductCard(productContainer, dataCard, keyCategory);
-    });
+        const currentPage = Math.floor(offset / limit) + 1;
+        renderPagination(
+          productContainer,
+          products.total || products.count,
+          currentPage,
+          (page) => {
+            const newOffset = (page - 1) * limit;
+            renderProductsInCategory(keyCategory, limit, newOffset);
+          }
+        );
+        products.results.forEach((product) => {
+          const dataCard: DisplayProduct = {
+            productName: product.name.en,
+            imageUrl: product.masterVariant.images![0].url,
+            productKey: product.key,
+            description: product.description.en,
+            price: product.masterVariant.prices[0].value.centAmount,
+            discountedPrice:
+              product.masterVariant.prices[0].discounted?.value.centAmount,
+          };
+          renderProductCard(productWrapper, dataCard, keyCategory);
+        });
+      }
+    }
   }
 }

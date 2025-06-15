@@ -44,44 +44,62 @@
     }
 
     .product-container {
-      display: flex;
       width: 100%;
-      align-items: center;
-      max-width: 80%;
-      flex-wrap: wrap;
-      border: 1px solid $dark-white;
-      justify-content: center;
+      .product-wrapper {
+        display: flex;
+        width: 100%;
+        align-items: center;
+        flex-wrap: wrap;
+        border: 1px solid $dark-white;
+        justify-content: center;
+        gap: 5em;
 
-      gap: 4em;
-    }
-  }
+        .card {
+          order: 0;
+          padding: 1em 0;
+          margin: 1em 0;
+          display: grid;
+          width: 12em;
+          justify-items: center;
+          justify-content: space-between;
+          cursor: pointer;
+          transform: translateZ(0);
+          border-radius: 0.5em;
+          backface-visibility: hidden;
+          will-change: transform;
+          transition:
+            transform 0.2s ease-out,
+            box-shadow 0.2s ease-out,
+            background-color 0.2s ease-out;
 
-  .card {
-    padding: 1em 0;
-    margin: 1em 0;
-    display: grid;
-    width: 10em;
-    justify-items: center;
-    justify-content: space-between;
-    cursor: pointer;
-    transform: translateZ(0);
-    border-radius: 0.5em;
-    backface-visibility: hidden;
-    will-change: transform;
-    transition:
-      transform 0.2s ease-out,
-      box-shadow 0.2s ease-out,
-      background-color 0.2s ease-out;
+          img {
+            width: 200px;
+            height: 200px;
+          }
 
-    img {
-      width: 150px;
-      height: 150px;
-    }
-
-    &:hover {
-      box-shadow:
-        rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
-        rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+          &:hover {
+            box-shadow:
+              rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
+              rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+          }
+        }
+      }
+      nav {
+        display: flex;
+        justify-content: center;
+        margin-top: 0.7em;
+        gap: 1em;
+        button {
+          width: 2em;
+          height: 2em;
+          font-size: 1em;
+          color: white;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          text-align: center;
+        }
+      }
     }
   }
 

@@ -7,7 +7,6 @@ const body = new URLSearchParams({
   scope: scopes,
 }).toString();
 
-//общая ф-я для возращения токенов,wrapper
 export async function fetchToken(
   url: string,
   body: string
@@ -44,7 +43,13 @@ export async function requestToken() {
   if (loginToken) {
     token = loginToken;
   } else {
-    token = await requestAnonymousToken();
+    const anonymousToken = <string>localStorage.getItem('anonymousToken');
+    if (anonymousToken) {
+      token = anonymousToken;
+    } else {
+      token = await requestAnonymousToken();
+      localStorage.setItem('anonymousToken', token);
+    }
   }
   return token;
 }
