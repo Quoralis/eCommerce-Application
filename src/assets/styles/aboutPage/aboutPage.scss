@@ -4,6 +4,15 @@
   margin: 10px;
 }
 
+.img-developer {
+  height: 40px;
+}
+
+.about-title {
+  margin-top: 0;
+  font-size: 1.5rem;
+}
+
 .uk-icon-button {
   margin-top: 10px;
   align-self: center;
@@ -23,4 +32,10 @@
 
 .logo-rss {
   height: 50px;
+}
+
+@media (max-width: 700px) and (min-width: 350px) {
+  .about-title {
+    font-size: 1.3rem;
+  }
 }
