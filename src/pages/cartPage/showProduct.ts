@@ -80,12 +80,15 @@ const changeQualityProduct = async (
     classes: ['uk-flex', 'uk-flex-bottom'],
     parent: parent,
   });
-  /* const demotionProduct =  */ createEl({
-    tag: 'a',
+  const demotionProduct = createEl({
+    tag: 'button',
     attributes: { 'uk-icon': 'minus-circle' },
+    classes: ['quality-product'],
     parent: btnsWrapper,
     onClick: async (event) => {
+      demotionProduct.disabled = true;
       await changeProductQuantity(event, -1);
+      demotionProduct.disabled = false;
     },
   });
   /* const quantity = */ createEl({
@@ -94,12 +97,15 @@ const changeQualityProduct = async (
     text: currentProduct?.quantity?.toString(),
     parent: btnsWrapper,
   });
-  /*  const promotionProduct = */ createEl({
-    tag: 'a',
+  const promotionProduct = createEl({
+    tag: 'button',
     attributes: { 'uk-icon': 'plus-circle' },
+    classes: ['quality-product'],
     parent: btnsWrapper,
     onClick: async (event) => {
+      promotionProduct.disabled = true;
       await changeProductQuantity(event, 1);
+      promotionProduct.disabled = false;
     },
   });
 

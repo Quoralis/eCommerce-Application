@@ -39,8 +39,14 @@ export interface UserFormValues {
   addresses?: BaseAddress[];
   billingAddresses?: number[];
   shippingAddresses?: number[];
+  anonymousCart?: {
+    id: string;
+    typeId: string;
+  };
+  anonymousCartId?: string;
+  anonymousCartSignInMode?: string;
+  updateProductData?: boolean;
 }
-
 interface BaseAddress {
   city: string;
   country: string;

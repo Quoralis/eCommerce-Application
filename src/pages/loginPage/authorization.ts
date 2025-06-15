@@ -4,10 +4,17 @@ import {
   isValidPassword,
 } from '../../services/validators/validationInputs.js';
 import { login } from '../../services/authService.js';
-import { RegistrationLoginData } from '../../types/types.js';
+import {
+  RegistrationLoginData,
+  UserFormValues,
+  responseMyCart,
+} from '../../types/types.js';
 import { updateAuthUI } from '../../utils/auth.js';
 import { getCustomerByEmail } from '../../clients/customerSearchClient.js';
-
+import { mergeCartWithCustomer } from '../../clients/mergeCartWithCustomer.js';
+import { getActiveCart } from '../../clients/getActiveCart.js';
+import { getMyCart } from '../../clients/getMyCart.js';
+import { updateBadgeNumber } from '../header/updateBadgeNumber.js';
 export enum loginType {
   email = 'email',
   password = 'password',
@@ -18,6 +25,16 @@ const userAllData: RegistrationLoginData = {
     email: '',
     password: '',
   },
+};
+
+const userDataCart: UserFormValues = {
+  email: '',
+  password: '',
+  anonymousCart: {
+    id: <string>localStorage.getItem('cartId'),
+    typeId: 'cart',
+  },
+  anonymousCartSignInMode: 'MergeWithExistingCustomerCart',
 };
 
 export const validateEmailOrPassword = (
@@ -50,6 +67,9 @@ export const submitLoginForm = async (
   ) {
     userAllData.userData.email = inputEmail;
     userAllData.userData.password = inputPassword;
+
+    userDataCart.email = inputEmail;
+    userDataCart.password = inputPassword;
     try {
       const errorMailElement = document.querySelector('.email-error');
       const errorPasswordElement = document.querySelector('.password-error');
@@ -60,11 +80,14 @@ export const submitLoginForm = async (
         return;
       }
       const accessToken = await login(userAllData);
+
       if (accessToken) {
         localStorage.setItem('accessToken', accessToken);
-        console.log('data-login', userAllData.userData.email);
         localStorage.setItem('email', userAllData.userData.email);
+        await mergeCart(userDataCart);
         updateAuthUI();
+        const updateBadge = <responseMyCart>await getMyCart();
+        updateBadgeNumber(updateBadge);
       } else {
         if (errorPasswordElement)
           errorPasswordElement.textContent = 'Invalid password, try again';
@@ -72,5 +95,16 @@ export const submitLoginForm = async (
     } catch (err: unknown) {
       console.log(err, 'warning');
     }
+  }
+};
+
+export const mergeCart = async (data: UserFormValues): Promise<void> => {
+  const activeCart = await getActiveCart();
+  if (!activeCart) {
+    const mergeCart = <UserFormValues>await mergeCartWithCustomer(data);
+    console.log('merge', mergeCart);
+  } else {
+    localStorage.setItem('cartId', <string>activeCart.id);
+    console.log('active-cart', activeCart);
   }
 };
