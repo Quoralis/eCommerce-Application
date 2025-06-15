@@ -1,5 +1,5 @@
 import { createEl } from '../utils/createElement.js';
-import { renderPriceFilter } from './renderPriceFilter.js';
+import { filterPrice } from './filterPrice.js';
 
 import { filterSearch } from './filterSearch.js';
 import { sortProducts } from './sortProducts.js';
@@ -11,5 +11,5 @@ export function renderFilters(parent: HTMLElement): void {
   });
   filterSearch(filters);
   sortProducts(filters);
-  renderPriceFilter(filters);
+  filterPrice(filters);
 }

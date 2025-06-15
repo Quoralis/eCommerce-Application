@@ -9,7 +9,6 @@ import { showProductPage } from '../pages/detailedProductPage/showProductPage.js
 import { showUserProfilePage as showUserProfilePage } from '../pages/userProfilePage/userProfile.js';
 import { showUserAddresses } from '../pages/userAddressPage/userAddresses.js';
 import { openPage } from '../pages/openPage.js';
-import { renderProductList } from '../ui/renderProductList.js';
 import { renderProductsInCategory } from '../ui/renderProductsInCategory.js';
 import { renderBreadcrumb } from '../ui/renderBreadcrumb.js';
 import { paths } from '../constants/paths.js';
@@ -67,7 +66,6 @@ export default class Router {
   private async render(path: string): Promise<void> {
     const arrPath = path.split('/').filter(Boolean); // удаляем пустые элементы
     const [root, category, id] = arrPath;
-
     if (root === 'catalog' && category && id) {
       await this.renderDetailedProductPage(id, path);
       return;
@@ -123,7 +121,21 @@ export default class Router {
   private async renderCatalogPage(): Promise<void> {
     clearDom('main-page-wrapper');
     await showCatalogPage();
-    renderBreadcrumb('catalog');
+
+    const container = document.querySelector('.product-wrapper');
+    if (!(container instanceof HTMLElement)) return;
+
+    renderBreadcrumb('/catalog');
+
+    const listItems = document.querySelectorAll('.categories-list li');
+    listItems.forEach((li) => {
+      li.classList.remove('active__category');
+      if (li.getAttribute('data-category-key') === 'allproducts') {
+        li.classList.add('active__category');
+      }
+    });
+
+    await renderProductsInCategory('allproducts');
   }
 
   private renderUserPage(): void {
@@ -149,7 +161,7 @@ export default class Router {
   private async renderCategories(category: string): Promise<void> {
     clearDom('main-page-wrapper');
     await showCatalogPage();
-    const container = document.querySelector('.product-container');
+    const container = document.querySelector('.product-wrapper');
     if (!(container instanceof HTMLElement)) return;
     renderBreadcrumb(`/catalog/${category}`);
     container.innerHTML = '';
@@ -164,8 +176,6 @@ export default class Router {
 
     if (category) {
       await renderProductsInCategory(category);
-    } else {
-      await renderProductList(container);
     }
   }
 }

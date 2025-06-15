@@ -3,6 +3,8 @@ import { getSortProducts } from '../clients/getSortProducts.js';
 import { CurrentProduct, DisplayProduct } from '../types/types.js';
 import { renderProductCard } from './productCard.js';
 import { clearDom } from '../utils/clearDom.js';
+import { getActiveCategoryId } from '../services/categoryService.js';
+
 const arrSort = ['Price', 'Name'];
 
 enum sort {
@@ -82,24 +84,30 @@ const sortBy = async (
   field: string,
   order: string
 ): Promise<void> => {
-  clearDom('product-container');
-  const arrProducts = <CurrentProduct[]>await getSortProducts(field, order);
-  showCards(arrProducts, parentCards);
+  clearDom('product-wrapper');
+  const activeCategory = await getActiveCategoryId();
+  if (activeCategory) {
+    const { categoryId } = activeCategory;
+    const arrProducts = (await getSortProducts(
+      field,
+      order,
+      categoryId
+    )) as CurrentProduct[];
+    showCards(arrProducts, parentCards);
+  }
 };
 
-const sortByPriceOrName = (
+const sortByPriceOrName = async (
   el: Element,
   parent: HTMLElement,
   field: string,
   order: string
-): void => {
+): Promise<void> => {
   clearActive();
   el.classList.add('active');
   el.classList.toggle(sort.desc);
-  const cardWrapper = <HTMLElement>(
-    parent.parentElement?.parentElement?.nextElementSibling
-  );
-  sortBy(cardWrapper, field, order);
+  const cardWrapper = <HTMLElement>document.querySelector('.product-wrapper');
+  await sortBy(cardWrapper, field, order);
 };
 
 const clearActive = (): void => {

@@ -7,7 +7,6 @@ const body = new URLSearchParams({
   scope: scopes,
 }).toString();
 
-//общая ф-я для возращения токенов,wrapper
 export async function fetchToken(
   url: string,
   body: string
