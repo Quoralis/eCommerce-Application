@@ -1,5 +1,8 @@
 import { createEl } from '../../utils/createElement.js';
+import { enterPromoCode } from './applyPromoCode.js';
+import { getPromoCodeWrapper } from './showAppliedPromoCode.js';
 import { updateTotalPrice } from './updateTotalPrice.js';
+
 export const showTotalHeanding = async (parent: HTMLElement): Promise<void> => {
   const showHeandingWrapper = createEl({
     tag: 'div',
@@ -13,13 +16,14 @@ export const showTotalHeanding = async (parent: HTMLElement): Promise<void> => {
     parent: showHeandingWrapper,
   });
   showCoupon(parent);
+  getPromoCodeWrapper();
   await showTotalPrice(parent);
 };
 
 const showCoupon = (parent: HTMLElement): void => {
   const formCoupon = createEl({
     tag: 'form',
-    classes: ['uk-flex'],
+    classes: ['uk-flex', 'coupon'],
     parent: parent,
   });
 
@@ -32,7 +36,7 @@ const showCoupon = (parent: HTMLElement): void => {
     parent: formCoupon,
   });
 
-  const applyCoupon = createEl({
+  createEl({
     tag: 'a',
     text: 'apply',
     classes: [
@@ -44,9 +48,9 @@ const showCoupon = (parent: HTMLElement): void => {
       'el-nav',
     ],
     parent: formCoupon,
-  });
-  applyCoupon.addEventListener('click', (event: Event): void => {
-    event.preventDefault();
+    onClick: (event) => {
+      enterPromoCode(event);
+    },
   });
 };
 

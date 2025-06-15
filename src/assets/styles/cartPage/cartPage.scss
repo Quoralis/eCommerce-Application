@@ -41,6 +41,22 @@
   opacity: 0;
 }
 
+.promo-code {
+  &-wrapper {
+    min-height: 40px;
+    padding: 5px;
+  }
+
+  &_applied {
+    padding: 12px;
+    font-size: 14px;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
 @media (max-width: 700px) and (min-width: 350px) {
   .cart-page {
     flex-direction: column-reverse;
