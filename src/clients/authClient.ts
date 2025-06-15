@@ -49,7 +49,7 @@ export async function requestToken() {
       token = anonymousToken;
     } else {
       token = await requestAnonymousToken();
-      localStorage.setItem('anonymousToken', await requestAnonymousToken());
+      localStorage.setItem('anonymousToken', token);
     }
   }
   return token;

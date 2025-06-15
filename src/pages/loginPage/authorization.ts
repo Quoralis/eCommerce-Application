@@ -101,10 +101,10 @@ export const submitLoginForm = async (
 export const mergeCart = async (data: UserFormValues): Promise<void> => {
   const activeCart = await getActiveCart();
   if (!activeCart) {
-    /* const mergeCart = */ <UserFormValues>await mergeCartWithCustomer(data);
-    // console.log('merge', mergeCart);
+    const mergeCart = <UserFormValues>await mergeCartWithCustomer(data);
+    console.log('merge', mergeCart);
   } else {
     localStorage.setItem('cartId', <string>activeCart.id);
-    // console.log('active-cart', activeCart);
+    console.log('active-cart', activeCart);
   }
 };

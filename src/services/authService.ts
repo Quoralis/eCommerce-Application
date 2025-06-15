@@ -58,7 +58,6 @@ export async function logOut(): Promise<void> {
       await updateAuthUI();
       const path = window.location.pathname;
       const updateBadge = <responseMyCart>await getMyCart();
-      // console.log('Badge', updateBadge);ч
       updateBadgeNumber(updateBadge);
 
       if (path !== '/login' && !path.startsWith('/user')) {
