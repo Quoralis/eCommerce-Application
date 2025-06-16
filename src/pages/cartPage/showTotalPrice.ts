@@ -73,16 +73,13 @@ const showTotalPrice = async (parent: HTMLElement): Promise<void> => {
     parent: totalWrapper,
   });
 
-  createEl({
-    tag: 'div',
-    classes: ['total-price'],
-    // text: `${formatPrice(totalPrice)}`,
-    parent: totalWrapper,
-  });
+  for (let i = 0; i < 2; i++) {
+    createEl({
+      tag: 'div',
+      classes: i === 0 ? ['total-price'] : ['total-price_full'],
+      // text: `${formatPrice(totalPrice)}`,
+      parent: totalWrapper,
+    });
+  }
   await updateTotalPrice();
-  /*   createEl({
-    tag: 'div',
-    text: '20$',
-    parent: totalWrapper,
-    }); */
 };

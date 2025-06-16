@@ -69,13 +69,9 @@
 }
 
 .product {
-  &__info {
-    width: 40%;
-  }
-
   &__price-wrapper {
     display: flex;
-    gap: 10px;
+    flex-direction: column;
   }
 
   &__full-price {
@@ -95,6 +91,22 @@
       color: #ff0000;
       font-weight: 600;
     }
+  }
+}
+
+.total-price {
+  &_promo {
+    color: #ff0000;
+    font-weight: 600;
+  }
+
+  &_full {
+    padding: 0;
+  }
+
+  &_visible {
+    padding-left: 10px;
+    text-decoration: line-through;
   }
 }
 

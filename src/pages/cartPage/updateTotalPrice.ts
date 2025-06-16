@@ -23,4 +23,21 @@ export const updateTotalPrice = async () => {
   if (totalPriceEl) {
     totalPriceEl.textContent = `${formatPrice(totalPrice)}`;
   }
+
+  const cart = await getMyCart();
+  const fullPriceSum = cart?.lineItems.reduce((sum, item) => {
+    if (item.quantity) {
+      return sum + item.price.value.centAmount * item.quantity;
+    }
+
+    return sum;
+  }, 0);
+  const isDiscount = totalPrice !== fullPriceSum;
+  const fullPrice = document.querySelector('.total-price_full');
+
+  if (isDiscount && fullPrice && fullPriceSum) {
+    fullPrice.textContent = formatPrice(fullPriceSum);
+    totalPriceEl.classList.add('total-price_promo');
+    fullPrice?.classList.add('total-price_visible');
+  }
 };
