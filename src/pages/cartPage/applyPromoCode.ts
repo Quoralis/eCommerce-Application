@@ -5,6 +5,7 @@ import { requestToken } from '../../clients/authClient.js';
 import { getMyCart } from '../../clients/getMyCart.js';
 import { showNotification } from '../../services/notification/showNotification.js';
 import { showAppliedPromoCode } from './showAppliedPromoCode.js';
+import { changeProductPrice } from './changeProductPrice.js';
 
 const applyPromoCode = async (cart: responseMyCart, promoCode: string) => {
   const url = `${apiUrl}/${projectKey}/me/carts/${localStorage.getItem('cartId')}`;
@@ -27,6 +28,7 @@ const applyPromoCode = async (cart: responseMyCart, promoCode: string) => {
       },
       body: JSON.stringify(body),
     });
+
     return response;
   } catch (err) {
     console.log('applyPromoCode', err);
@@ -61,6 +63,7 @@ export const enterPromoCode = async (e: Event) => {
           if (cartWithPromoCode && promoCodeId) {
             showNotification('Promo code applied', 'success');
             showAppliedPromoCode(promoCode, promoCodeId);
+            changeProductPrice(cartWithPromoCode);
             promoCodeInput.value = '';
           }
         }

@@ -164,6 +164,11 @@ export interface productCart {
   };
   quantity?: number;
   lineItems?: productCart[];
+  discountedPrice?: {
+    value: {
+      centAmount: number;
+    };
+  };
 }
 
 export interface DisplayProduct {

@@ -68,6 +68,36 @@
   }
 }
 
+.product {
+  &__info {
+    width: 40%;
+  }
+
+  &__price-wrapper {
+    display: flex;
+    gap: 10px;
+  }
+
+  &__full-price {
+    opacity: 0;
+    transition: 0.3s;
+
+    &_visible {
+      opacity: 1;
+      text-decoration: line-through;
+    }
+  }
+
+  &__current-price {
+    transition: 0.3s;
+
+    &_promo {
+      color: #ff0000;
+      font-weight: 600;
+    }
+  }
+}
+
 @media (max-width: 700px) and (min-width: 350px) {
   .cart-page {
     flex-direction: column-reverse;
