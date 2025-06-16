@@ -3,12 +3,19 @@ import { getProductsInCategory } from '../clients/getCurrentProductClient.js';
 import { DisplayProduct, ProductsResponse } from '../types/types.js';
 import { renderProductCard } from './productCard.js';
 import { renderPagination } from './renderPagination.js';
-import { searchProductsPrice } from '../clients/searchProduct.js';
+import {
+  searchProduct,
+  searchProductsPrice,
+} from '../clients/searchProduct.js';
+import { getSortProducts } from '../clients/getSortProducts.js';
 
 export async function renderProductsInCategory(
   keyCategory: string,
   limit: number = 8,
-  offset: number = 0
+  offset: number = 0,
+  field: string = '',
+  order: string = '',
+  searchTerm: string = ''
 ): Promise<void> {
   const productWrapper = document.querySelector('.product-wrapper');
   const productContainer = document.querySelector('.product-container');
@@ -29,9 +36,30 @@ export async function renderProductsInCategory(
         const hasPriceFilter =
           minInput.value.trim() !== '' || maxInput.value.trim() !== '';
 
-        const products: ProductsResponse = hasPriceFilter
-          ? await searchProductsPrice(categoryId, limit, offset)
-          : await getProductsInCategory(bearToken, categoryId, limit, offset);
+        let products: ProductsResponse;
+
+        if (searchTerm) {
+          const result = await searchProduct(searchTerm, categoryId);
+          products = result ?? { results: [], count: 0, limit: 0, total: 0 };
+        } else if (hasPriceFilter) {
+          products = await searchProductsPrice(categoryId, limit, offset);
+        } else if (field && order) {
+          const result = await getSortProducts(
+            field,
+            order,
+            categoryId,
+            limit,
+            offset
+          );
+          products = result ?? { results: [], count: 0, limit: 0, total: 0 };
+        } else {
+          products = await getProductsInCategory(
+            bearToken,
+            categoryId,
+            limit,
+            offset
+          );
+        }
 
         const currentPage = Math.floor(offset / limit) + 1;
         renderPagination(
@@ -40,7 +68,14 @@ export async function renderProductsInCategory(
           currentPage,
           (page) => {
             const newOffset = (page - 1) * limit;
-            renderProductsInCategory(keyCategory, limit, newOffset);
+            renderProductsInCategory(
+              keyCategory,
+              limit,
+              newOffset,
+              field,
+              order,
+              searchTerm
+            );
           }
         );
         products.results.forEach((product) => {

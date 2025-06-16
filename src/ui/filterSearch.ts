@@ -1,8 +1,6 @@
 import { createEl } from '../utils/createElement.js';
 import { searchProduct } from '../clients/searchProduct.js';
 import { clearDom } from '../utils/clearDom.js';
-import { CurrentProduct } from '../types/types.js';
-import { showCards } from './sortProducts.js';
 import { getActiveCategoryId } from '../services/categoryService.js';
 import { renderProductsInCategory } from './renderProductsInCategory.js';
 
@@ -67,15 +65,26 @@ const showCardsByRequest = async (
     await renderProductsInCategory(keyActiveCategory);
     return;
   }
-  const arrProducts = <CurrentProduct[]>(
-    await searchProduct(event.target.value.trim(), categoryId)
+  const arrProducts = await searchProduct(
+    event.target.value.trim(),
+    categoryId
   );
 
   if (event.target instanceof HTMLInputElement && categoryId) {
     if (event.target.value.trim() !== textSearch) return;
-    if (arrProducts.length > 0) {
-      showCards(arrProducts, parent);
-    } else if (arrProducts.length === 0 && event.target.value !== '') {
+    if (arrProducts && arrProducts.results.length > 0) {
+      await renderProductsInCategory(
+        keyActiveCategory,
+        8,
+        0,
+        '',
+        '',
+        textSearch
+      );
+    } else if (
+      !arrProducts ||
+      (arrProducts.results.length === 0 && event.target.value !== '')
+    ) {
       parent.textContent = 'Product is not found';
     }
   }
