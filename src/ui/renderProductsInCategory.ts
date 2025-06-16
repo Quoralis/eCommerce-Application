@@ -18,8 +18,6 @@ export async function renderProductsInCategory(
   ) {
     productWrapper.innerHTML = '';
     const categoryId = await getCategoriesId(keyCategory);
-    console.log(categoryId);
-
     const bearToken = localStorage.getItem('bearerToken');
     if (bearToken && categoryId) {
       const minInput = document.getElementById('min-price');
@@ -34,8 +32,6 @@ export async function renderProductsInCategory(
         const products: ProductsResponse = hasPriceFilter
           ? await searchProductsPrice(categoryId, limit, offset)
           : await getProductsInCategory(bearToken, categoryId, limit, offset);
-
-        console.log(products);
 
         const currentPage = Math.floor(offset / limit) + 1;
         renderPagination(
@@ -56,6 +52,7 @@ export async function renderProductsInCategory(
             price: product.masterVariant.prices[0].value.centAmount,
             discountedPrice:
               product.masterVariant.prices[0].discounted?.value.centAmount,
+            productId: product.id,
           };
           renderProductCard(productWrapper, dataCard, keyCategory);
         });
