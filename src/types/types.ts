@@ -164,6 +164,11 @@ export interface productCart {
   };
   quantity?: number;
   lineItems?: productCart[];
+  discountedPrice?: {
+    value: {
+      centAmount: number;
+    };
+  };
 }
 
 export interface DisplayProduct {
@@ -247,6 +252,15 @@ export interface responseMyCart {
   totalPrice: {
     centAmount: number;
   };
+  discountCodes?: IDiscountCode[];
+}
+
+interface IDiscountCode {
+  discountCode: {
+    id: string;
+    typeId: string;
+  };
+  state: string;
 }
 
 export interface updateMyCart {

@@ -33,7 +33,7 @@ export const showProduct = async (
 
   const infProduct = createEl({
     tag: 'div',
-    classes: ['uk-flex', 'uk-flex-row', 'uk-width-1-3@m'],
+    classes: ['uk-flex', 'uk-flex-row', 'uk-width-1-3@m', 'product__info'],
     parent: cardProduct,
   });
 
@@ -56,11 +56,20 @@ export const showProduct = async (
     parent: nameAndPrice,
   });
 
-  createEl({
-    tag: 'span',
-    text: `${price}`,
+  const priceWrapper = createEl({
+    tag: 'div',
+    classes: ['product__price-wrapper'],
     parent: nameAndPrice,
   });
+
+  for (let i = 0; i < 2; i++) {
+    createEl({
+      tag: 'span',
+      text: `${price}`,
+      parent: priceWrapper,
+      classes: i === 1 ? ['product__full-price'] : ['product__current-price'],
+    });
+  }
   await changeQualityProduct(cardProduct, data);
   deleteProduct(cardProduct);
 };
