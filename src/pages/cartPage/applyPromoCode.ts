@@ -31,7 +31,23 @@ const applyPromoCode = async (cart: responseMyCart, promoCode: string) => {
 
     return response;
   } catch (err) {
-    console.log('applyPromoCode', err);
+    if (err instanceof Error) {
+      if (err.message.includes(`The discount code '' was not found.`)) {
+        showNotification(
+          'The promo code field is empty. Please enter a promo code',
+          'danger'
+        );
+      } else if (
+        err.message.includes(`The discount code '${promoCode}' was not found.`)
+      ) {
+        showNotification(
+          'This promo code is invalid. Try another one',
+          'danger'
+        );
+      }
+
+      console.log('applyPromoCode', err);
+    }
   }
 };
 
