@@ -15,6 +15,9 @@ export const getMyCart = async () => {
     return response;
   } catch (err) {
     console.log('createMyCart', err);
+    if (err) {
+      localStorage.removeItem('anonymousToken');
+    }
   }
 };
 
