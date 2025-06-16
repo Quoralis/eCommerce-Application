@@ -13,7 +13,6 @@ export async function showCatalogPage() {
     });
     await renderCatalogSection(main);
   }
-  await toggleStateButtons();
 }
 
 export const toggleStateButtons = async (): Promise<void> => {

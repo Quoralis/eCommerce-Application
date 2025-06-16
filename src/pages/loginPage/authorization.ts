@@ -15,6 +15,7 @@ import { mergeCartWithCustomer } from '../../clients/mergeCartWithCustomer.js';
 import { getActiveCart } from '../../clients/getActiveCart.js';
 import { getMyCart } from '../../clients/getMyCart.js';
 import { updateBadgeNumber } from '../header/updateBadgeNumber.js';
+import { basketBtn } from '../header/headerStructure.js';
 export enum loginType {
   email = 'email',
   password = 'password',
@@ -107,4 +108,5 @@ export const mergeCart = async (data: UserFormValues): Promise<void> => {
     localStorage.setItem('cartId', <string>activeCart.id);
     console.log('active-cart', activeCart);
   }
+  basketBtn.disabled = false;
 };

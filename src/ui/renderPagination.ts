@@ -1,5 +1,4 @@
 import { createEl } from '../utils/createElement.js';
-
 export function renderPagination(
   parent: HTMLElement,
   totalProducts: number,
@@ -33,7 +32,7 @@ export function renderPagination(
   });
 
   backBtn.disabled = currentPage <= 1;
-  backBtn.addEventListener('click', () => {
+  backBtn.addEventListener('click', async () => {
     if (currentPage > 1) onPageClick(currentPage - 1);
   });
 

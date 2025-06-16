@@ -1,5 +1,4 @@
 import { createEl } from '../utils/createElement.js';
-
 export async function renderProductLContainer(
   parent: HTMLElement
 ): Promise<void> {
