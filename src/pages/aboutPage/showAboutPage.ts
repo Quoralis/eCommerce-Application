@@ -34,8 +34,13 @@ const developers: Developer[] = [
     avatar: fotoArseniy,
     github: 'https://github.com/1Arseniy',
     description:
-      'I built the login page, user profile, and part of the cart. Helped Stanislav with the catalog. Learned a lot during the RS School course.',
-    contributions: ['-', '-', '-', '-'],
+      'I built the login page, user profile, and part of the cart. Learned a lot during the RS School course.',
+    contributions: [
+      'Added login page',
+      'Added cart page via Api',
+      'Added user information in user page',
+      'Helped Stanislav with the catalog and about page',
+    ],
   },
   {
     name: 'Yana Malakhova',
