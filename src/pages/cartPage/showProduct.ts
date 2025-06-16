@@ -10,6 +10,7 @@ export const showProduct = async (
   parent: HTMLElement,
   data: DisplayProduct
 ): Promise<void> => {
+  // console.log(data);
   const price = priceProduct(data);
   const cardProduct = createEl({
     tag: 'div',
@@ -63,13 +64,22 @@ export const showProduct = async (
   });
 
   for (let i = 0; i < 2; i++) {
-    createEl({
+    const priceDiv = createEl({
       tag: 'span',
-      text: `${price}`,
+      text: i === 0 ? `${price}` : formatPrice(data.price),
+      classes: i === 0 ? ['product__current-price'] : ['product__full-price'],
       parent: priceWrapper,
-      classes: i === 1 ? ['product__full-price'] : ['product__current-price'],
     });
+
+    if (data.discountedPrice) {
+      if (i === 0) {
+        priceDiv.classList.add('product__current-price_promo');
+      } else {
+        priceDiv.classList.add('product__full-price_visible');
+      }
+    }
   }
+
   await changeQualityProduct(cardProduct, data);
   deleteProduct(cardProduct);
 };

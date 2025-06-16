@@ -43,6 +43,7 @@ export const getListItem = async (parent: HTMLElement): Promise<void> => {
     emptyCart();
   } else {
     const cart = <responseMyCart>await getMyCart();
+    // console.log(cart);
     const arrProducts = cart.lineItems;
     if (arrProducts.length) {
       showProducts(arrProducts, parent);
@@ -61,9 +62,9 @@ export const showProducts = (
       productName: el.name.en,
       imageUrl: el.variant.images[0].url,
       price: el.price.value.centAmount,
+      discountedPrice: el.discountedPrice?.value.centAmount,
       description: el.name.en,
       productKey: el.id,
-      discountedPrice: el.price.discounted?.value.centAmount,
       totalPrice: el.totalPrice.centAmount,
       productId: el.id,
     };
