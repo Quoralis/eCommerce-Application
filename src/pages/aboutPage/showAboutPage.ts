@@ -4,26 +4,52 @@ import fotoYana from '../../assets/images/developers/yana-foto.jpg';
 import fotoStas from '../../assets/images/developers/stanislav-foto.png';
 import fotoArseniy from '../../assets/images/developers/arseniy-foto.png';
 
-const arrDevalopers = [
-  'Stanislav Tsibulskii',
-  'Arseniy Krutoi',
-  'Yana Malakhova',
-];
+interface Developer {
+  name: string;
+  role: string;
+  avatar: string;
+  github: string;
+  description: string;
+  contributions: string[];
+}
 
-const fotoDevelopers = [fotoStas, fotoArseniy, fotoYana];
-
-const Rollsdevelopers = ['Developer', 'Team lead', 'Developer'];
-
-const arrGitHubLinks = [
-  'https://github.com/Quoralis',
-  'https://github.com/1Arseniy',
-  'https://github.com/Zorro-amarillo',
-];
-
-const descriptionDevelopers = [
-  'Stas your description',
-  "Hello my name is Arseniy, 17 years old, I'm from Belarus, Gomel. In this app I make Login page, User profile page, partially Cart page. Also I helped Stanislav with Catalog page. I can confidently say that I learned a lot at rs-school",
-  'Yana your description',
+const developers: Developer[] = [
+  {
+    name: 'Stanislav Tsibulskii',
+    role: 'Developer',
+    avatar: fotoStas,
+    github: 'https://github.com/Quoralis',
+    description:
+      'I worked on registration, login, and authentication. Also developed catalog rendering and pagination.',
+    contributions: [
+      'User registration and login via API',
+      'Authentication logic setup',
+      'Rendering card product and catalog ',
+      'Developing pagination for catalog',
+    ],
+  },
+  {
+    name: 'Arseniy Krutoi',
+    role: 'Team lead',
+    avatar: fotoArseniy,
+    github: 'https://github.com/1Arseniy',
+    description:
+      'I built the login page, user profile, and part of the cart. Learned a lot during the RS School course.',
+    contributions: [
+      'Added login page',
+      'Added cart page via Api',
+      'Added user information in user page',
+      'Helped Stanislav with the catalog and about page',
+    ],
+  },
+  {
+    name: 'Yana Malakhova',
+    role: 'Developer',
+    avatar: fotoYana,
+    github: 'https://github.com/Zorro-amarillo',
+    description: 'Yana your description',
+    contributions: ['-', '-', '-', '-'],
+  },
 ];
 
 const aboutCards = (parent: HTMLElement): void => {
@@ -35,19 +61,18 @@ const aboutCards = (parent: HTMLElement): void => {
       'uk-flex',
       'uk-flex-around',
       'uk-flex-middle',
-      'uk-flex-wrap',
-      'container-registration',
+      'container-about',
     ],
-    parent: parent,
+    parent,
   });
 
-  for (let i = 0; i < 3; i++) {
+  developers.forEach((dev, i) => {
     const card = createEl({
       tag: 'div',
       classes: [
         'uk-flex',
         'uk-flex-column',
-        'uk-flex-center',
+
         'uk-card',
         'uk-height-large',
         'uk-width-large',
@@ -65,44 +90,58 @@ const aboutCards = (parent: HTMLElement): void => {
         'uk-heading-divider',
         'uk-margin-remove-bottom',
         'uk-flex',
-        'uk-flex-bottom',
+        'uk-flex-center',
+        'uk-flex-middle',
       ],
       parent: card,
     });
 
     createEl({
       tag: 'img',
-      attributes: { src: fotoDevelopers[i], alt: 'github-icon' },
+      attributes: { src: dev.avatar, alt: `${dev.name}-photo` },
       classes: ['img-developer', 'uk-border-rounded', 'uk-margin-small-right'],
       parent: titleWrapper,
     });
 
     createEl({
       tag: 'h2',
-      text: arrDevalopers[i],
+      text: dev.name,
       classes: ['uk-margin-remove-bottom', 'uk-text-top', 'about-title'],
       parent: titleWrapper,
     });
 
     createEl({
       tag: 'span',
+      text: dev.role,
       classes: [
         'uk-margin-small-top',
         'uk-margin-small-bottom',
         'uk-text-secondary',
       ],
-      text: Rollsdevelopers[i],
       parent: card,
     });
 
     createEl({
-      tag: 'span',
-      text: descriptionDevelopers[i],
+      tag: 'p',
+      text: dev.description,
       classes: ['uk-text-break'],
       parent: card,
     });
 
-    const iconsWraper = createEl({
+    const ul = createEl({
+      tag: 'ul',
+      parent: card,
+    });
+
+    dev.contributions.forEach((item) => {
+      createEl({
+        tag: 'li',
+        text: item,
+        parent: ul,
+      });
+    });
+
+    const iconsWrapper = createEl({
       tag: 'div',
       classes: ['uk-flex', 'uk-flex-center'],
       parent: card,
@@ -113,19 +152,22 @@ const aboutCards = (parent: HTMLElement): void => {
       classes: ['uk-icon-button'],
       attributes: {
         'uk-icon': 'github',
-        'uk-tooltip': 'title: gitHub; delay: 300; pos: bottom',
-        href: arrGitHubLinks[i],
+        'uk-tooltip': 'title: GitHub; delay: 300; pos: bottom',
+        href: dev.github,
+        target: '_blank',
       },
-      parent: iconsWraper,
+      parent: iconsWrapper,
     });
+
     if (i === 1) {
       const linkRSS = createEl({
         tag: 'a',
         classes: ['uk-margin-small-left'],
         attributes: {
           href: 'http://rs.school/',
+          target: '_blank',
         },
-        parent: iconsWraper,
+        parent: iconsWrapper,
       });
 
       createEl({
@@ -133,11 +175,12 @@ const aboutCards = (parent: HTMLElement): void => {
         classes: ['logo-rss'],
         attributes: {
           src: logoRSS,
+          alt: 'rss-school-logo',
         },
         parent: linkRSS,
       });
     }
-  }
+  });
 };
 
 export const showAboutPage = (): void => {
