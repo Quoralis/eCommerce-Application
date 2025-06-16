@@ -11,13 +11,14 @@ import { updateCart } from '../clients/updateMyCart.js';
 import { checkMyCart } from '../clients/checkMyCart.js';
 import { getMyCart } from '../clients/getMyCart.js';
 import { showNotification } from '../services/notification/showNotification.js';
+import { toggleStateButtons } from '../pages/catalogPage/showCatalogPage.js';
 export let currentProduct = '';
 
-export function renderProductCard(
+export async function renderProductCard(
   parent: HTMLElement,
   options: DisplayProduct,
   category?: string
-): HTMLElement {
+): Promise<HTMLElement> {
   const priceText = formatPrice(options.price);
   const discountText =
     options.discountedPrice != null ? formatPrice(options.discountedPrice) : '';
@@ -104,6 +105,7 @@ export function renderProductCard(
       await addProductInCart(options.productId);
     }
   });
+  await toggleStateButtons();
   return cardElement;
 }
 
