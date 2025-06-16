@@ -95,11 +95,10 @@
 }
 
 .total-price {
-  &_promo
-    {
-      color: #ff0000;
-      font-weight: 600;
-    }
+  &_promo {
+    color: #ff0000;
+    font-weight: 600;
+  }
 
   &_full {
     padding: 0;
