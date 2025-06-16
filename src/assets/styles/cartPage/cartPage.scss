@@ -41,6 +41,22 @@
   opacity: 0;
 }
 
+.promo-code {
+  &-wrapper {
+    min-height: 40px;
+    padding: 5px;
+  }
+
+  &_applied {
+    padding: 12px;
+    font-size: 14px;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
 .quality-product {
   cursor: pointer;
   &:hover {
@@ -49,6 +65,36 @@
   &:disabled {
     opacity: 0.5;
     cursor: default;
+  }
+}
+
+.product {
+  &__info {
+    width: 40%;
+  }
+
+  &__price-wrapper {
+    display: flex;
+    gap: 10px;
+  }
+
+  &__full-price {
+    opacity: 0;
+    transition: 0.3s;
+
+    &_visible {
+      opacity: 1;
+      text-decoration: line-through;
+    }
+  }
+
+  &__current-price {
+    transition: 0.3s;
+
+    &_promo {
+      color: #ff0000;
+      font-weight: 600;
+    }
   }
 }
 
