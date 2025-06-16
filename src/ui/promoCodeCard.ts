@@ -35,17 +35,19 @@ export const showPromoCode = (parentEl: HTMLElement) => {
     } else {
       createEl({
         tag: 'h3',
-        text: 'hot2025summer'.toUpperCase(),
+        text: 'Hot summer promo codes'.toUpperCase(),
         parent: promoInner,
         classes: ['uk-card-title'],
       });
 
-      createEl({
+      const promoCodeText = createEl({
         tag: 'p',
         classes: ['promo__text'],
         parent: promoInner,
-        text: 'Use this promo code to get 20% discount on all Apple devices',
       });
+
+      promoCodeText.innerHTML =
+        '<b>MB5</b> - use this promo code to get 15% discount on <a href="/catalog/macbooks">MacBooks</a>.<br><b>HOT2025SUMMER</b> - use this promo code to get 20% discount on <a href="/catalog/accessories">Accessories</a>.';
     }
   }
 };
