@@ -32,6 +32,7 @@ export async function renderProductsInCategory(
         const products: ProductsResponse = hasPriceFilter
           ? await searchProductsPrice(categoryId, limit, offset)
           : await getProductsInCategory(bearToken, categoryId, limit, offset);
+
         const currentPage = Math.floor(offset / limit) + 1;
         renderPagination(
           productContainer,
