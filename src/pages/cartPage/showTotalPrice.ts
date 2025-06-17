@@ -27,6 +27,8 @@ const showCoupon = (parent: HTMLElement): void => {
     parent: parent,
   });
 
+  formCoupon.addEventListener('submit', (e) => e.preventDefault());
+
   /*  const couponInput = */ createEl({
     tag: 'input',
     classes: ['user-profile__input', 'uk-input', 'coupon-input'],

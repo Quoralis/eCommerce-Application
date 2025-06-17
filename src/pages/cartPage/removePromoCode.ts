@@ -4,12 +4,16 @@ import { wrapperTryCatch } from '../../utils/wrapperTryCatch.js';
 import { responseMyCart } from '../../types/types.js';
 import { requestToken } from '../../clients/authClient.js';
 import { showNotification } from '../../services/notification/showNotification.js';
+import { changeProductPrice } from './changeProductPrice.js';
+import { updateTotalPrice } from './updateTotalPrice.js';
 
-export const removePromoCode = async (promoCodeId: string) => {
-  const cart = await getMyCart();
+export const removePromoCode = async (
+  promoCodeId: string,
+  cartVersion: number
+): Promise<responseMyCart | void> => {
   const url = `${apiUrl}/${projectKey}/me/carts/${localStorage.getItem('cartId')}`;
   const body = {
-    version: cart?.version,
+    version: cartVersion,
     actions: [
       {
         action: 'removeDiscountCode',
@@ -31,15 +35,47 @@ export const removePromoCode = async (promoCodeId: string) => {
       body: JSON.stringify(body),
     });
 
-    const currentPromoCode = document.getElementById(promoCodeId);
-    showNotification(
-      `Promo code ${currentPromoCode?.textContent} deleted`,
-      'success'
-    );
-    currentPromoCode?.remove();
+    const promoCodeWrapper = document.querySelector('.promo-code-wrapper');
+
+    if (promoCodeWrapper) {
+      promoCodeWrapper.innerHTML = '';
+    }
+    localStorage.removeItem('promoCode');
+
+    const currentCart = await getMyCart();
+    if (currentCart) {
+      changeProductPrice(currentCart);
+      updateTotalPrice();
+    }
 
     return response;
   } catch (err) {
+    const errorMessage = err instanceof Error ? err.message : `${err}`;
+
+    if (errorMessage.includes('409')) {
+      console.log('Data version conflict');
+
+      const cart = await getMyCart();
+
+      if (cart) {
+        return await removePromoCode(promoCodeId, cart.version);
+      }
+    }
+
     console.log('removePromoCode', err);
+  }
+};
+
+export const deleteAllPromoCodes = async () => {
+  const cart = await getMyCart();
+  if (cart && cart.discountCodes) {
+    for (const discount of cart.discountCodes) {
+      const currentCart = await getMyCart();
+
+      if (currentCart) {
+        await removePromoCode(discount.discountCode.id, currentCart.version);
+      }
+    }
+    showNotification(`Promo code deleted`, 'success');
   }
 };

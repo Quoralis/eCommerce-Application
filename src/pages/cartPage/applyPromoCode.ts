@@ -6,6 +6,8 @@ import { getMyCart } from '../../clients/getMyCart.js';
 import { showNotification } from '../../services/notification/showNotification.js';
 import { showAppliedPromoCode } from './showAppliedPromoCode.js';
 import { changeProductPrice } from './changeProductPrice.js';
+import { removePromoCode } from './removePromoCode.js';
+import { updateTotalPrice } from './updateTotalPrice.js';
 
 const applyPromoCode = async (cart: responseMyCart, promoCode: string) => {
   const url = `${apiUrl}/${projectKey}/me/carts/${localStorage.getItem('cartId')}`;
@@ -28,7 +30,6 @@ const applyPromoCode = async (cart: responseMyCart, promoCode: string) => {
       },
       body: JSON.stringify(body),
     });
-
     return response;
   } catch (err) {
     if (err instanceof Error) {
@@ -63,24 +64,50 @@ export const enterPromoCode = async (e: Event) => {
     );
 
     try {
-      const cart = await getMyCart();
+      if (activePromoCode) {
+        showNotification(
+          'This promo code is already applied. Try another one',
+          'danger'
+        );
+      } else {
+        const cart = await getMyCart();
+        const discounts = cart?.discountCodes;
 
-      if (cart) {
-        if (activePromoCode) {
-          showNotification(
-            'This promo code is already applied. Try another one',
-            'danger'
+        if (discounts) {
+          for (const discount of discounts) {
+            const cart = await getMyCart();
+
+            if (cart) {
+              await removePromoCode(discount.discountCode.id, cart.version);
+            }
+          }
+
+          const promoCodeWrapper = document.querySelector(
+            '.promo-code-wrapper'
           );
-        } else {
-          const cartWithPromoCode = await applyPromoCode(cart, promoCode);
-          const promoCodeId =
-            cartWithPromoCode?.discountCodes?.at(-1)?.discountCode.id;
+          if (promoCodeWrapper) {
+            promoCodeWrapper.innerHTML = '';
+          }
+        }
 
-          if (cartWithPromoCode && promoCodeId) {
+        const currentCart = await getMyCart();
+
+        if (currentCart) {
+          const cartWithPromoCode = await applyPromoCode(
+            currentCart,
+            promoCode
+          );
+          const isDiscount = cartWithPromoCode?.discountCodes?.find(
+            (item) => item.state === 'MatchesCart'
+          );
+
+          if (cartWithPromoCode && isDiscount) {
             showNotification('Promo code applied', 'success');
-            showAppliedPromoCode(promoCode, promoCodeId);
+            showAppliedPromoCode(promoCode);
             changeProductPrice(cartWithPromoCode);
+            updateTotalPrice();
             promoCodeInput.value = '';
+            localStorage.setItem('promoCode', promoCode);
           }
         }
       }

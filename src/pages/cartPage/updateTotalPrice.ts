@@ -1,6 +1,7 @@
 import { getMyCart } from '../../clients/getMyCart.js';
 import { formatPrice } from '../../utils/formatPrice.js';
 import { updateCart } from '../../clients/updateMyCart.js';
+import { showExistingPromoCode } from './showExistingPromoCode.js';
 
 export const updateTotalPrice = async () => {
   const version = <number>(await getMyCart())?.version;
@@ -39,5 +40,12 @@ export const updateTotalPrice = async () => {
     fullPrice.textContent = formatPrice(fullPriceSum);
     totalPriceEl.classList.add('total-price_promo');
     fullPrice?.classList.add('total-price_visible');
+
+    showExistingPromoCode();
+  } else if (!isDiscount && fullPrice) {
+    totalPriceEl.textContent = '';
+    fullPrice.textContent = formatPrice(fullPriceSum);
+    totalPriceEl.classList.remove('total-price_promo');
+    fullPrice?.classList.remove('total-price_visible');
   }
 };
