@@ -42,5 +42,10 @@ export const updateTotalPrice = async () => {
     fullPrice?.classList.add('total-price_visible');
 
     showExistingPromoCode();
+  } else if (!isDiscount && fullPrice) {
+    totalPriceEl.textContent = '';
+    fullPrice.textContent = formatPrice(fullPriceSum);
+    totalPriceEl.classList.remove('total-price_promo');
+    fullPrice?.classList.remove('total-price_visible');
   }
 };

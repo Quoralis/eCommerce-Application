@@ -5,6 +5,7 @@ import { responseMyCart } from '../../types/types.js';
 import { requestToken } from '../../clients/authClient.js';
 import { showNotification } from '../../services/notification/showNotification.js';
 import { changeProductPrice } from './changeProductPrice.js';
+import { updateTotalPrice } from './updateTotalPrice.js';
 
 export const removePromoCode = async (
   promoCodeId: string,
@@ -44,6 +45,7 @@ export const removePromoCode = async (
     const currentCart = await getMyCart();
     if (currentCart) {
       changeProductPrice(currentCart);
+      updateTotalPrice();
     }
 
     return response;

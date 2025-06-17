@@ -7,6 +7,7 @@ import { showNotification } from '../../services/notification/showNotification.j
 import { showAppliedPromoCode } from './showAppliedPromoCode.js';
 import { changeProductPrice } from './changeProductPrice.js';
 import { removePromoCode } from './removePromoCode.js';
+import { updateTotalPrice } from './updateTotalPrice.js';
 
 const applyPromoCode = async (cart: responseMyCart, promoCode: string) => {
   const url = `${apiUrl}/${projectKey}/me/carts/${localStorage.getItem('cartId')}`;
@@ -29,7 +30,6 @@ const applyPromoCode = async (cart: responseMyCart, promoCode: string) => {
       },
       body: JSON.stringify(body),
     });
-    // console.log(response);
     return response;
   } catch (err) {
     if (err instanceof Error) {
@@ -97,7 +97,6 @@ export const enterPromoCode = async (e: Event) => {
             currentCart,
             promoCode
           );
-          // console.log(cartWithPromoCode);
           const isDiscount = cartWithPromoCode?.discountCodes?.find(
             (item) => item.state === 'MatchesCart'
           );
@@ -106,6 +105,7 @@ export const enterPromoCode = async (e: Event) => {
             showNotification('Promo code applied', 'success');
             showAppliedPromoCode(promoCode);
             changeProductPrice(cartWithPromoCode);
+            updateTotalPrice();
             promoCodeInput.value = '';
             localStorage.setItem('promoCode', promoCode);
           }
