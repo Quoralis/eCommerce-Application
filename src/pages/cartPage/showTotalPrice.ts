@@ -29,7 +29,7 @@ const showCoupon = (parent: HTMLElement): void => {
 
   formCoupon.addEventListener('submit', (e) => e.preventDefault());
 
-  /*  const couponInput = */ createEl({
+  createEl({
     tag: 'input',
     classes: ['user-profile__input', 'uk-input', 'coupon-input'],
     attributes: {
@@ -75,13 +75,17 @@ const showTotalPrice = async (parent: HTMLElement): Promise<void> => {
     parent: totalWrapper,
   });
 
-  for (let i = 0; i < 2; i++) {
-    createEl({
-      tag: 'div',
-      classes: i === 0 ? ['total-price'] : ['total-price_full'],
-      // text: `${formatPrice(totalPrice)}`,
-      parent: totalWrapper,
-    });
-  }
+  createEl({
+    tag: 'div',
+    classes: ['total-price'],
+    parent: totalWrapper,
+  });
+
+  createEl({
+    tag: 'div',
+    classes: ['total-price_full'],
+    parent: totalWrapper,
+  });
+
   await updateTotalPrice();
 };

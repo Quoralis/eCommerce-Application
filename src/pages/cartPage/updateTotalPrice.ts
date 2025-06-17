@@ -20,10 +20,8 @@ export const updateTotalPrice = async () => {
   const totalPrice = <number>(
     (await updateCart(removeProductInCart))?.totalPrice.centAmount
   );
+  const fullPrice = document.querySelector('.total-price_full');
   const totalPriceEl = <HTMLElement>document.querySelector('.total-price');
-  if (totalPriceEl) {
-    totalPriceEl.textContent = `${formatPrice(totalPrice)}`;
-  }
 
   const cart = await getMyCart();
   const fullPriceSum = cart?.lineItems.reduce((sum, item) => {
@@ -34,12 +32,15 @@ export const updateTotalPrice = async () => {
     return sum;
   }, 0);
   const isDiscount = totalPrice !== fullPriceSum;
-  const fullPrice = document.querySelector('.total-price_full');
 
   if (isDiscount && fullPrice && fullPriceSum) {
+    console.log('total-full', fullPrice);
     fullPrice.textContent = formatPrice(fullPriceSum);
     totalPriceEl.classList.add('total-price_promo');
     fullPrice?.classList.add('total-price_visible');
+    if (totalPriceEl) {
+      totalPriceEl.textContent = `${formatPrice(totalPrice)}`;
+    }
 
     showExistingPromoCode();
   } else if (!isDiscount && fullPrice) {
