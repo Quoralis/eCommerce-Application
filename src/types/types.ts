@@ -100,7 +100,7 @@ export interface CustomerSearchResponse {
 export interface ProductsResponse {
   count: number;
   limit: number;
-  results: [CurrentProduct];
+  results: CurrentProduct[];
   total: number;
 }
 

@@ -9,13 +9,12 @@ export const searchProduct = async (text: string, categoryId: string) => {
   const url = `${apiUrl}/${projectKey}/product-projections/search?text.en=${text}&filter=categories.id:"${categoryId}"`;
 
   try {
-    const response = await wrapperTryCatch<ProductsResponse>(url, {
+    return await wrapperTryCatch<ProductsResponse>(url, {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${bearerToken}`,
       },
     });
-    return response.results;
   } catch (err) {
     console.log('updateCustomerInf', err);
   }
