@@ -1,5 +1,5 @@
 import { createEl } from '../../utils/createElement.js';
-import { removePromoCode } from './removePromoCode.js';
+import { deleteAllPromoCodes } from './removePromoCode.js';
 
 export const getPromoCodeWrapper = () => {
   const wrapper = document.querySelector('.promo-code-wrapper');
@@ -16,7 +16,7 @@ export const getPromoCodeWrapper = () => {
   }
 };
 
-export const showAppliedPromoCode = (appliedPromoCode: string, id: string) => {
+export const showAppliedPromoCode = (appliedPromoCode: string) => {
   const promoCodeWrapper = getPromoCodeWrapper();
 
   if (promoCodeWrapper instanceof HTMLElement) {
@@ -27,10 +27,9 @@ export const showAppliedPromoCode = (appliedPromoCode: string, id: string) => {
       classes: ['uk-badge', 'promo-code_applied'],
       attributes: {
         'uk-icon': 'close',
-        id,
       },
-      onClick: () => {
-        removePromoCode(id);
+      onClick: async () => {
+        deleteAllPromoCodes();
       },
     });
   }

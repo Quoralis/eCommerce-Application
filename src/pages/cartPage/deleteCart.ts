@@ -50,6 +50,9 @@ export const confirmationOfDeletion = (parent: HTMLElement): void => {
       'el-nav',
     ],
     parent: wrapperBtns,
+    onClick: () => {
+      localStorage.removeItem('promoCode');
+    },
   });
   confirmBtn.addEventListener('click', async (): Promise<void> => {
     await deleteCart();
