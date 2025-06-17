@@ -47,8 +47,15 @@ const developers: Developer[] = [
     role: 'Developer',
     avatar: fotoYana,
     github: 'https://github.com/Zorro-amarillo',
-    description: 'Yana your description',
-    contributions: ['-', '-', '-', '-'],
+    description: `I worked on the project task board, registration, user addresses, homepage and cart features.
+Gained experience with CommerceTools and team collaboration.`,
+    contributions: [
+      'Set up the project task board in Notion',
+      'Implemented user registration',
+      'Built user address management',
+      'Developed homepage (slider, advantage cards, promo section)',
+      'Added cart functionality (promo codes, quantity updates)',
+    ],
   },
 ];
 
