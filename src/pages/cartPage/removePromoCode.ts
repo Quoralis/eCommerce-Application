@@ -4,6 +4,7 @@ import { wrapperTryCatch } from '../../utils/wrapperTryCatch.js';
 import { responseMyCart } from '../../types/types.js';
 import { requestToken } from '../../clients/authClient.js';
 import { showNotification } from '../../services/notification/showNotification.js';
+import { changeProductPrice } from './changeProductPrice.js';
 
 export const removePromoCode = async (
   promoCodeId: string,
@@ -40,6 +41,11 @@ export const removePromoCode = async (
     }
     localStorage.removeItem('promoCode');
 
+    const currentCart = await getMyCart();
+    if (currentCart) {
+      changeProductPrice(currentCart);
+    }
+
     return response;
   } catch (err) {
     const errorMessage = err instanceof Error ? err.message : `${err}`;
@@ -65,7 +71,7 @@ export const deleteAllPromoCodes = async () => {
       const currentCart = await getMyCart();
 
       if (currentCart) {
-        removePromoCode(discount.discountCode.id, currentCart.version);
+        await removePromoCode(discount.discountCode.id, currentCart.version);
       }
     }
     showNotification(`Promo code deleted`, 'success');
