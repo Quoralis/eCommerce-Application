@@ -46,8 +46,7 @@ export const showPromoCode = (parentEl: HTMLElement) => {
         parent: promoInner,
       });
 
-      promoCodeText.innerHTML =
-        '<b>MB5</b> - use this promo code to get 15% discount on <a href="/catalog/macbooks">MacBooks</a>.<br><b>HOT2025SUMMER</b> - use this promo code to get 20% discount on <a href="/catalog/accessories">Accessories</a>.';
+      promoCodeText.innerHTML = `<b>MB5</b> - use this promo code to get 15% discount on <a data-path="/catalog/macbooks">Macbooks</a>.<br><b>HOT2025SUMMER</b> - use this promo code to get 20% discount on <a data-path="/catalog/accessories">Accessories</a>.`;
     }
   }
 };
