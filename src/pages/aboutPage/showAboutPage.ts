@@ -47,8 +47,7 @@ const developers: Developer[] = [
     role: 'Developer',
     avatar: fotoYana,
     github: 'https://github.com/Zorro-amarillo',
-    description: `I worked on the project task board, registration, user addresses, homepage and cart features.
-Gained experience with CommerceTools and team collaboration.`,
+    description: `I worked on the project task board, registration, user addresses, homepage and cart features.`,
     contributions: [
       'Set up the project task board in Notion',
       'Implemented user registration',
@@ -70,6 +69,9 @@ const aboutCards = (parent: HTMLElement): void => {
       'uk-flex-middle',
       'container-about',
     ],
+    attributes: {
+      'uk-grid': '',
+    },
     parent,
   });
 
@@ -79,9 +81,8 @@ const aboutCards = (parent: HTMLElement): void => {
       classes: [
         'uk-flex',
         'uk-flex-column',
-
         'uk-card',
-        'uk-height-large',
+        // 'uk-height-large',
         'uk-width-large',
         'uk-card-default',
         'uk-border-rounded',
