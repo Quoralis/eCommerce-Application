@@ -69,6 +69,9 @@ const aboutCards = (parent: HTMLElement): void => {
       'uk-flex-middle',
       'container-about',
     ],
+    attributes: {
+      'uk-grid': '',
+    },
     parent,
   });
 
@@ -78,9 +81,8 @@ const aboutCards = (parent: HTMLElement): void => {
       classes: [
         'uk-flex',
         'uk-flex-column',
-
         'uk-card',
-        'uk-height-large',
+        // 'uk-height-large',
         'uk-width-large',
         'uk-card-default',
         'uk-border-rounded',
