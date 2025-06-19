@@ -34,10 +34,11 @@ export const updateTotalPrice = async () => {
   const isDiscount = totalPrice !== fullPriceSum;
 
   if (isDiscount && fullPrice && fullPriceSum) {
-    console.log('total-full', fullPrice);
+    // console.log('total-full', fullPrice);
     fullPrice.textContent = formatPrice(fullPriceSum);
     totalPriceEl.classList.add('total-price_promo');
     fullPrice?.classList.add('total-price_visible');
+
     if (totalPriceEl) {
       totalPriceEl.textContent = `${formatPrice(totalPrice)}`;
     }
