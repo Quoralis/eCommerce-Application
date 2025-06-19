@@ -45,9 +45,14 @@ const applyPromoCode = async (cart: responseMyCart, promoCode: string) => {
           'This promo code is invalid. Try another one',
           'danger'
         );
+      } else if (err.message.includes('"statusCode":409,')) {
+        const cart = await getMyCart();
+        if (cart) {
+          return await applyPromoCode(cart, promoCode);
+        }
+      } else {
+        console.log('applyPromoCode', err);
       }
-
-      console.log('applyPromoCode', err);
     }
   }
 };
