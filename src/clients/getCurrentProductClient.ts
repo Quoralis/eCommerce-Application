@@ -16,7 +16,7 @@ export const getAllProductsClients = async (): Promise<ProductsResponse> => {
 export async function getProductsInCategory(
   bearerToken: string,
   categoryId: string,
-  limit = 20,
+  limit = 8,
   offset = 0
 ): Promise<ProductsResponse> {
   const url = `${apiUrl}/${projectKey}/product-projections/search`;
@@ -25,6 +25,7 @@ export async function getProductsInCategory(
   form.append('filter', `categories.id:"${categoryId}"`);
   form.append('limit', limit.toString());
   form.append('offset', offset.toString());
+  form.append('sort', 'price asc');
 
   return await wrapperTryCatch<ProductsResponse>(url, {
     method: 'POST',

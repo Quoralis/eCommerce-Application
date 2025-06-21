@@ -1,0 +1,73 @@
+@use '../globalVariables.scss' as *;
+
+.container-about {
+  background-color: white;
+  display: flex;
+  gap: 2em;
+  @media (max-width: 1000px) {
+    flex-direction: column;
+  }
+
+  .card-about {
+    display: flex;
+    border: 1px solid #f2f2f2;
+    width: 30%;
+    flex-direction: column;
+    margin: 1em;
+    padding: 1em;
+    justify-content: space-between;
+    @media (max-width: 1000px) {
+      width: 60%;
+    }
+    @media (max-width: 700px) {
+      width: 70%;
+    }
+    @media (max-width: 430px) {
+      font-size: 0.8em;
+    }
+    span {
+      text-align: center;
+    }
+
+    p {
+      height: 3em;
+    }
+  }
+
+  .img-developer {
+    height: 40px;
+  }
+
+  .about-title {
+    margin-top: 0;
+    font-size: 1.5rem;
+  }
+
+  .uk-icon-button {
+    margin-top: 10px;
+    align-self: center;
+    border-radius: 10px;
+    width: 49px;
+    height: 49px;
+    background-color: $blue;
+
+    svg {
+      width: 30px;
+      fill: $white;
+    }
+
+    &:hover {
+      background-color: rgb(47.5680628272, 121.2460732984, 245);
+    }
+  }
+
+  .logo-rss {
+    height: 50px;
+  }
+
+  @media (max-width: 700px) and (min-width: 350px) {
+    .about-title {
+      font-size: 1.3rem;
+    }
+  }
+}

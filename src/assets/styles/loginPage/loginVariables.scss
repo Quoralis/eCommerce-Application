@@ -1,4 +1,8 @@
+@use '../globalVariables.scss' as *;
+
 $card-title-font-size: 2rem;
 $border-rounded-border-radius: 10px;
 $button-primary-background: #4889f7;
 $card-default-background: #fff;
+$badge-color: $white;
+$inverse-badge-color: #fff;

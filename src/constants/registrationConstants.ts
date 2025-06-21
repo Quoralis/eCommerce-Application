@@ -2,12 +2,12 @@ export const INPUT_ATTRIBUTES = [
   {
     placeholder: 'First name',
     autocomplete: 'name',
-    id: 'name',
+    id: 'firstName',
   },
   {
     placeholder: 'Last name',
     autocomplete: 'family-name',
-    id: 'last-name',
+    id: 'lastName',
   },
   {
     placeholder: 'Email',
@@ -18,7 +18,7 @@ export const INPUT_ATTRIBUTES = [
   {
     placeholder: 'Birth date',
     autocomplete: 'bday',
-    id: 'birth-date',
+    id: 'dateOfBirth',
   },
   {
     placeholder: 'Password',
@@ -39,12 +39,12 @@ export const INPUT_ATTRIBUTES = [
   {
     placeholder: 'Street',
     autocomplete: 'street-address',
-    id: 'street',
+    id: 'streetName',
   },
   {
     placeholder: 'Postal code',
     autocomplete: 'postal-code',
-    id: 'postal-code',
+    id: 'postalCode',
   },
 ];
 

@@ -1,9 +1,27 @@
-import { ModifiedUserFormValues, PartialBaseAddress } from '../types/types.js';
+import {
+  ModifiedUserFormValues,
+  PartialBaseAddress,
+  responseMyCart,
+  UserFormValues,
+} from '../types/types.js';
 import { getDefaultAddress } from '../pages/registrationPage/selectedDefaultAddress.js';
 import { getCustomerByEmail } from './customerSearchClient.js';
 import { showNotification } from '../services/notification/showNotification.js';
 import { registerAndLogin } from '../services/authService.js';
 import { updateAuthUI } from '../utils/auth.js';
+import { getMyCart } from './getMyCart.js';
+import { updateBadgeNumber } from '../pages/header/updateBadgeNumber.js';
+import { mergeCart } from '../pages/loginPage/authorization.js';
+
+const userDataCart: UserFormValues = {
+  email: '',
+  password: '',
+  anonymousCart: {
+    id: <string>localStorage.getItem('cartId'),
+    typeId: 'cart',
+  },
+  anonymousCartSignInMode: 'MergeWithExistingCustomerCart',
+};
 
 export const registerClient = async (inputs: Element[]) => {
   const getFormData = () => {
@@ -68,7 +86,8 @@ export const registerClient = async (inputs: Element[]) => {
   };
 
   const registrationData = getFormData();
-  console.log('ref', registrationData);
+  userDataCart.email = registrationData.userData.email;
+  userDataCart.password = registrationData.userData.password;
   const registrationToken = localStorage.getItem('bearerToken');
   if (registrationData && registrationToken) {
     const customers = await getCustomerByEmail(registrationData.userData.email);
@@ -91,7 +110,10 @@ export const registerClient = async (inputs: Element[]) => {
         'success'
       );
       localStorage.setItem('accessToken', userData.accessToken);
+      mergeCart(userDataCart);
       await updateAuthUI();
+      const updateBadge = <responseMyCart>await getMyCart();
+      updateBadgeNumber(updateBadge);
     } else {
       showNotification(
         'Customer with this email already exists. Try to log in or use another email',

@@ -39,8 +39,14 @@ export interface UserFormValues {
   addresses?: BaseAddress[];
   billingAddresses?: number[];
   shippingAddresses?: number[];
+  anonymousCart?: {
+    id: string;
+    typeId: string;
+  };
+  anonymousCartId?: string;
+  anonymousCartSignInMode?: string;
+  updateProductData?: boolean;
 }
-
 interface BaseAddress {
   city: string;
   country: string;
@@ -94,7 +100,7 @@ export interface CustomerSearchResponse {
 export interface ProductsResponse {
   count: number;
   limit: number;
-  results: [CurrentProduct];
+  results: CurrentProduct[];
   total: number;
 }
 
@@ -106,6 +112,7 @@ export interface CurrentProduct {
     en: string;
   };
   key: string;
+  id: string;
   masterVariant: {
     prices: [
       {
@@ -128,13 +135,51 @@ export interface CurrentProduct {
   };
 }
 
+export interface productCart {
+  id: string;
+  productKey: string;
+  productId: string;
+  name: {
+    en: string;
+  };
+  variant: {
+    images: [
+      {
+        url: string;
+      },
+    ];
+  };
+  price: {
+    discounted?: {
+      value: {
+        centAmount: number;
+      };
+    };
+    value: {
+      centAmount: number;
+    };
+  };
+  totalPrice: {
+    centAmount: number;
+  };
+  quantity?: number;
+  lineItems?: productCart[];
+  discountedPrice?: {
+    value: {
+      centAmount: number;
+    };
+  };
+}
+
 export interface DisplayProduct {
   productName: string;
   imageUrl: string;
   description: string;
   productKey: string;
+  productId?: string;
   price: number;
   discountedPrice?: number;
+  totalPrice?: number;
 }
 
 export interface Categories {
@@ -194,4 +239,45 @@ interface Action {
 export interface AddressModify {
   version: number | undefined;
   actions: Action[];
+}
+
+export interface MyCart {
+  currency: string;
+}
+
+export interface responseMyCart {
+  id: string;
+  version: number;
+  lineItems: [productCart];
+  totalPrice: {
+    centAmount: number;
+  };
+  discountCodes?: IDiscountCode[];
+}
+
+interface IDiscountCode {
+  discountCode: {
+    id: string;
+    typeId: string;
+  };
+  state: string;
+}
+
+export interface updateMyCart {
+  version: number;
+  actions: Array<{
+    action: string;
+    distributionChannel?: {
+      typeId: string;
+      id: string;
+    };
+    productId?: string;
+    lineItemId?: string;
+    variantId?: number;
+    currency?: string;
+    productPriceMode?: string;
+    country?: string;
+    actionIndex?: number;
+    quantity?: number;
+  }>;
 }

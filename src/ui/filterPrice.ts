@@ -1,8 +1,7 @@
 import { createEl } from '../utils/createElement.js';
 import { renderProductsInCategory } from './renderProductsInCategory.js';
-import { renderProductList } from './renderProductList.js';
 
-export function renderPriceFilter(element: HTMLElement) {
+export function filterPrice(element: HTMLElement) {
   const priceFilter = createEl({
     tag: 'div',
     classes: ['price-filter'],
@@ -64,10 +63,10 @@ export function renderPriceFilter(element: HTMLElement) {
       if (category) {
         await renderProductsInCategory(category);
       } else {
-        const container = document.querySelector('.product-container');
+        const container = document.querySelector('.product-wrapper');
         if (container) {
           container.innerHTML = '';
-          await renderProductList(container as HTMLElement);
+          await renderProductsInCategory('allproducts');
         }
       }
     }
@@ -93,9 +92,9 @@ export function renderPriceFilter(element: HTMLElement) {
       if (category) {
         await renderProductsInCategory(category);
       } else {
-        const container = document.querySelector('.product-container');
+        const container = document.querySelector('.product-wrapper');
         if (container) container.innerHTML = '';
-        await renderProductList(container as HTMLElement);
+        await renderProductsInCategory('allproducts');
       }
     },
     parent: priceFilter,
@@ -119,9 +118,9 @@ export function renderPriceFilter(element: HTMLElement) {
       if (category) {
         await renderProductsInCategory(category);
       } else {
-        const container = document.querySelector('.product-container');
+        const container = document.querySelector('.product-wrapper');
         if (container) container.innerHTML = '';
-        await renderProductList(container as HTMLElement);
+        await renderProductsInCategory('allproducts');
       }
     },
     parent: priceFilter,

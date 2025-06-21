@@ -50,11 +50,12 @@ export const toggleUpdateAddressButton = async (e: Event) => {
         });
       } else {
         validateInput(e);
-
+        const checkboxId = addressWrapper?.getAttribute('data-id');
         const user = await getCurrentUser();
         if (!user) return;
+        if (!checkboxId) return;
 
-        await setDefaultAddress(addressWrapper);
+        await setDefaultAddress(checkboxId);
       }
     }
   }

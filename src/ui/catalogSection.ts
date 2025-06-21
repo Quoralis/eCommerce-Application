@@ -1,8 +1,6 @@
 import { createEl } from '../utils/createElement.js';
 import { renderSideBar } from './catalogSidebar.js';
 import { renderProductLContainer } from './productContainer.js';
-// import { renderShowNavBtn } from './renderShowNavBtn.js';
-// import { showNav } from './filterSearch.js';
 export async function renderCatalogSection(parent: HTMLElement): Promise<void> {
   const section = createEl({
     tag: 'section',

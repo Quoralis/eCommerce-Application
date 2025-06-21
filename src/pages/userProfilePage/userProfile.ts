@@ -17,8 +17,7 @@ export const userProfileWrapper = createEl({
   parent: userProfileContainer,
 });
 
-export const showUserProfilePage = (email: string) => {
-  console.log('showUserProfilePage', email);
+export const showUserProfilePage = () => {
   document.querySelector('main')?.append(userProfileContainer);
   const form = <HTMLElement>document.querySelector('.user-profile__form');
   if (form) {

@@ -1,5 +1,4 @@
 import { regValidationRules } from './validationRules.js';
-import { specialRulesForId } from './validationRules.js';
 import { validateDate } from './dateValidation.js';
 import { toggleValidationNotification } from '../notification/validationNotification.js';
 
@@ -9,28 +8,22 @@ export const verifyInput = (input: Element) => {
     const inputValue = input.value.trim();
     let validationRule;
 
-    if (
-      inputId.split('-')[0] === 'postalCode' ||
-      inputId.split('-')[0] === 'streetName'
-    ) {
-      validationRule =
-        inputId.split('-')[0] === 'postalCode'
-          ? regValidationRules['postal-code']
-          : regValidationRules['street'];
-    } else if (inputId in regValidationRules) {
+    if (inputId in regValidationRules) {
       validationRule = regValidationRules[inputId];
-    } else if (inputId in specialRulesForId) {
-      const inputRule = specialRulesForId[inputId];
-      validationRule = regValidationRules[inputRule];
+    } else {
+      const idWithoutNum = inputId.split('-');
+      idWithoutNum.pop();
+      const id = idWithoutNum.join('');
+      validationRule = regValidationRules[id];
     }
 
     let isValidInput;
 
-    if (inputId !== 'birth-date') {
-      isValidInput = validationRule?.regExp.test(inputValue);
+    if (inputId === 'birth-date') {
+      const isCorrectDate = validateDate();
+      isValidInput = inputValue && isCorrectDate;
     } else {
-      const isCorrect = validateDate();
-      isValidInput = inputValue && isCorrect;
+      isValidInput = validationRule?.regExp.test(inputValue);
     }
 
     const errorMessage =

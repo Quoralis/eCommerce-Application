@@ -2,14 +2,11 @@ import { authUrl, scopes, dataAuth, projectKey } from '../config.js';
 import { wrapperTryCatch } from '../utils/wrapperTryCatch.js';
 import { TokenResponse } from '../types/types.js';
 
-// export let bearerToken: Promise<string>;
-
 const body = new URLSearchParams({
   grant_type: 'client_credentials',
   scope: scopes,
 }).toString();
 
-//общая ф-я для возращения токенов,wrapper
 export async function fetchToken(
   url: string,
   body: string
@@ -38,6 +35,23 @@ export async function requestAnonymousToken() {
     body
   );
   return anonymousToken.access_token;
+}
+
+export async function requestToken() {
+  let token: string;
+  const loginToken = <string>localStorage.getItem('accessToken');
+  if (loginToken) {
+    token = loginToken;
+  } else {
+    const anonymousToken = <string>localStorage.getItem('anonymousToken');
+    if (anonymousToken) {
+      token = anonymousToken;
+    } else {
+      token = await requestAnonymousToken();
+      localStorage.setItem('anonymousToken', token);
+    }
+  }
+  return token;
 }
 
 export async function requestLoginToken(email: string, password: string) {

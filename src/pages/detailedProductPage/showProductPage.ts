@@ -6,6 +6,7 @@ import { showSlideShow } from '../../ui/slideShow.js';
 import { productComponentText } from './productComponentText.js';
 import { deleteModalWindow } from '../../ui/modalWindow.js';
 import { slideShowInProductPage } from '../../ui/slideShow.js';
+import { toggleStateButtons } from '../catalogPage/showCatalogPage.js';
 
 const productAllComponents = (
   data: CurrentProduct,
@@ -65,5 +66,6 @@ export const showProductPage = async (key: string) => {
     });
     productAllComponents(data, main);
     showModalWindow(modalInProductPage, data);
+    toggleStateButtons();
   }
 };

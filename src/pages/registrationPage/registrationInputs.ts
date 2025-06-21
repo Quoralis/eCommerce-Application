@@ -80,9 +80,8 @@ export const createRegInputs = () => {
           return optionsObj;
         };
 
-        const inputOptionsWithChangedId = changeInputId(
-          getInputOptions(j, 'input')
-        );
+        const inputOptions = getInputOptions(j, 'input');
+        const inputOptionsWithChangedId = changeInputId(inputOptions);
         createEl(inputOptionsWithChangedId);
         getErrorTextWrapper(regForm);
       }
