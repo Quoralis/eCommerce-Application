@@ -4,7 +4,13 @@ import { createEl } from '../utils/createElement.js';
 export const showPromoCode = (parentEl: HTMLElement) => {
   const promoWrapper = createEl({
     tag: 'div',
-    classes: ['uk-card', 'uk-card-default', 'uk-card-body', 'uk-width-3-4@m'],
+    classes: [
+      'uk-card',
+      'uk-card-default',
+      'uk-card-body',
+      'uk-width-3-4@m',
+      'promo__card',
+    ],
     parent: parentEl,
   });
 

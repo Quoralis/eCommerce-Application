@@ -107,12 +107,20 @@
 
 .slider {
   width: 100%;
-  max-width: 1271px;
+  max-width: 1280px;
   margin: 0 auto;
+
+  &__slide {
+    max-width: 1320px;
+
+    &-img {
+      width: 100%;
+    }
+  }
 }
 
 .uk-slider-container {
-  max-width: 1271px;
+  max-width: 1280px;
 }
 
 .uk-slidenav:hover {
@@ -135,6 +143,10 @@
 
   &__image {
     width: 100%;
+  }
+
+  &__card {
+    max-width: 1280px;
   }
 }
 

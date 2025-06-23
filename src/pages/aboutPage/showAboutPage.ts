@@ -20,7 +20,7 @@ const developers: Developer[] = [
     avatar: fotoStas,
     github: 'https://github.com/Quoralis',
     description:
-      'I worked on registration, login, and authentication. Also developed catalog rendering and pagination.',
+      'Stanislav worked on registration, login, and authentication. Also developed catalog rendering and pagination.',
     contributions: [
       'User registration and login via API',
       'Authentication logic setup',
@@ -34,7 +34,7 @@ const developers: Developer[] = [
     avatar: fotoArseniy,
     github: 'https://github.com/1Arseniy',
     description:
-      'I built the login page, user profile, and part of the cart. Learned a lot during the RS School course.',
+      'Arseniy built the login page, user profile, and part of the cart. Learned a lot during the RS School course.',
     contributions: [
       'Added login page',
       'Added cart page via Api',
@@ -47,7 +47,7 @@ const developers: Developer[] = [
     role: 'Developer',
     avatar: fotoYana,
     github: 'https://github.com/Zorro-amarillo',
-    description: `I worked on the project task board, registration, user addresses, homepage and cart features.`,
+    description: `Yana worked on the project task board, registration, user addresses, homepage and cart features.`,
     contributions: [
       'Set up the project task board in Notion',
       'Implemented user registration',

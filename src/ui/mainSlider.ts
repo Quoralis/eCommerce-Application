@@ -30,6 +30,7 @@ export const getMainSlider = (parentEl: HTMLElement) => {
     const slideItem = createEl({
       tag: 'li',
       parent: sliderItems,
+      classes: ['slider__slide'],
     });
 
     createEl({
@@ -38,6 +39,7 @@ export const getMainSlider = (parentEl: HTMLElement) => {
         src: slideSrc,
       },
       parent: slideItem,
+      classes: ['slider__slide-img'],
     });
   });
 

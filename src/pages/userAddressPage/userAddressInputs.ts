@@ -64,7 +64,7 @@ export const createUserAddressInputs = async () => {
           i === 0
             ? createEl({
                 tag: 'select',
-                classes: ['user-profile__input', 'uk-input', 'select'],
+                classes: ['user-profile__input', 'uk-select', 'select'],
                 parent: addressWrapper,
                 attributes: {
                   id: `${Object.values(addressInputs)[i]}-${addressIndex + 1}`,
