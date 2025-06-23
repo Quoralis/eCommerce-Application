@@ -39,7 +39,7 @@ export const getNewAddressForm = () => {
         i === 0
           ? createEl({
               tag: 'select',
-              classes: ['uk-input', 'user-profile__input', 'select'],
+              classes: ['uk-select', 'user-profile__input', 'select'],
               parent: addressForm,
               attributes: {
                 id: Object.values(addressInputs)[i] ?? '',

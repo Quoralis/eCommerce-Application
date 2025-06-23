@@ -8,7 +8,7 @@ import {
 export const getCountrySelect = (index: number, callback: () => void) => {
   const countrySelect = createEl({
     tag: 'select',
-    classes: ['registration__input', 'uk-input'],
+    classes: ['registration__input', 'uk-select'],
     parent: regForm,
     attributes: {
       ...INPUT_ATTRIBUTES[5],

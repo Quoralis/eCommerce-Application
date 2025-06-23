@@ -93,7 +93,7 @@ export const createRegInputs = () => {
       });
       const defaultAddressRadio = createEl({
         tag: 'input',
-        classes: ['registration__default-address'],
+        classes: ['uk-radio', 'registration__default-address'],
         attributes: {
           id: FIELDSET_LEGENDS[i].toLowerCase().split(' ').join('-'),
           type: 'radio',
