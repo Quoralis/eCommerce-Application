@@ -1,7 +1,7 @@
 import { IRegValidationRules } from '../../types/types.js';
 
 export const regValidationRules: IRegValidationRules = {
-  name: {
+  firstName: {
     regExp: /^[a-zа-яё]+$/i,
     errMessage: 'No numbers or special characters allowed',
   },
@@ -9,7 +9,7 @@ export const regValidationRules: IRegValidationRules = {
     regExp: /^[^\s@]+@[^\s@]+\.[^\s@]+$/i,
     errMessage: 'Invalid email format',
   },
-  'birth-date': {
+  dateOfBirth: {
     regExp: /^\d{4}\-\d{2}\-\d{2}$/,
     errMessage: 'Birth date must be in YYYY-MM-DD format',
   },
@@ -21,24 +21,15 @@ export const regValidationRules: IRegValidationRules = {
     regExp: /^DE$/,
     errMessage: '',
   },
-  street: {
+  streetName: {
     regExp: /^\S+$/,
     errMessage: 'Street must contain 1+ chars',
   },
-  'postal-code': {
+  postalCode: {
     regExp: /^\d{5}$/,
     errMessage: 'Postal code must include 5 digits',
   },
 };
 
-export const specialRulesForId: Record<string, string> = {
-  'last-name': 'name',
-  'country-1': 'country',
-  'country-2': 'country',
-  'city-1': 'name',
-  'city-2': 'name',
-  'street-1': 'street',
-  'street-2': 'street',
-  'postal-code-1': 'postal-code',
-  'postal-code-2': 'postal-code',
-};
+regValidationRules.lastName = regValidationRules.firstName;
+regValidationRules.city = regValidationRules.firstName;

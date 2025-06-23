@@ -17,3 +17,145 @@
     }
   }
 }
+
+.advantages {
+  padding: 20px;
+
+  &__card {
+    min-width: 517px;
+    height: 380px;
+    border-radius: 8px;
+    overflow: hidden;
+
+    @media (max-width: 600px) {
+      min-width: 100%;
+      height: fit-content;
+    }
+
+    &-grid {
+      justify-content: center;
+    }
+
+    &-media {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 50%;
+
+      @media (max-width: 600px) {
+        padding: 20px;
+      }
+    }
+
+    &-icon {
+      display: block;
+      width: 120px;
+      height: 120px;
+      filter: invert(1);
+    }
+
+    &-body {
+      height: 50%;
+    }
+
+    &-text {
+      color: #222222;
+    }
+
+    .uk-card-body.uk-card-default {
+      margin: 0;
+    }
+  }
+
+  .uk-card-title.advantages__card-title {
+    color: #222222;
+  }
+
+  .uk-card-body.uk-card-default.advantages__card-body {
+    margin-top: 0;
+  }
+}
+
+.main-page__content-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .uk-card.uk-card-default.uk-card-body.uk-width-3-4\@m {
+    width: calc(100% - 40px);
+    margin: 30px 20px;
+    padding: 0;
+    border-radius: 8px;
+
+    .uk-card-badge.uk-label.uk-position-top-right {
+      top: 30px;
+      right: 30px;
+      border-radius: 0;
+    }
+
+    div {
+      margin: 0;
+      border-radius: 8px 8px 0 0;
+      overflow: hidden;
+
+      &:nth-child(2) {
+        padding: 30px;
+      }
+    }
+  }
+}
+
+.slider {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+
+  &__slide {
+    max-width: 1320px;
+
+    &-img {
+      width: 100%;
+    }
+  }
+}
+
+.uk-slider-container {
+  max-width: 1280px;
+}
+
+.uk-slidenav:hover {
+  color: $blue;
+}
+
+.uk-dotnav > .uk-active > * {
+  background-color: $blue;
+}
+
+.uk-dotnav > li > a {
+  width: 12px;
+  height: 12px;
+}
+
+.promo {
+  &__text {
+    font-size: 18px;
+  }
+
+  &__image {
+    width: 100%;
+  }
+
+  &__card {
+    max-width: 1280px;
+  }
+}
+
+.border-radius {
+  &_top {
+    border-radius: 8px 8px 0 0;
+  }
+
+  ._bottom {
+    border-radius: 0 0 8px 8px;
+  }
+}

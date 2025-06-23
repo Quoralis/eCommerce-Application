@@ -13,7 +13,7 @@ export const getDefaultAddress = () => {
 };
 
 export const copyAddressValues = (e: Event) => {
-  const inputs = ['country', 'city', 'street', 'postal-code'];
+  const inputs = ['country', 'city', 'streetName', 'postalCode'];
   const checkedRadio = e.target;
 
   if (checkedRadio instanceof HTMLInputElement) {

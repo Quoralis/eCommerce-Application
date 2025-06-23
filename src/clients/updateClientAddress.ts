@@ -7,17 +7,16 @@ import { getCurrentUser } from './customerSearchClient.js';
 export const updateClientAddress = async (
   id: string,
   body: AddressUpdate | AddressModify
-) => {
+): Promise<Customer | void> => {
   const bearerToken = localStorage.getItem('bearerToken');
   const url = `${apiUrl}/${projectKey}/customers/${id}`;
 
   if (body.version === undefined) {
-    const currentUser = await getCurrentUser();
+    const currentUser = <Customer>await getCurrentUser();
     body.version = currentUser.version;
   }
 
   try {
-    // console.log('updateClientAddress:', body);
     const response = await wrapperTryCatch<Customer>(url, {
       method: 'POST',
       headers: {
@@ -35,19 +34,22 @@ export const updateClientAddress = async (
       showNotification('Address deleted from your account', 'success');
     }
 
+    console.log('updateClientAddress success');
     return response;
   } catch (err) {
-    // console.error('updateClientAddress error:', err);
     const errorMessage = err instanceof Error ? err.message : `${err}`;
 
     if (errorMessage.includes('409')) {
-      console.log('Data version conflict');
+      console.log('Data version conflict:', body);
 
       const currentUser = await getCurrentUser();
-      body.version = currentUser.version; // Обновляем версию
-      return await updateClientAddress(id, body); // Повторяем запрос
-    } else if (errorMessage.includes('400')) {
-      console.log('Required data is missing');
+
+      if (currentUser) {
+        body.version = currentUser.version;
+        return await updateClientAddress(id, body);
+      } else if (errorMessage.includes('400')) {
+        console.log('Required data is missing');
+      }
     }
   }
 };

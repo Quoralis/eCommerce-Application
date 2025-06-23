@@ -1,8 +1,7 @@
 import { createEl } from '../utils/createElement.js';
-import { getSortProducts } from '../clients/getSortProducts.js';
-import { CurrentProduct, DisplayProduct } from '../types/types.js';
-import { renderProductCard } from './productCard.js';
-import { clearDom } from '../utils/clearDom.js';
+import { getActiveCategoryId } from '../services/categoryService.js';
+import { renderProductsInCategory } from './renderProductsInCategory.js';
+
 const arrSort = ['Price', 'Name'];
 
 enum sort {
@@ -77,27 +76,20 @@ export const sortProducts = (parent: HTMLElement): void => {
   });
 };
 
-const sortBy = async (
-  parentCards: HTMLElement,
-  field: string,
-  order: string
-): Promise<void> => {
-  clearDom('product-container');
-  const arrProducts = <CurrentProduct[]>await getSortProducts(field, order);
-  showCards(arrProducts, parentCards);
-};
-
-const sortByPriceOrName = (
+const sortByPriceOrName = async (
   el: Element,
   parent: HTMLElement,
   field: string,
   order: string
-): void => {
+): Promise<void> => {
   clearActive();
   el.classList.add('active');
   el.classList.toggle(sort.desc);
-  const cardWrapper = <HTMLElement>parent.parentElement?.nextElementSibling;
-  sortBy(cardWrapper, field, order);
+  const categoryInfo = await getActiveCategoryId();
+  if (!categoryInfo) return;
+
+  const { keyActiveCategory } = categoryInfo;
+  await renderProductsInCategory(keyActiveCategory, 8, 0, field, order);
 };
 
 const clearActive = (): void => {
@@ -106,22 +98,5 @@ const clearActive = (): void => {
     if (el.classList.contains('active')) {
       el.classList.remove('active');
     }
-  });
-};
-
-export const showCards = (
-  arrProducts: CurrentProduct[],
-  parent: HTMLElement
-): void => {
-  arrProducts.forEach((el) => {
-    const dataProduct: DisplayProduct = {
-      productName: el.name.en,
-      imageUrl: el.masterVariant.images![0].url,
-      description: el.description.en,
-      productKey: el.key,
-      price: el.masterVariant.prices[0].value.centAmount,
-      discountedPrice: el.masterVariant.prices[0].discounted?.value.centAmount,
-    };
-    renderProductCard(parent, dataProduct);
   });
 };

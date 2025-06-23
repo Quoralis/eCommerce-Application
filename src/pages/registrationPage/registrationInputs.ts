@@ -80,9 +80,8 @@ export const createRegInputs = () => {
           return optionsObj;
         };
 
-        const inputOptionsWithChangedId = changeInputId(
-          getInputOptions(j, 'input')
-        );
+        const inputOptions = getInputOptions(j, 'input');
+        const inputOptionsWithChangedId = changeInputId(inputOptions);
         createEl(inputOptionsWithChangedId);
         getErrorTextWrapper(regForm);
       }
@@ -94,7 +93,7 @@ export const createRegInputs = () => {
       });
       const defaultAddressRadio = createEl({
         tag: 'input',
-        classes: ['registration__default-address'],
+        classes: ['uk-radio', 'registration__default-address'],
         attributes: {
           id: FIELDSET_LEGENDS[i].toLowerCase().split(' ').join('-'),
           type: 'radio',

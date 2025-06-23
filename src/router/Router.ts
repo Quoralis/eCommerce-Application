@@ -9,11 +9,13 @@ import { showProductPage } from '../pages/detailedProductPage/showProductPage.js
 import { showUserProfilePage as showUserProfilePage } from '../pages/userProfilePage/userProfile.js';
 import { showUserAddresses } from '../pages/userAddressPage/userAddresses.js';
 import { openPage } from '../pages/openPage.js';
-import { renderProductList } from '../ui/renderProductList.js';
 import { renderProductsInCategory } from '../ui/renderProductsInCategory.js';
 import { renderBreadcrumb } from '../ui/renderBreadcrumb.js';
 import { paths } from '../constants/paths.js';
 import { deleteModalWindow } from '../ui/modalWindow.js';
+import { showAboutPage } from '../pages/aboutPage/showAboutPage.js';
+import { showCartPage } from '../pages/cartPage/showCartPage.js';
+import { showMainPageContent } from '../pages/mainPage/mainPageContent.js';
 
 export default class Router {
   private readonly routes: Record<string, () => void>;
@@ -36,6 +38,8 @@ export default class Router {
       '/catalog': this.renderCatalogPage.bind(this),
       '/user': this.renderUserPage.bind(this),
       '/user/addresses': this.renderAddressPage.bind(this),
+      '/about': this.renderAboutPage.bind(this),
+      '/cart': this.renderCartPage.bind(this),
     };
     window.addEventListener('popstate', async () => {
       await this.render(window.location.pathname);
@@ -62,7 +66,6 @@ export default class Router {
   private async render(path: string): Promise<void> {
     const arrPath = path.split('/').filter(Boolean); // удаляем пустые элементы
     const [root, category, id] = arrPath;
-
     if (root === 'catalog' && category && id) {
       await this.renderDetailedProductPage(id, path);
       return;
@@ -76,6 +79,9 @@ export default class Router {
     if (path === paths.catalog) {
       deleteModalWindow();
     }
+    if (path === paths.cart) {
+      deleteModalWindow();
+    }
     if (renderPage) {
       renderPage();
     } else {
@@ -87,6 +93,8 @@ export default class Router {
 
   private renderMainPage(): void {
     clearDom('main-page-wrapper');
+
+    showMainPageContent();
   }
 
   private renderLogin(): void {
@@ -113,13 +121,26 @@ export default class Router {
   private async renderCatalogPage(): Promise<void> {
     clearDom('main-page-wrapper');
     await showCatalogPage();
-    renderBreadcrumb('catalog');
+
+    const container = document.querySelector('.product-wrapper');
+    if (!(container instanceof HTMLElement)) return;
+
+    renderBreadcrumb('/catalog');
+
+    const listItems = document.querySelectorAll('.categories-list li');
+    listItems.forEach((li) => {
+      li.classList.remove('active__category');
+      if (li.getAttribute('data-category-key') === 'allproducts') {
+        li.classList.add('active__category');
+      }
+    });
+
+    await renderProductsInCategory('allproducts');
   }
 
   private renderUserPage(): void {
     clearDom('main-page-wrapper');
-    const email = <string>localStorage.getItem('email');
-    showUserProfilePage(email);
+    showUserProfilePage();
   }
 
   private renderAddressPage(): void {
@@ -127,10 +148,20 @@ export default class Router {
     showUserAddresses();
   }
 
+  private renderAboutPage(): void {
+    clearDom('main-page-wrapper');
+    showAboutPage();
+  }
+
+  private renderCartPage(): void {
+    clearDom('main-page-wrapper');
+    showCartPage();
+  }
+
   private async renderCategories(category: string): Promise<void> {
     clearDom('main-page-wrapper');
     await showCatalogPage();
-    const container = document.querySelector('.product-container');
+    const container = document.querySelector('.product-wrapper');
     if (!(container instanceof HTMLElement)) return;
     renderBreadcrumb(`/catalog/${category}`);
     container.innerHTML = '';
@@ -145,8 +176,6 @@ export default class Router {
 
     if (category) {
       await renderProductsInCategory(category);
-    } else {
-      await renderProductList(container);
     }
   }
 }

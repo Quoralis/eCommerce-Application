@@ -48,7 +48,10 @@ export const showUserAddresses = () => {
 };
 
 export const updateAddressPage = () => {
-  clearDom('user-addresses');
-  showAddressesWrapper();
-  showUserAddresses();
+  const form = document.querySelector('.user-addresses');
+  if (form) {
+    clearDom('user-addresses');
+    showAddressesWrapper();
+    showUserAddresses();
+  }
 };

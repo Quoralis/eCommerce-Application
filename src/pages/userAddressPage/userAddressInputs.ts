@@ -7,8 +7,23 @@ import { addressInputs } from '../../constants/addressConstants.js';
 import { deleteAddress } from './deleteAddress.js';
 import { getDefaultAddressCheckboxes } from './defaultAddressCheckboxes.js';
 import { getErrorTextWrapper } from '../registrationPage/registrationInputs.js';
+import { clearDom } from '../../utils/clearDom.js';
+
+const clearAddressesWrapper = () => {
+  const wrapper = document.querySelector('.user-addresses');
+
+  if (wrapper) {
+    const backToUserBtn = document.querySelector('button[data-path="/user"]');
+    clearDom('user-addresses');
+    if (backToUserBtn instanceof Node) {
+      wrapper.append(backToUserBtn);
+    }
+  }
+};
 
 export const createUserAddressInputs = async () => {
+  clearAddressesWrapper();
+
   const currentUser = await getCurrentUser();
 
   const showAddress = (address: PartialBaseAddress, addressIndex: number) => {
@@ -49,7 +64,7 @@ export const createUserAddressInputs = async () => {
           i === 0
             ? createEl({
                 tag: 'select',
-                classes: ['user-profile__input', 'uk-input', 'select'],
+                classes: ['user-profile__input', 'uk-select', 'select'],
                 parent: addressWrapper,
                 attributes: {
                   id: `${Object.values(addressInputs)[i]}-${addressIndex + 1}`,

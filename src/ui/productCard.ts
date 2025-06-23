@@ -1,30 +1,47 @@
 import { createEl } from '../utils/createElement.js';
 import { formatPrice } from '../utils/formatPrice.js';
-import { DisplayProduct } from '../types/types.js';
+import {
+  DisplayProduct,
+  updateMyCart,
+  responseMyCart,
+} from '../types/types.js';
 import { formatShortDescription } from '../utils/formatShortDescription.js';
-
+import { createMyCart } from '../clients/createMyCart.js';
+import { updateCart } from '../clients/updateMyCart.js';
+import { checkMyCart } from '../clients/checkMyCart.js';
+import { getMyCart } from '../clients/getMyCart.js';
+import { showNotification } from '../services/notification/showNotification.js';
+import { toggleStateButtons } from '../pages/catalogPage/showCatalogPage.js';
 export let currentProduct = '';
 
-export function renderProductCard(
+export async function renderProductCard(
   parent: HTMLElement,
   options: DisplayProduct,
   category?: string
-): HTMLElement {
+): Promise<HTMLElement> {
   const priceText = formatPrice(options.price);
   const discountText =
     options.discountedPrice != null ? formatPrice(options.discountedPrice) : '';
   const shortDescription = formatShortDescription(options.description);
   const cardElement = createEl({
     tag: 'article',
-    classes: ['card'],
+    classes: ['card', 'our-id'],
     attributes: {
-      'data-product-key': options.productKey,
-      'data-path': `/catalog/${category}/${options.productKey}`,
+      id: <string>options.productId,
     },
     parent: parent,
   });
-  cardElement.addEventListener('click', (): void => {
-    currentProduct = <string>cardElement.getAttribute('data-product-key');
+  cardElement.addEventListener('click', (event: Event): void => {
+    if (event.target instanceof HTMLElement) {
+      if (!event.target.classList.contains('card-btn')) {
+        event.target.setAttribute('data-product-key', options.productKey);
+        event.target.setAttribute(
+          'data-path',
+          `/catalog/${category}/${options.productKey}`
+        );
+        currentProduct = <string>cardElement.getAttribute('data-product-key');
+      }
+    }
   });
   createEl({
     tag: 'img',
@@ -68,7 +85,7 @@ export function renderProductCard(
     text: discountText,
     parent: wrapperPrices,
   });
-  createEl({
+  const addToCart = createEl({
     tag: 'button',
     classes: [
       'uk-width-1-1',
@@ -76,12 +93,48 @@ export function renderProductCard(
       'uk-border-rounded',
       'uk-button-primary',
       'button-to-cart',
+      'card-btn',
+      'btn-add',
     ],
     text: 'Add to cart',
-    onClick: () => {
-      console.log('click add to cart');
-    },
     parent: cardElement,
   });
+  addToCart.addEventListener('click', async (): Promise<void> => {
+    addToCart.disabled = true;
+    if (options.productId) {
+      await addProductInCart(options.productId);
+    }
+  });
+  await toggleStateButtons();
   return cardElement;
 }
+
+export const addProductInCart = async (option: string): Promise<void> => {
+  let cart: responseMyCart;
+  const positiveStatus = 200;
+  const checkCart = await checkMyCart();
+  if (checkCart !== positiveStatus) {
+    cart = <responseMyCart>await createMyCart();
+    localStorage.setItem('cartId', cart.id);
+  }
+
+  const updateVersion = <responseMyCart>await getMyCart();
+  // console.log('version', updateVersion.version);
+
+  const addProductInCart: updateMyCart = {
+    version: updateVersion.version,
+    actions: [
+      {
+        action: 'addLineItem',
+        productId: option,
+        distributionChannel: {
+          typeId: 'channel',
+          id: '0995709c-be0e-4389-955f-9293634fd512',
+        },
+      },
+    ],
+  };
+  await updateCart(addProductInCart);
+
+  showNotification('Product added to cart', 'success');
+};
